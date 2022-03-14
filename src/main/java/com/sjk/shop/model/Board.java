@@ -7,39 +7,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-public class User {
+public class Board {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(nullable = false, length = 30)
-	private String name;
-
-	@Column(nullable = false, length = 30)
-	private String userId;
-
 	@Column(nullable = false, length = 100)
-	private String password;
+	private String title;
 
-	@Column(nullable = false, length = 20)
-	private String phone;
+	@Lob
+	private String content;
 
-	@Column(nullable = false, length = 50)
-	private String email;
+	@ColumnDefault("0")
+	private int count;
 
-	@Column(nullable = false, length = 100)
-	private String address;
-
-	@ColumnDefault("'user'")
-	private String role;
-
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	private User user;
 
 	@CreationTimestamp
 	private Timestamp createDate;
+
 }
