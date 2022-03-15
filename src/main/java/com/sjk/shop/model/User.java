@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,7 +27,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 
 	@Column(nullable = false, length = 30)
 	private String name;
@@ -47,6 +49,10 @@ public class User {
 
 	@ColumnDefault("'user'")
 	private String role;
+
+	@OneToOne
+	@JoinColumn(name = "CART_ID")
+	private Cart cart;
 
 	@CreationTimestamp
 	private Timestamp createDate;
