@@ -11,23 +11,23 @@
 <body>
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <a class="navbar-brand" href="/shop">SJK-SHOP</a>
+    <a class="navbar-brand" href="/">SJK-SHOP</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="/user/login">Login</a>
+                <a class="nav-link" href="/user/loginForm">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/user/join">Sign Up</a>
+                <a class="nav-link" href="/user/joinForm">Sign Up</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/shop">Shop</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/shop/board">Board</a>
+                <a class="nav-link" href="/board">Board</a>
             </li>
         </ul>
     </div>
