@@ -1,7 +1,7 @@
 <%@ include file="../layout/header.jsp" %>
 
 <div class="container">
-    <form action="/action_page.php">
+    <form>
         <div class="form-group">
             <label for="name">name:</label>
             <input type="text" class="form-control" placeholder="Enter name" id="name">
@@ -26,10 +26,9 @@
             <label for="address">address:</label>
             <input type="text" class="form-control" placeholder="Enter address" id="address">
         </div>
-
-        <button type="submit" class="btn btn-primary">Sign Up</button>
     </form>
+    <button id="btn-save" class="btn btn-primary">Sign Up</button>
 </div>
 
-
+<script src="/js/user.js"></script>
 <%@ include file="../layout/footer.jsp" %>
