@@ -1,6 +1,6 @@
 let index = {
     init: function () {
-        $("#btn-save").on("click",()=>{
+        $("#btn-save").on("click", () => {
             this.save();
         });
     },
@@ -13,10 +13,22 @@ let index = {
             phone: $("#phone").val(),
             email: $("#email").val(),
             address: $("#address").val()
-        }
+        };
 
-        $.ajax().done().fail();
-    }
+        $.ajax({
+            type: "POST",
+            url: "/api/user",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json"
+        }).done(function (resp) {
+            alert("회원가입이 완료되었습니다.");
+            location.href = "/";
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
 }
 
 index.init();
