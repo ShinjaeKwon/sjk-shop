@@ -38,7 +38,7 @@
                 </ul>
             </c:when>
             <c:otherwise>
-                <ul>
+                <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="/shop">Shop</a>
                     </li>
@@ -46,7 +46,7 @@
                         <a class="nav-link" href="/board">Board</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout">logout</a>
+                        <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 </ul>
             </c:otherwise>
