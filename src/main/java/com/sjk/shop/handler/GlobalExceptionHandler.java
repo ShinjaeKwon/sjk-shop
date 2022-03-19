@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(value = Exception.class)
 	public ResponseDto<String> handleArgumentException(Exception exception) {
-		return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
+		return new ResponseDto<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
 	}
 
 }
