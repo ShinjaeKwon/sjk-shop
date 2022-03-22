@@ -20,27 +20,16 @@
         </tr>
         </thead>
         <tbody>
+        <c:forEach var="board" items="${boards}">
 
         <tr>
-            <td>John</td>
-            <td>안녕zdddddasdasdasdasdasda</td>
-            <td>xxxx:xxxx:xxxx</td>
+            <td>${board.user.username}</td>
+            <td>${board.title}</td>
+            <td>${board.createDate}</td>
             <td><a href="#">detail</a></td>
         </tr>
+        </c:forEach>
 
-        <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-            <td><a href="#">detail</a></td>
-        </tr>
-
-        <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-            <td><a href="#">detail</a></td>
-        </tr>
 
         </tbody>
     </table>
