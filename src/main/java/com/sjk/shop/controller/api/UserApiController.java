@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sjk.shop.controller.dto.ResponseDto;
-import com.sjk.shop.controller.service.UserService;
+import com.sjk.shop.dto.ResponseDto;
+import com.sjk.shop.service.UserService;
 import com.sjk.shop.model.User;
 
 import lombok.RequiredArgsConstructor;

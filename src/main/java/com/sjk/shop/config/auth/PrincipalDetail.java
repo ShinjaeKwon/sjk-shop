@@ -8,9 +8,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.sjk.shop.model.User;
 
+import lombok.Getter;
+
+@Getter
 public class PrincipalDetail implements UserDetails {
 
-	private User user;
+	private final User user;
 
 	public PrincipalDetail(User user) {
 		this.user = user;

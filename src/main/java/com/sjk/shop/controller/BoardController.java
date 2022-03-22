@@ -10,4 +10,10 @@ public class BoardController {
 	public String boardIndex() {
 		return "board/boardIndex";
 	}
+
+	@GetMapping("/board/saveForm")
+	public String saveForm() {
+		return "board/saveForm";
+	}
+
 }

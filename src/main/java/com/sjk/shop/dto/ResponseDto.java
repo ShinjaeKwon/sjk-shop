@@ -1,4 +1,4 @@
-package com.sjk.shop.controller.dto;
+package com.sjk.shop.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
