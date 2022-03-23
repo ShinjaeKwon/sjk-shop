@@ -4,8 +4,9 @@
 
 <div class="container">
     <button class="btn btn-secondary" onclick="history.back()">Previous Page</button>
+    <br><br>
     <table class="table table-hover">
-
+        No.<span id="id"><i>${board.id}</i></span>
         <h1>${board.title}</h1>
         <br>
         <tbody>
@@ -30,9 +31,14 @@
         </tr>
         </tbody>
     </table>
-
-    <button id="btn-update" class="btn btn-success">Edit Post</button>
-    <button id="btn-delete" class="btn btn-danger">Delete Post</button>
+    <c:choose>
+        <c:when test="${principal.user.id eq board.user.id}">
+            <button id="btn-update" class="btn btn-success">Edit Post</button>
+            <button id="btn-delete" class="btn btn-danger">Delete Post</button>
+        </c:when>
+        <c:otherwise>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <script src="/js/board.js"></script>

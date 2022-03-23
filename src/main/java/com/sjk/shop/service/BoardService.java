@@ -24,12 +24,19 @@ public class BoardService {
 		boardRepository.save(board);
 	}
 
+	@Transactional(readOnly = true)
 	public Page<Board> postList(Pageable pageable) {
 		return boardRepository.findAll(pageable);
 	}
 
+	@Transactional(readOnly = true)
 	public Board boardDetail(Long id) {
 		return boardRepository.findById(id)
 			.orElseThrow(() -> new IllegalArgumentException("글 상세보기 실패"));
+	}
+
+	@Transactional
+	public void deletePost(Long id) {
+		boardRepository.deleteById(id);
 	}
 }
