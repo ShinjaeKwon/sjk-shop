@@ -39,4 +39,12 @@ public class BoardService {
 	public void deletePost(Long id) {
 		boardRepository.deleteById(id);
 	}
+
+	@Transactional
+	public void updatePost(Long id, Board requestBoard) {
+		Board board = boardRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("글 수정 실패"));
+		board.setTitle(requestBoard.getTitle());
+		board.setContent(requestBoard.getContent());
+	}
 }

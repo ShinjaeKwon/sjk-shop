@@ -33,7 +33,7 @@
     </table>
     <c:choose>
         <c:when test="${principal.user.id eq board.user.id}">
-            <button id="btn-update" class="btn btn-success">Edit Post</button>
+            <a href="/board/${board.id}/updateForm" class="btn btn-success">Edit Post</a>
             <button id="btn-delete" class="btn btn-danger">Delete Post</button>
         </c:when>
         <c:otherwise>
