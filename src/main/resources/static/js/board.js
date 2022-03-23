@@ -52,7 +52,7 @@ let index = {
         };
         $.ajax({
             type: "PUT",
-            url: "/api/board/"+id,
+            url: "/api/board/" + id,
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json"

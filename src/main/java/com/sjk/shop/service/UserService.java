@@ -23,4 +23,14 @@ public class UserService {
 		user.setRole(RoleType.USER);
 		userRepository.save(user);
 	}
+
+	@Transactional
+	public void editUser(User requestUser) {
+		User user = userRepository.findById(requestUser.getId())
+			.orElseThrow(() -> new IllegalArgumentException("회원 수정에 실패하였습니다"));
+		user.setPassword(encoder.encode(requestUser.getPassword()));
+		user.setEmail(requestUser.getEmail());
+		user.setAddress(requestUser.getAddress());
+
+	}
 }

@@ -22,13 +22,13 @@
         <tbody>
         <c:forEach var="board" items="${boards.content}">
 
-        <tr>
-            <td>${board.user.username}</td>
-            <td>${board.title}</td>
-            <fmt:formatDate var="date" value="${board.createDate}" pattern="YY.MM.dd HH:MM"/>
-            <td>${date}</td>
-            <td><a href="/board/${board.id}">detail</a></td>
-        </tr>
+            <tr>
+                <td>${board.user.username}</td>
+                <td>${board.title}</td>
+                <fmt:formatDate var="date" value="${board.createDate}" pattern="YY.MM.dd HH:MM"/>
+                <td>${date}</td>
+                <td><a href="/board/${board.id}">detail</a></td>
+            </tr>
         </c:forEach>
         </tbody>
     </table>
