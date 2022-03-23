@@ -27,4 +27,9 @@ public class BoardService {
 	public Page<Board> postList(Pageable pageable) {
 		return boardRepository.findAll(pageable);
 	}
+
+	public Board boardDetail(Long id) {
+		return boardRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("글 상세보기 실패"));
+	}
 }

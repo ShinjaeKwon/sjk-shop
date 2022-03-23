@@ -16,7 +16,7 @@
             <th>Name</th>
             <th>Title</th>
             <th>Date</th>
-            <th>Detail</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -25,8 +25,9 @@
         <tr>
             <td>${board.user.username}</td>
             <td>${board.title}</td>
-            <td>${board.createDate}</td>
-            <td><a href="#">detail</a></td>
+            <fmt:formatDate var="date" value="${board.createDate}" pattern="YY.MM.dd HH:MM"/>
+            <td>${date}</td>
+            <td><a href="/board/${board.id}">detail</a></td>
         </tr>
         </c:forEach>
         </tbody>
