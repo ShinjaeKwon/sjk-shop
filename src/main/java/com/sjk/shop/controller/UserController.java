@@ -2,6 +2,7 @@ package com.sjk.shop.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.sjk.shop.config.auth.PrincipalDetail;
@@ -23,4 +24,5 @@ public class UserController {
 	public String updateForm(@AuthenticationPrincipal PrincipalDetail principal) {
 		return "user/updateForm";
 	}
+
 }

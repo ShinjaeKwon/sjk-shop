@@ -21,7 +21,6 @@
         </thead>
         <tbody>
         <c:forEach var="board" items="${boards.content}">
-
             <tr>
                 <td>${board.user.username}</td>
                 <td>${board.title}</td>
