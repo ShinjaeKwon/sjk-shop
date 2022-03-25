@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sjk.shop.model.Board;
+import com.sjk.shop.model.Reply;
 import com.sjk.shop.model.User;
 import com.sjk.shop.repository.BoardRepository;
+import com.sjk.shop.repository.ReplyRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardService {
 
 	private final BoardRepository boardRepository;
+	private final ReplyRepository replyRepository;
 
 	@Transactional
 	public void write(Board board, User user) {
@@ -47,4 +50,13 @@ public class BoardService {
 		board.setTitle(requestBoard.getTitle());
 		board.setContent(requestBoard.getContent());
 	}
+
+	@Transactional
+	public void writeReply(User user, Long boardId, Reply reply) {
+
+		reply.setUser(user);
+		reply.setBoard(boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("댓글 쓰기 실패")));
+		replyRepository.save(reply);
+	}
+
 }

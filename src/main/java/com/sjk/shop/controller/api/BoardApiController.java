@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sjk.shop.config.auth.PrincipalDetail;
 import com.sjk.shop.dto.ResponseDto;
+import com.sjk.shop.model.Reply;
 import com.sjk.shop.service.BoardService;
 import com.sjk.shop.model.Board;
 
@@ -24,7 +25,6 @@ public class BoardApiController {
 
 	@PostMapping("/api/board")
 	public ResponseDto<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal) {
-		System.out.println("ㅎㅇ");
 		boardService.write(board, principal.getUser());
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
@@ -40,4 +40,12 @@ public class BoardApiController {
 		boardService.updatePost(id, board);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
+
+	@PostMapping("/api/board/{boardId}/reply")
+	public ResponseDto<Integer> replySave(@PathVariable Long boardId, @RequestBody Reply reply,
+		@AuthenticationPrincipal PrincipalDetail principal) {
+		boardService.writeReply(principal.getUser(), boardId, reply);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+
 }
