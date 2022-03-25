@@ -49,16 +49,16 @@
     <br>
     <div class="card">
         <div class="card-header">Comment</div>
-        <ul id="comment--box" class="list-group">
-
-            <li id="comment--1" class="list-group-item d-flex justify-content-between">
-                <div>댓글 내용</div>
-                <div class="d-flex">
-                    <div class="font-italic">User : xxx &nbsp;</div>
-                    <button class="badge">Delete</button>
-                </div>
-            </li>
-
+        <ul id="reply--box" class="list-group">
+            <c:forEach var="reply" items="${board.replies}">
+                <li id="reply--1" class="list-group-item d-flex justify-content-between">
+                    <div>${reply.content}</div>
+                    <div class="d-flex">
+                        <div class="font-italic">Username : ${reply.user.username}&nbsp;</div>
+                        <button class="badge">Delete</button>
+                    </div>
+                </li>
+            </c:forEach>
         </ul>
     </div>
 </div>

@@ -29,7 +29,8 @@
         </div>
         <div class="form-group">
             <label for="address">address:</label>
-            <input type="text" value="${principal.user.address}" class="form-control" placeholder="Enter address" id="address">
+            <input type="text" value="${principal.user.address}" class="form-control" placeholder="Enter address"
+                   id="address">
         </div>
     </form>
     <button id="btn-update" class="btn btn-primary">Edit</button>

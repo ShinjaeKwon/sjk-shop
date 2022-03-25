@@ -34,7 +34,7 @@ let index = {
 
     update: function () {
         let data = {
-            id : $("#id").val(),
+            id: $("#id").val(),
             name: $("#name").val(),
             username: $("#username").val(),
             password: $("#password").val(),
