@@ -5,11 +5,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sjk.shop.dto.ReplySaveRequestDto;
 import com.sjk.shop.model.Board;
 import com.sjk.shop.model.Reply;
 import com.sjk.shop.model.User;
 import com.sjk.shop.repository.BoardRepository;
 import com.sjk.shop.repository.ReplyRepository;
+import com.sjk.shop.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +21,7 @@ public class BoardService {
 
 	private final BoardRepository boardRepository;
 	private final ReplyRepository replyRepository;
+	private final UserRepository userRepository;
 
 	@Transactional
 	public void write(Board board, User user) {
@@ -52,10 +55,18 @@ public class BoardService {
 	}
 
 	@Transactional
-	public void writeReply(User user, Long boardId, Reply reply) {
+	public void writeReply(ReplySaveRequestDto replySaveRequestDto) {
 
-		reply.setUser(user);
-		reply.setBoard(boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("댓글 쓰기 실패")));
+		User user = userRepository.findById(replySaveRequestDto.getUserId())
+			.orElseThrow(() -> new IllegalArgumentException("댓글 쓰기 실패"));
+		Board board = boardRepository.findById(replySaveRequestDto.getBoardId())
+			.orElseThrow(() -> new IllegalArgumentException("댓글 쓰기 실패"));
+		Reply reply = Reply.builder()
+			.user(user)
+			.board(board)
+			.content(replySaveRequestDto.getContent())
+			.build();
+
 		replyRepository.save(reply);
 	}
 
