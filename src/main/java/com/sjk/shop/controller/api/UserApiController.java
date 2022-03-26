@@ -1,7 +1,6 @@
 package com.sjk.shop.controller.api;
 
 import org.springframework.http.HttpStatus;
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sjk.shop.dto.ResponseDto;
-import com.sjk.shop.service.UserService;
 import com.sjk.shop.model.User;
+import com.sjk.shop.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 

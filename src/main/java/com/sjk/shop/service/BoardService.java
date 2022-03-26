@@ -70,4 +70,7 @@ public class BoardService {
 		replyRepository.save(reply);
 	}
 
+	public void deleteReply(Long replyId) {
+		replyRepository.deleteById(replyId);
+	}
 }

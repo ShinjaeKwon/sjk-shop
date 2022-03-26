@@ -55,13 +55,20 @@
     <br>
     <div class="card">
         <div class="card-header">Comment</div>
-        <ul id="reply--box" class="list-group">
+        <ul id="reply-box" class="list-group">
             <c:forEach var="reply" items="${board.replies}">
-                <li id="reply--1" class="list-group-item d-flex justify-content-between">
+                <li id="reply-${reply.id}" class="list-group-item d-flex justify-content-between">
                     <div>${reply.content}</div>
                     <div class="d-flex">
                         <div class="font-italic">Username : ${reply.user.username}&nbsp;</div>
-                        <button class="badge">Delete</button>
+                        <c:choose>
+                            <c:when test="${reply.user.id == principal.user.id}">
+                                <button onclick="index.replyDelete(${board.id}, ${reply.id})" class="badge">Delete
+                                </button>
+                            </c:when>
+                            <c:otherwise>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </li>
             </c:forEach>

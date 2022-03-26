@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sjk.shop.config.auth.PrincipalDetail;
 import com.sjk.shop.dto.ReplySaveRequestDto;
 import com.sjk.shop.dto.ResponseDto;
-import com.sjk.shop.model.Reply;
-import com.sjk.shop.service.BoardService;
 import com.sjk.shop.model.Board;
+import com.sjk.shop.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,8 +42,14 @@ public class BoardApiController {
 	}
 
 	@PostMapping("/api/board/{boardId}/reply")
-	public ResponseDto<Integer> replySave( @RequestBody ReplySaveRequestDto replySaveRequestDto) {
+	public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto replySaveRequestDto) {
 		boardService.writeReply(replySaveRequestDto);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+
+	@DeleteMapping("/api/board/{boardId}/reply/{replyId}")
+	public ResponseDto<Integer> replyDelete(@PathVariable Long replyId) {
+		boardService.deleteReply(replyId);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
