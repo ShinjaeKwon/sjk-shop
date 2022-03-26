@@ -70,7 +70,17 @@ public class BoardService {
 		replyRepository.save(reply);
 	}
 
+	@Transactional
 	public void deleteReply(Long replyId) {
-		replyRepository.deleteById(replyId);
+		userRepository.deleteById(replyId);
+	}
+
+	@Transactional
+	public void increaseHitCount(Long boardId) {
+		Board board = boardRepository.findById(boardId)
+			.orElseThrow(() -> new IllegalArgumentException("조회수 증가 실패"));
+		int count = board.getCount();
+		board.setCount(++count);
+		boardRepository.save(board);
 	}
 }
