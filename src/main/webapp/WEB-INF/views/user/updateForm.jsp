@@ -14,9 +14,10 @@
                    id="username" readonly>
         </div>
         <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" class="form-control" placeholder="Enter password" id="password">
+            <label for="password">Change Password:</label>
+            <input type="password"  class="form-control" placeholder="Enter password" id="password">
         </div>
+
         <div class="form-group">
             <label for="phone">Phone Number:</label>
             <input type="text" value="${principal.user.phone}" class="form-control" placeholder="Enter phone" id="phone"

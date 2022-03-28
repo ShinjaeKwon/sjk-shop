@@ -15,6 +15,16 @@ let index = {
     },
 
     save: function () {
+        if ($("#title").val().trim() === "") {
+            alert("제목을 입력해주세요.");
+            $("#title").focus();
+            return false;
+        }
+        if ($("#content").val().trim() === "") {
+            alert("내용을 입력해주세요.");
+            $("#content").focus();
+            return false;
+        }
         let data = {
             title: $("#title").val(),
             content: $("#content").val()
@@ -48,6 +58,16 @@ let index = {
     },
 
     update: function () {
+        if ($("#title").val().trim() === "") {
+            alert("제목을 입력해주세요.");
+            $("#title").focus();
+            return false;
+        }
+        if ($("#content").val().trim() === "") {
+            alert("내용을 입력해주세요.");
+            $("#content").focus();
+            return false;
+        }
         let id = $("#id").val();
         let data = {
             title: $("#title").val(),
@@ -68,6 +88,11 @@ let index = {
     },
 
     replySave: function () {
+        if ($("#reply-content").val() === "") {
+            alert("댓글 내용을 입력해주세요.");
+            $("#reply-content").focus();
+            return false;
+        }
         let data = {
             userId: $("#userId").val(),
             boardId: $("#boardId").val(),

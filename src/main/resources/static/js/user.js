@@ -9,6 +9,37 @@ let index = {
     },
 
     save: function () {
+        if($("#name").val().trim() === ""){
+            alert("name을 입력해주세요.");
+            $("#name").focus();
+            return false;
+        }
+        if($("#username").val().trim() === ""){
+            alert("ID 입력해주세요.");
+            $("#username").focus();
+            return false;
+        }
+        if($("#password").val().trim() === ""){
+            alert("변경할 Password을 입력해주세요.");
+            $("#password").focus();
+            return false;
+        }
+        if($("#phone").val().trim() === ""){
+            alert("Phone 입력해주세요.");
+            $("#phone").focus();
+            return false;
+        }
+        if($("#address").val().trim() === ""){
+            alert("Email을 입력해주세요.");
+            $("#email").focus();
+            return false;
+        }
+        if($("#address").val().trim() === ""){
+            alert("address 입력해주세요.");
+            $("#address").focus();
+            return false;
+        }
+
         let data = {
             name: $("#name").val(),
             username: $("#username").val(),
@@ -37,6 +68,21 @@ let index = {
     },
 
     update: function () {
+        if($("#password").val().trim() === ""){
+            alert("Password을 입력해주세요.");
+            $("#password").focus();
+            return false;
+        }
+        if($("#address").val().trim() === ""){
+            alert("Email을 입력해주세요.");
+            $("#email").focus();
+            return false;
+        }
+        if($("#address").val().trim() === ""){
+            alert("Address 입력해주세요.");
+            $("#address").focus();
+            return false;
+        }
         let data = {
             id: $("#id").val(),
             name: $("#name").val(),
@@ -44,7 +90,7 @@ let index = {
             password: $("#password").val(),
             phone: $("#phone").val(),
             email: $("#email").val(),
-            address: $("#address").val()
+            address: $("#address").val(),
         };
 
         $.ajax({
@@ -60,6 +106,21 @@ let index = {
             alert(JSON.stringify(error));
         });
     },
+
+    checkId: function () {
+    let id = $('#username').val();
+    $.ajax({
+        url: '/user/idCheck', //Controller에서 인식할 주소
+        type: 'POST', //POST 방식으로 전달
+        data: {id: id},
+        success: function () {
+            console.log("처리 성공 시 변경되는 내용");
+        },
+        error: function () {
+            alert("에러입니다");
+        }
+     });
+    }
 }
 
 index.init();
