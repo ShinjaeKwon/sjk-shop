@@ -1,12 +1,10 @@
 <%@ include file="../layout/header.jsp" %>
 
-<link href="/css/user.css">
-
 <div class="container">
     <form>
         <div class="form-group">
             <label for="name">name:</label>
-            <input type="text" class="form-control" placeholder="Enter name" id="name" >
+            <input type="text" class="form-control" placeholder="Enter name" id="name">
         </div>
         <div class="form-group">
             <label for="username">ID:</label>
