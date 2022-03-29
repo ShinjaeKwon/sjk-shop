@@ -16,6 +16,8 @@
             <p class="card-text">Email : ${user.email}</p>
             <p class="card-text">Address : ${user.address}</p>
             <p class="card-text">Role : ${user.role}</p>
+            <fmt:formatDate var="date" value="${user.createDate}" pattern="YYYY.MM.dd"/>
+            <p class="card-text">Create Date : ${date}</p>
             <c:choose>
                 <c:when test="${principal.user.role == 'ADMIN'}">
                     <form>
@@ -33,6 +35,42 @@
             </c:choose>
         </div>
     </div>
+</div>
+<br>
+<div class="container">
+    <h2>주문 목록</h2>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Order Date</th>
+            <th>Order Detail</th>
+            <th>Order State</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>2022.03.29 16:24:22</td>
+            <td><a href="#">detail</a></td>
+            <td><b>주문중</b></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2022.03.30 16:24:22</td>
+            <td><a href="#">detail</a></td>
+            <td><b>주문완료</b></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>2022.03.31 16:24:22</td>
+            <td><a href="#">detail</a></td>
+            <td><b>주문취소</b></td>
+        </tr>
+        </tbody>
+    </table>
+
+
 </div>
 
 
