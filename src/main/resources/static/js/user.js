@@ -6,6 +6,9 @@ let index = {
         $("#btn-update").on("click", () => {
             this.update();
         });
+        $("#change-role").on("click", () => {
+            this.change();
+        })
     },
 
     save: function () {
@@ -102,6 +105,26 @@ let index = {
         }).done(function (resp) {
             alert("회원수정이 완료되었습니다.");
             location.href = "/";
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    change: function () {
+        let data = {
+            id: $("#id").val(),
+            role: $("select[name=role] option:selected").val()
+        };
+
+        $.ajax({
+            type: "PUT",
+            url: "/api/change/role",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json"
+        }).done(function (resp) {
+            alert("Seller로 변경이 완료되었습니다.");
+            location.href = "/admin/management/user";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

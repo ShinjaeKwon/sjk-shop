@@ -1,5 +1,7 @@
 package com.sjk.shop.controller.api;
 
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -40,4 +42,9 @@ public class UserApiController {
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
+	@PutMapping("/api/change/role")
+	public ResponseDto<Integer> changeSeller(@RequestBody Map<String, String> user) {
+		userService.setSeller(Long.parseLong(user.get("id")), user.get("role"));
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
 }

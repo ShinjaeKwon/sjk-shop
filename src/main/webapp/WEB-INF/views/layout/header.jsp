@@ -30,33 +30,42 @@
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <c:choose>
-            <c:when test="${empty principal}">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/auth/loginForm">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/auth/joinForm">Sign Up</a>
-                    </li>
-                </ul>
-            </c:when>
-            <c:otherwise>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/shop">Shop</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/board">Board</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/user/updateForm">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
-                    </li>
-                </ul>
+        <c:when test="${empty principal}">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/loginForm">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/joinForm">Sign Up</a>
+                </li>
+            </ul>
+        </c:when>
+        <c:otherwise>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/shop">Shop</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/board">Board</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/updateForm">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+
             </c:otherwise>
-        </c:choose>
+            </c:choose>
+            <c:choose>
+                <c:when test="${principal.user.role == 'ADMIN'}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/management/user">Management</a>
+                    </li>
+                </c:when>
+                <c:otherwise></c:otherwise>
+            </c:choose>
+        </ul>
     </div>
 </nav>
 <br>

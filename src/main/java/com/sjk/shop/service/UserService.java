@@ -1,5 +1,7 @@
 package com.sjk.shop.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +33,25 @@ public class UserService {
 		user.setPassword(encoder.encode(requestUser.getPassword()));
 		user.setEmail(requestUser.getEmail());
 		user.setAddress(requestUser.getAddress());
+	}
+
+	@Transactional(readOnly = true)
+	public Page<User> userList(Pageable pageable) {
+		return userRepository.findAll(pageable);
+	}
+
+	@Transactional
+	public void setSeller(Long requestUserId, String userRole) {
+		User user = userRepository.findById(requestUserId)
+			.orElseThrow(() -> new IllegalArgumentException("Role 변경 실패"));
+		RoleType role = RoleType.findRole(userRole);
+		user.setRole(role);
+	}
+
+	@Transactional(readOnly = true)
+	public User userDetail(Long userId) {
+		return userRepository.findById(userId)
+			.orElseThrow(() -> new IllegalArgumentException("회원 상세 보기 실패"));
 	}
 
 }
