@@ -3,7 +3,8 @@
 <%@ include file="layout/header.jsp" %>
 
 <div class="container">
- 여기서 작업 test
+    <h2>Branch Test</h2>
+    <h2>Branch Test2</h2>
 </div>
 
 <%@ include file="layout/footer.jsp" %>
