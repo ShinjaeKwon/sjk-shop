@@ -8,7 +8,8 @@ let index = {
         });
         $("#change-role").on("click", () => {
             this.change();
-        })
+        });
+
     },
 
     save: function () {
@@ -125,6 +126,19 @@ let index = {
         }).done(function (resp) {
             alert("Seller로 변경이 완료되었습니다.");
             location.href = "/admin/management/user";
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    delete: function (userId) {
+        $.ajax({
+            type: "DELETE",
+            url: `/api/delete/${userId}`,
+            dataType: "json"
+        }).done(function (resp) {
+            alert("회원탈퇴가 완료되었습니다.");
+            location.href = `/`;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

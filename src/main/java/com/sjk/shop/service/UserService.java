@@ -54,4 +54,8 @@ public class UserService {
 			.orElseThrow(() -> new IllegalArgumentException("회원 상세 보기 실패"));
 	}
 
+	@Transactional
+	public void deleteUser(Long userId) {
+		userRepository.deleteById(userId);
+	}
 }

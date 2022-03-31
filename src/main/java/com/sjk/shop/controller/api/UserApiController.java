@@ -7,6 +7,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +47,14 @@ public class UserApiController {
 	@PutMapping("/api/change/role")
 	public ResponseDto<Integer> changeSeller(@RequestBody Map<String, String> user) {
 		userService.setSeller(Long.parseLong(user.get("id")), user.get("role"));
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+
+	@DeleteMapping("/api/delete/{userId}")
+	public ResponseDto<Integer> replyDelete(@PathVariable Long userId) {
+		System.out.println(userId);
+		userService.deleteUser(userId);
+		SecurityContextHolder.clearContext();
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 }

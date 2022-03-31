@@ -37,6 +37,7 @@
         </div>
     </form>
     <button id="btn-update" class="btn btn-primary">Edit</button>
+    <button class="btn btn-danger" onclick="index.delete(${principal.user.id})">Withdrawal</button>
 </div>
 
 <script src="/js/user.js"></script>
