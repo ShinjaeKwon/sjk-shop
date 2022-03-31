@@ -52,7 +52,6 @@ public class UserApiController {
 
 	@DeleteMapping("/api/delete/{userId}")
 	public ResponseDto<Integer> replyDelete(@PathVariable Long userId) {
-		System.out.println(userId);
 		userService.deleteUser(userId);
 		SecurityContextHolder.clearContext();
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);

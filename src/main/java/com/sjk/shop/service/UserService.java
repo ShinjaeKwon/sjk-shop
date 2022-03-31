@@ -56,6 +56,11 @@ public class UserService {
 
 	@Transactional
 	public void deleteUser(Long userId) {
+		User user = userRepository.findById(userId)
+			.orElseThrow(() -> new IllegalArgumentException("ADMIN은 탈퇴가 불가능합니다."));
+		if (user.getRole() == RoleType.ADMIN) {
+			return;
+		}
 		userRepository.deleteById(userId);
 	}
 }
