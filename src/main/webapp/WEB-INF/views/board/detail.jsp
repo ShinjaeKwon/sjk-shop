@@ -39,7 +39,8 @@
         <c:otherwise>
         </c:otherwise>
     </c:choose>
-
+    <br>
+    <br>
     <div class="card">
         <form>
             <input type="hidden" id="boardId" value="${board.id}">

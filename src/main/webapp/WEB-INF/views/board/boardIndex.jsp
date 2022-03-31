@@ -49,6 +49,35 @@
             </c:otherwise>
         </c:choose>
     </ul>
+    <div class="container">
+        <form action="/search" class="needs-validation" novalidate method="get">
+            <div class="form-group" style="width: 50%; margin-left: 20%">
+                <input name="keyword" type="text" class="form-control" placeholder="게시글 검색어를 입력해주세요." required>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">게시글 검색어를 입력해주세요.</div><br>
+                <button type="submit" class="btn btn-primary">검색</button>
+            </div>
+
+        </form>
+    </div>
 </div>
+
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
 
 <%@ include file="../layout/footer.jsp" %>

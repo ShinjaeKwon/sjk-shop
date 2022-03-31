@@ -83,4 +83,9 @@ public class BoardService {
 		board.setCount(++count);
 		boardRepository.save(board);
 	}
+
+	@Transactional(readOnly = true)
+	public Page<Board> searchPosts(String keyword, Pageable pageable) {
+		return boardRepository.findByTitleContaining(keyword, pageable);
+	}
 }

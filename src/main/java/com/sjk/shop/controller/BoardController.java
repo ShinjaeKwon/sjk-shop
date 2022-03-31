@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sjk.shop.service.BoardService;
 
@@ -41,6 +42,13 @@ public class BoardController {
 	public String updateForm(@PathVariable Long id, Model model) {
 		model.addAttribute("board", boardService.boardDetail(id));
 		return "board/updateForm";
+	}
+
+	@GetMapping("/search")
+	public String search(@RequestParam(value = "keyword") String keyword, Model model,
+		@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+		model.addAttribute("boards", boardService.searchPosts(keyword, pageable));
+		return "board/boardIndex";
 	}
 
 }
