@@ -72,7 +72,7 @@ public class BoardService {
 
 	@Transactional
 	public void deleteReply(Long replyId) {
-		userRepository.deleteById(replyId);
+		replyRepository.deleteById(replyId);
 	}
 
 	@Transactional
