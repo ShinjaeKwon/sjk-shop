@@ -88,4 +88,5 @@ public class BoardService {
 	public Page<Board> searchPosts(String keyword, Pageable pageable) {
 		return boardRepository.findByTitleContaining(keyword, pageable);
 	}
+
 }

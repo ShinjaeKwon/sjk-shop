@@ -62,14 +62,11 @@
                     <div>${reply.content}</div>
                     <div class="d-flex">
                         <div class="font-italic">Username : ${reply.user.username}&nbsp;</div>
-                        <c:choose>
-                            <c:when test="${reply.user.id == principal.user.id}">
-                                <button onclick="index.replyDelete(${board.id}, ${reply.id})" class="badge">Delete
-                                </button>
-                            </c:when>
-                            <c:otherwise>
-                            </c:otherwise>
-                        </c:choose>
+                        <c:if test="${reply.user.id == principal.user.id}">
+                            <div>
+                                <button onclick="index.replyDelete(${board.id}, ${reply.id})" class="badge">Delete</button>
+                            </div>
+                        </c:if>
                     </div>
                 </li>
             </c:forEach>

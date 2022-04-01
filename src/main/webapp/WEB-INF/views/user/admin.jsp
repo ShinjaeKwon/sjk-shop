@@ -2,6 +2,7 @@
 
 <%@ include file="../layout/header.jsp" %>
 
+
 <div class="container">
     <h2>User Management</h2>
     <br>
@@ -43,6 +44,23 @@
             </c:otherwise>
         </c:choose>
     </ul>
+</div>
+<br>
+<div class="container">
+    <h2>Category Management</h2>
+    <form>
+        <input type="text" width="30" id="category">
+        <button id="btn-category-save" class="btn btn-primary">Add Category</button>
+    </form>
+
+    <h4>Category List</h4>
+    <ul>
+        <c:forEach var="category" items="${categories}">
+            <li>${category.name}</li>
+        </c:forEach>
+    </ul>
+
+
 </div>
 
 <script src="/js/user.js"></script>

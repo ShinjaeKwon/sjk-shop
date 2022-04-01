@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.sjk.shop.config.auth.PrincipalDetail;
+import com.sjk.shop.service.CategoryService;
 import com.sjk.shop.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
 	private final UserService userService;
+	private final CategoryService categoryService;
 
 	@GetMapping("/auth/joinForm")
 	public String joinForm() {
@@ -40,6 +42,7 @@ public class UserController {
 		@PageableDefault(size = 10, sort = "id",
 			direction = Sort.Direction.DESC) Pageable pageable) {
 		model.addAttribute("users", userService.userList(pageable));
+		model.addAttribute("categories", categoryService.categoryList());
 		return "user/admin";
 	}
 

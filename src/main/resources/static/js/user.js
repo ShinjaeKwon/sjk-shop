@@ -9,6 +9,9 @@ let index = {
         $("#change-role").on("click", () => {
             this.change();
         });
+        $("#btn-category-save").on("click", () => {
+            this.categorySave();
+        });
 
     },
 
@@ -143,6 +146,37 @@ let index = {
             alert(JSON.stringify(error));
         });
     },
+
+    categorySave: function () {
+        if ($("#category").val().trim() === "") {
+            alert("category를 입력해주세요.");
+            $("#category").focus();
+            return false;
+        }
+
+        let data = {
+            category: $("#category").val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/api/category/save",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json"
+        }).done(function (resp) {
+            if (resp.status === 500) {
+                alert("Category 등록 실패");
+            } else {
+                alert("Category 등록 성공");
+                location.href = "/admin/management/user";
+            }
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+
 }
 
 index.init();
