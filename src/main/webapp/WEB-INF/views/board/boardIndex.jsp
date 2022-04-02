@@ -54,7 +54,8 @@
             <div class="form-group" style="width: 50%; margin-left: 20%">
                 <input name="keyword" type="text" class="form-control" placeholder="게시글 검색어를 입력해주세요." required>
                 <div class="valid-feedback"></div>
-                <div class="invalid-feedback">게시글 검색어를 입력해주세요.</div><br>
+                <div class="invalid-feedback">게시글 검색어를 입력해주세요.</div>
+                <br>
                 <button type="submit" class="btn btn-primary">검색</button>
             </div>
 

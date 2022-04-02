@@ -32,7 +32,6 @@ public class ItemApiController {
 		if (user.getRole() == RoleType.USER) {
 			new IllegalArgumentException("판매자가 아닙니다.");
 		}
-
 		itemService.save(itemSaveRequestDto);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}

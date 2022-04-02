@@ -35,7 +35,8 @@
 
 <script>
     $('.summernote').summernote({
-        height: 150
+        height: 150,
+        maximumImageFileSize: 1572864
     });
 </script>
 <script src="/js/item.js"></script>

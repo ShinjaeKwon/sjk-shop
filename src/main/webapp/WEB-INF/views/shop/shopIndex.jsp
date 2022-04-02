@@ -9,13 +9,13 @@
     <br><br>
 
     <c:forEach var="item" items="${items.content}">
-    <div class="card">
-        ${item.img}
-        <div class="card-body">
-            <h4 class="card-title">${item.name}</h4>
-            <a href="#" class="btn btn-primary">상세상품보기</a>
+        <div>
+            <ul style="list-style: none;">
+                <li>${item.img}</li>
+                <li><h4>${item.name}</h4></li>
+                <a href="#" class="btn btn-primary">상세상품보기</a>
+            </ul>
         </div>
-    </div>
     </c:forEach>
     <br>
     <ul class="pagination justify-content-center ">

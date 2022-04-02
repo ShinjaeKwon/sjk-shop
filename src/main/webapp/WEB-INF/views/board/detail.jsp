@@ -64,7 +64,8 @@
                         <div class="font-italic">Username : ${reply.user.username}&nbsp;</div>
                         <c:if test="${reply.user.id == principal.user.id}">
                             <div>
-                                <button onclick="index.replyDelete(${board.id}, ${reply.id})" class="badge">Delete</button>
+                                <button onclick="index.replyDelete(${board.id}, ${reply.id})" class="badge">Delete
+                                </button>
                             </div>
                         </c:if>
                     </div>

@@ -19,9 +19,10 @@ public class ItemService {
 	private final CategoryRepository categoryRepository;
 
 	public void save(ItemSaveRequestDto requestItem) {
+		String img = requestItem.getImg().replaceFirst("src", "style=\"width: 200px; height: 200px;\" src");
 		Item item = Item.builder()
 			.name(requestItem.getName())
-			.img(requestItem.getImg())
+			.img(img)
 			.price(requestItem.getPrice())
 			.stockQuantity(requestItem.getStockQuantity())
 			.category(categoryRepository.findByName(requestItem.getCategory()))
