@@ -6,6 +6,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.sjk.shop.service.CategoryService;
 import com.sjk.shop.service.ItemService;
@@ -31,5 +32,11 @@ public class ItemController {
 	public String saveForm(Model model) {
 		model.addAttribute("categories", categoryService.categoryList());
 		return "shop/saveItem";
+	}
+
+	@GetMapping("/shop/{id}")
+	public String detail(@PathVariable Long id, Model model) {
+		model.addAttribute("item", itemService.itemDetail(id));
+		return "shop/detail";
 	}
 }

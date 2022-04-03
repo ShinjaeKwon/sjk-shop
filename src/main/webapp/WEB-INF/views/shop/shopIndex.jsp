@@ -13,7 +13,7 @@
             <ul style="list-style: none;">
                 <li>${item.img}</li>
                 <li><h4>${item.name}</h4></li>
-                <a href="#" class="btn btn-primary">상세상품보기</a>
+                <a href="/shop/${item.id}" class="btn btn-primary">상세상품보기</a>
             </ul>
         </div>
     </c:forEach>
