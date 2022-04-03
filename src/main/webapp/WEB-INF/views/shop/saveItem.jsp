@@ -18,7 +18,7 @@
         </div>
         <div class="form-group">
             StockQuantity
-            <input type="number" min="0" max="100" class="form-control" id="stockQuantity">
+            <input type="number" min="0" max="999" class="form-control" id="stockQuantity">
         </div>
         Category
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -28,6 +28,7 @@
                 <option value="${category.name}">${category.name}</option>
             </c:forEach>
         </select>
+        <input type="hidden" id="userId" value="${principal.user.id}">
     </form>
     <br><br>
     <button id="btn-save" class="btn btn-primary">Add Item</button>

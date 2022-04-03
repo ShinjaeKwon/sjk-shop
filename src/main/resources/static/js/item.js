@@ -33,7 +33,8 @@ let index = {
             img: $("#img").val(),
             price: $("#price").val(),
             stockQuantity: $("#stockQuantity").val(),
-            category: $("select[name=category] option:selected").val()
+            category: $("select[name=category] option:selected").val(),
+            userId: $("#userId").val()
         };
 
         $.ajax({

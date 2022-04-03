@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.sjk.shop.dto.ItemSaveRequestDto;
 import com.sjk.shop.model.Item;
+import com.sjk.shop.model.User;
 import com.sjk.shop.repository.CategoryRepository;
 import com.sjk.shop.repository.ItemRepository;
+import com.sjk.shop.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,15 +19,19 @@ public class ItemService {
 
 	private final ItemRepository itemRepository;
 	private final CategoryRepository categoryRepository;
+	private final UserRepository userRepository;
 
 	public void save(ItemSaveRequestDto requestItem) {
 		String img = requestItem.getImg().replaceFirst("src", "style=\"width: 200px; height: 200px;\" src");
+		User user = userRepository.findById(requestItem.getUserId())
+			.orElseThrow(() -> new IllegalArgumentException("존재 하지 않는 유저 입니다."));
 		Item item = Item.builder()
 			.name(requestItem.getName())
 			.img(img)
 			.price(requestItem.getPrice())
 			.stockQuantity(requestItem.getStockQuantity())
 			.category(categoryRepository.findByName(requestItem.getCategory()))
+			.user(user)
 			.build();
 
 		itemRepository.save(item);

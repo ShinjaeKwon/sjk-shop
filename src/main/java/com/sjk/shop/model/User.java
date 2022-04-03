@@ -51,7 +51,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private RoleType role;
 
-	@OneToMany
+	@OneToMany(mappedBy = "user")
 	private List<Item> items;
 
 	@CreationTimestamp
