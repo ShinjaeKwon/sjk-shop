@@ -50,7 +50,7 @@ public class ItemApiController {
 
 	@PostMapping("/api/item/wish")
 	public ResponseDto<Integer> addCart(@RequestBody CartAddRequestDto cartAddRequestDto) {
-
+		System.out.println("cartAddRequestDto = " + cartAddRequestDto);
 		itemService.addCart(cartAddRequestDto);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}

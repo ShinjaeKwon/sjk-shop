@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -52,6 +54,7 @@ public class User {
 	private RoleType role;
 
 	@OneToMany(mappedBy = "user")
+	@JsonIgnoreProperties({"user"})
 	private List<Item> items;
 
 	@CreationTimestamp

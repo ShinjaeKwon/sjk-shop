@@ -39,4 +39,11 @@ public class ItemController {
 		model.addAttribute("item", itemService.itemDetail(id));
 		return "shop/detail";
 	}
+
+	@GetMapping("/shop/cart/{id}")
+	public String cartDetail(@PathVariable Long id, Model model) {
+		model.addAttribute("cart", itemService.cartDetail(id));
+		return "shop/cart";
+	}
+
 }

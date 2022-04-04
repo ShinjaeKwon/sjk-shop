@@ -26,7 +26,21 @@ public class CartItem {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Item item;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Cart cart;
+
 	private int stockQuantity;
 
+	public static CartItem createCartItem(Cart cart, Item item, int stockQuantity) {
+		CartItem cartItem = new CartItem();
+		cartItem.setCart(cart);
+		cartItem.setItem(item);
+		cartItem.setStockQuantity(stockQuantity);
+		return cartItem;
+	}
+
+	public void addStockQuantity(int stockQuantity) {
+		this.stockQuantity += stockQuantity;
+	}
 
 }

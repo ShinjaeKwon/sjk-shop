@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToMany
+	@OneToMany(mappedBy = "cart", fetch = FetchType.EAGER)
 	private List<CartItem> cartItems = new ArrayList<>();
 
 	@OneToOne
@@ -36,10 +37,10 @@ public class Cart {
 
 	private int count;
 
-	public static Cart createCart(User user){
+	public static Cart createCart(User user) {
 		Cart cart = new Cart();
-		cart.user = user;
-		cart.count = 0;
+		cart.setCount(0);
+		cart.setUser(user);
 		return cart;
 	}
 

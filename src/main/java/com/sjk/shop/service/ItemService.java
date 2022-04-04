@@ -65,11 +65,40 @@ public class ItemService {
 			.orElseThrow(() -> new IllegalArgumentException("장바구니 추가 실패"));
 		Integer wishStockQuantity = cartAddRequestDto.getStockQuantity();
 
-		CartItem cartItem = CartItem.builder()
-			.item(item)
-			.stockQuantity(wishStockQuantity)
-			.build();
+		Cart cart = cartRepository.findByUserId(user.getId());
 
+		if (cart == null) {
+			cart = Cart.createCart(user);
+			cartRepository.save(cart);
+		}
+
+		CartItem cartItem = cartItemRepository.findByCartIdAndItemId(cart.getId(), item.getId());
+		if (cartItem == null) {
+			cartItem = CartItem.createCartItem(cart, item, wishStockQuantity);
+			cartItemRepository.save(cartItem);
+		} else {
+			CartItem update = cartItem;
+			update.setCart(cartItem.getCart());
+			update.setItem(cartItem.getItem());
+			update.addStockQuantity(wishStockQuantity);
+			update.setStockQuantity(update.getStockQuantity());
+			cartItemRepository.save(update);
+		}
+
+		cart.setCount(cart.getCount() + wishStockQuantity);
 
 	}
+
+	@Transactional
+	public Cart cartDetail(Long userId) {
+		Cart cart = cartRepository.findByUserId(userId);
+		if (cart == null) {
+			cart = Cart.createCart(
+				userRepository.findById(userId)
+					.orElseThrow(() -> new IllegalArgumentException("장바구니 불러오기 실패"))
+			);
+		}
+		return cart;
+	}
+
 }
