@@ -28,10 +28,19 @@ public class Cart {
 	private Long id;
 
 	@OneToMany
-	private List<Item> items = new ArrayList<>();
+	private List<CartItem> cartItems = new ArrayList<>();
 
 	@OneToOne
 	@JoinColumn(name = "userId")
 	private User user;
+
+	private int count;
+
+	public static Cart createCart(User user){
+		Cart cart = new Cart();
+		cart.user = user;
+		cart.count = 0;
+		return cart;
+	}
 
 }

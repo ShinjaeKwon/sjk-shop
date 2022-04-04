@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sjk.shop.config.auth.PrincipalDetail;
+import com.sjk.shop.dto.CartAddRequestDto;
 import com.sjk.shop.dto.ItemSaveRequestDto;
 import com.sjk.shop.dto.ResponseDto;
 import com.sjk.shop.model.RoleType;
@@ -44,6 +45,13 @@ public class ItemApiController {
 			new IllegalArgumentException("판매자가 아닙니다.");
 		}
 		categoryService.addCategory(map.get("category"));
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+
+	@PostMapping("/api/item/wish")
+	public ResponseDto<Integer> addCart(@RequestBody CartAddRequestDto cartAddRequestDto) {
+
+		itemService.addCart(cartAddRequestDto);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 }
