@@ -15,8 +15,9 @@
                     <li>
                         <div>
                             <h5>상품 이름 : ${cartItem.item.name}</h5>
-                            ${cartItem.item.img}
-                            총 가격 : <fmt:formatNumber value="${cartItem.item.price * cartItem.stockQuantity}" pattern="#,###,###,###"/> <br>
+                                ${cartItem.item.img}
+                            총 가격 : <fmt:formatNumber value="${cartItem.item.price * cartItem.stockQuantity}"
+                                                     pattern="#,###,###,###"/> <br>
                         </div>
                         <button>Delete</button>
                     </li>
@@ -24,9 +25,9 @@
                 </c:forEach>
             </ul>
         </div>
-        <button>Delete All Items</button>
+        <input type="hidden" id="userId" value="${principal.user.id}">
+        <button id="delete-all-cart" onclick="index.deleteAllCart(${principal.user.id})">Delete All Items</button>
         <button>Order</button>
-
     </form>
 
 

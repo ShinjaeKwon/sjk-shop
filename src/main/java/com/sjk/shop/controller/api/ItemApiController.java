@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,6 +54,12 @@ public class ItemApiController {
 	public ResponseDto<Integer> addCart(@RequestBody CartAddRequestDto cartAddRequestDto) {
 		System.out.println("cartAddRequestDto = " + cartAddRequestDto);
 		itemService.addCart(cartAddRequestDto);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+
+	@DeleteMapping("/api/cart/{userId}")
+	public ResponseDto<Integer> deleteAllCart(@PathVariable Long userId) {
+		itemService.deleteAllCart(userId);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 }

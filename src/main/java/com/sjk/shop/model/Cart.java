@@ -3,6 +3,7 @@ package com.sjk.shop.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,7 +29,7 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToMany(mappedBy = "cart", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cart", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<CartItem> cartItems = new ArrayList<>();
 
 	@OneToOne

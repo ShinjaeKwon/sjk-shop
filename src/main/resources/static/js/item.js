@@ -9,7 +9,6 @@ let index = {
         $("#btn-order").on("click", () => {
             this.orders();
         });
-
     },
 
     save: function () {
@@ -113,6 +112,19 @@ let index = {
             contentType: "application/json; charset=UTF-8",
             dataType: "json"
         }).done(function (resp) {
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    deleteAllCart: function (userId) {
+        $.ajax({
+            type: "DELETE",
+            url: `/api/cart/${userId}`,
+            dataType: "json"
+        }).done(function (resp) {
+            alert("장바구니가 성공적으로 비워졌습니다.");
+            location.href = "/shop/cart/" + userId;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

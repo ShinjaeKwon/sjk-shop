@@ -75,15 +75,13 @@ public class ItemService {
 		CartItem cartItem = cartItemRepository.findByCartIdAndItemId(cart.getId(), item.getId());
 		if (cartItem == null) {
 			cartItem = CartItem.createCartItem(cart, item, wishStockQuantity);
-			cartItemRepository.save(cartItem);
 		} else {
-			CartItem update = cartItem;
-			update.setCart(cartItem.getCart());
-			update.setItem(cartItem.getItem());
-			update.addStockQuantity(wishStockQuantity);
-			update.setStockQuantity(update.getStockQuantity());
-			cartItemRepository.save(update);
+			cartItem.setCart(cartItem.getCart());
+			cartItem.setItem(cartItem.getItem());
+			cartItem.addStockQuantity(wishStockQuantity);
+			cartItem.setStockQuantity(cartItem.getStockQuantity());
 		}
+		cartItemRepository.save(cartItem);
 
 		cart.setCount(cart.getCount() + wishStockQuantity);
 
@@ -101,4 +99,9 @@ public class ItemService {
 		return cart;
 	}
 
+	@Transactional
+	public void deleteAllCart(Long userId) {
+		Cart cart = cartRepository.findByUserId(userId);
+		cartRepository.delete(cart);
+	}
 }
