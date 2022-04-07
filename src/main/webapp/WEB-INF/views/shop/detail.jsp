@@ -19,9 +19,10 @@
     <%-- 회원 주문 --%>
     <form>
         <div class="form-group">
-            StockQuantity :
+            OrderQuantity :
             <input type="number" min="0" max="${item.stockQuantity}" id="stockQuantity">
             <input type="hidden" id="userId" value="${principal.user.id}">
+            <input type="hidden" id="maxOrderQuantity" value="${item.stockQuantity}">
             <input type="hidden" id="itemId" value="${item.id}">
         </div>
         <button id="btn-wish">Add Wish List</button>

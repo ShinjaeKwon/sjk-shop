@@ -7,6 +7,7 @@
     <p>상점 입니다.</p>
     <a href="/shop/saveItem" class="btn btn-info" role="button">Add Item</a>
     <a class="btn btn-warning" role="button" href="/shop/cart/${principal.user.id}">My Cart</a>
+    <a class="btn btn-warning" role="button" href="/shop/order/${principal.user.id}">My Orders</a>
 
     <br><br>
 

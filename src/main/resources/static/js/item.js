@@ -94,7 +94,12 @@ let index = {
 
     orders: function () {
         if ($("#stockQuantity").val().trim() === "") {
-            alert("StockQuantity 입력해주세요.");
+            alert("OrderQuantity 입력해주세요.");
+            $("#stockQuantity").focus();
+            return false;
+        }
+        if ($("#stockQuantity") > $("#maxOrderQuantity")) {
+            alert("재고 수량보다 주문이 많습니다.");
             $("#stockQuantity").focus();
             return false;
         }
@@ -107,11 +112,13 @@ let index = {
 
         $.ajax({
             type: "POST",
-            url: "/item/order",
+            url: "/api/order/",
             data: JSON.stringify(data),
             contentType: "application/json; charset=UTF-8",
             dataType: "json"
         }).done(function (resp) {
+            alert("주문 완료");
+            location.href = "/shop";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

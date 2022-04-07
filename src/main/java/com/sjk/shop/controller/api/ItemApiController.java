@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sjk.shop.config.auth.PrincipalDetail;
-import com.sjk.shop.dto.CartAddRequestDto;
+import com.sjk.shop.dto.CartAddAndOrderRequestDto;
 import com.sjk.shop.dto.ItemSaveRequestDto;
 import com.sjk.shop.dto.ResponseDto;
 import com.sjk.shop.model.RoleType;
@@ -51,9 +51,8 @@ public class ItemApiController {
 	}
 
 	@PostMapping("/api/item/wish")
-	public ResponseDto<Integer> addCart(@RequestBody CartAddRequestDto cartAddRequestDto) {
-		System.out.println("cartAddRequestDto = " + cartAddRequestDto);
-		itemService.addCart(cartAddRequestDto);
+	public ResponseDto<Integer> addCart(@RequestBody CartAddAndOrderRequestDto cartAddAndOrderRequestDto) {
+		itemService.addCart(cartAddAndOrderRequestDto);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
@@ -62,4 +61,11 @@ public class ItemApiController {
 		itemService.deleteAllCart(userId);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
+
+	@PostMapping("/api/order/")
+	public ResponseDto<Integer> order(@RequestBody CartAddAndOrderRequestDto cartAddAndOrderRequestDto) {
+		itemService.order(cartAddAndOrderRequestDto);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+
 }

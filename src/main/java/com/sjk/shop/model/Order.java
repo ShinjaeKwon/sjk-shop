@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -15,8 +16,20 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-@Entity
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Table(name = "Orders")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@JsonAutoDetect
+@Entity
 public class Order {
 
 	@Id
@@ -26,7 +39,7 @@ public class Order {
 	@ManyToOne
 	private User user;
 
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
 	private List<OrderItem> orderItems = new ArrayList<>();
 
 	@CreationTimestamp

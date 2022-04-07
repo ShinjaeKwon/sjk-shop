@@ -5,6 +5,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@JsonAutoDetect
 @Entity
 public class OrderItem {
 
@@ -17,7 +29,8 @@ public class OrderItem {
 
 	@ManyToOne
 	private Item item;
+
 	private int orderPrices;
-	private int count;
+	private int orderQuantity;
 
 }
