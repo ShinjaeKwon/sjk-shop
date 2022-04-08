@@ -46,8 +46,14 @@ public class ItemController {
 		return "shop/cart";
 	}
 
-	@GetMapping("/shop/order/{id}")
+	@GetMapping("/shop/orderList/{id}")
 	public String orderList(@PathVariable Long id, Model model) {
+		model.addAttribute("orders", itemService.orderList(id));
+		return "shop/orderDetail";
+	}
+
+	@GetMapping("/shop/order/{id}")
+	public String orders(@PathVariable Long id, Model model) {
 		model.addAttribute("orders", itemService.orderList(id));
 		return "shop/orders";
 	}

@@ -145,4 +145,12 @@ public class ItemService {
 	public List<Order> orderList(Long id) {
 		return orderRepository.findAllByUserId(id);
 	}
+
+	@Transactional
+	public void orderConfirm(Long userId) {
+		List<Order> allByUserId = orderRepository.findAllByUserId(userId);
+		for (Order order : allByUserId) {
+			order.setStatus(OrderStatus.CONFIRM);
+		}
+	}
 }

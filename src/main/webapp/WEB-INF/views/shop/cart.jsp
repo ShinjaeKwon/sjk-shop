@@ -17,7 +17,8 @@
                             <h5>상품 이름 : ${cartItem.item.name}</h5>
                                 ${cartItem.item.img}
                             총 가격 :
-                            <fmt:formatNumber value="${cartItem.item.price * cartItem.stockQuantity}" pattern="#,###,###,###"/> <br>
+                            <fmt:formatNumber value="${cartItem.item.price * cartItem.stockQuantity}"
+                                              pattern="#,###,###,###"/> <br>
                         </div>
                         <button>Delete</button>
                     </li>

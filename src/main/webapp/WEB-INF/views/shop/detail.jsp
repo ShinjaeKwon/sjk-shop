@@ -17,17 +17,24 @@
         <button id="btn-delete" class="btn btn-danger">Delete Post</button>
     </c:if>
     <%-- 회원 주문 --%>
-    <form>
-        <div class="form-group">
-            OrderQuantity :
-            <input type="number" min="0" max="${item.stockQuantity}" id="stockQuantity">
-            <input type="hidden" id="userId" value="${principal.user.id}">
-            <input type="hidden" id="maxOrderQuantity" value="${item.stockQuantity}">
-            <input type="hidden" id="itemId" value="${item.id}">
-        </div>
-        <button id="btn-wish">Add Wish List</button>
-        <button id="btn-order">Order</button>
-    </form>
+    <c:choose>
+        <c:when test="${item.stockQuantity == 0}">
+            <h2>품절</h2>
+        </c:when>
+        <c:otherwise>
+            <form>
+                <div class="form-group">
+                    OrderQuantity :
+                    <input type="number" min="0" max="${item.stockQuantity}" id="stockQuantity">
+                    <input type="hidden" id="userId" value="${principal.user.id}">
+                    <input type="hidden" id="maxOrderQuantity" value="${item.stockQuantity}">
+                    <input type="hidden" id="itemId" value="${item.id}">
+                </div>
+                <button id="btn-wish">Add Wish List</button>
+                <button id="btn-order">Order</button>
+            </form>
+        </c:otherwise>
+    </c:choose>
 
 </div>
 
