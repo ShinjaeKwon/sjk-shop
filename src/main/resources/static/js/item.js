@@ -117,7 +117,7 @@ let index = {
         };
 
         $.ajax({
-            type: "POST",
+            type: "POST", /*PUT*/
             url: "/api/order",
             data: JSON.stringify(data),
             contentType: "application/json; charset=UTF-8",

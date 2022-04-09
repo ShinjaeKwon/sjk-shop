@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sjk.shop.dto.CartAddAndOrderRequestDto;
+import com.sjk.shop.dto.OrderRequestDto;
 import com.sjk.shop.dto.ItemSaveRequestDto;
 import com.sjk.shop.model.Cart;
 import com.sjk.shop.model.CartItem;
@@ -67,7 +67,7 @@ public class ItemService {
 	}
 
 	@Transactional
-	public void addCart(CartAddAndOrderRequestDto cartAddRequestDto) {
+	public void addCart(OrderRequestDto cartAddRequestDto) {
 		User user = userRepository.findById(cartAddRequestDto.getUserId())
 			.orElseThrow(() -> new IllegalArgumentException("장바구니 추가 실패"));
 		Item item = itemRepository.findById(cartAddRequestDto.getItemId())
@@ -98,11 +98,11 @@ public class ItemService {
 
 	@Transactional
 	public Cart cartDetail(Long userId) {
-		Cart cart = cartRepository.findByUserId(userId);
-		if (cart == null) {
-			cart = Cart.createCart(
-				userRepository.findById(userId)
-					.orElseThrow(() -> new IllegalArgumentException("장바구니 불러오기 실패"))
+		Cart cart = cartRepository.findByUserId(userId); //Optional<Cart>
+			if (cart == null) {
+				cart = Cart.createCart(
+					userRepository.findById(userId)
+						.orElseThrow(() -> new IllegalArgumentException("장바구니 불러오기 실패"))
 			);
 		}
 		return cart;
@@ -115,30 +115,33 @@ public class ItemService {
 	}
 
 	@Transactional
-	public void order(CartAddAndOrderRequestDto cartAddAndOrderRequestDto) {
-		Item item = itemRepository.findById(cartAddAndOrderRequestDto.getItemId())
+	public void order(OrderRequestDto orderRequestDto) {
+		Item item = itemRepository.findById(orderRequestDto.getItemId())
 			.orElseThrow(() -> new IllegalArgumentException("주문 실패"));
-		User user = userRepository.findById(cartAddAndOrderRequestDto.getUserId())
+		User user = userRepository.findById(orderRequestDto.getUserId()) /*Security 사용 */
 			.orElseThrow(() -> new IllegalArgumentException("주문 실패"));
-		Integer orderQuantity = cartAddAndOrderRequestDto.getStockQuantity();
+		Integer orderQuantity = orderRequestDto.getStockQuantity();
 
 		if (item.getStockQuantity() - orderQuantity < 0) {
 			new IllegalArgumentException("재고 수량 초과");
 		}
 
-		Order order = new Order();
+		//서비스 분리
+		Order order = new Order(); //생성자로 변경
 		order.setUser(user);
 		order.setStatus(OrderStatus.BEFORE);
-		orderRepository.save(order);
+		orderRepository.save(order); //save
 
-		OrderItem orderItem = OrderItem.builder()
+		//서비스 분리
+		OrderItem orderItem = OrderItem.builder() //생성자로 변경
 			.item(item)
 			.orderPrices(item.getPrice() * orderQuantity)
 			.orderQuantity(orderQuantity)
 			.order(order)
 			.build();
 		orderItemRepository.save(orderItem);
-		item.setStockQuantity(item.getStockQuantity() - orderQuantity);
+
+		item.setStockQuantity(item.getStockQuantity() - orderQuantity); //item 안에 구현
 	}
 
 	@Transactional
@@ -160,5 +163,11 @@ public class ItemService {
 		CartItem byCartIdAndItemId = cartItemRepository.findByCartIdAndItemId(byUserId.getId(), itemId);
 		cartItemRepository.delete(byCartIdAndItemId);
 		byUserId.setCount(byUserId.getCount() - byCartIdAndItemId.getStockQuantity());
+	}
+
+	public void orderAll(List<OrderRequestDto> orderRequestDto) {
+		for (OrderRequestDto requestDto : orderRequestDto) {
+			order(requestDto);
+		}
 	}
 }

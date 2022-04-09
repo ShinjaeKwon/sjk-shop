@@ -45,4 +45,6 @@ public class Item {
 	@ManyToOne
 	private User user;
 
+	//재고확인 로직
+
 }

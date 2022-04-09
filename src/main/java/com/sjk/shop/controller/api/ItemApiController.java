@@ -1,5 +1,6 @@
 package com.sjk.shop.controller.api;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sjk.shop.config.auth.PrincipalDetail;
-import com.sjk.shop.dto.CartAddAndOrderRequestDto;
+import com.sjk.shop.dto.OrderRequestDto;
 import com.sjk.shop.dto.ItemSaveRequestDto;
 import com.sjk.shop.dto.ResponseDto;
 import com.sjk.shop.model.RoleType;
@@ -52,8 +53,8 @@ public class ItemApiController {
 	}
 
 	@PostMapping("/api/item/wish")
-	public ResponseDto<Integer> addCart(@RequestBody CartAddAndOrderRequestDto cartAddAndOrderRequestDto) {
-		itemService.addCart(cartAddAndOrderRequestDto);
+	public ResponseDto<Integer> addCart(@RequestBody OrderRequestDto orderRequestDto) {
+		itemService.addCart(orderRequestDto);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
@@ -69,16 +70,26 @@ public class ItemApiController {
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
-	@PostMapping("/api/order")
-	public ResponseDto<Integer> order(@RequestBody CartAddAndOrderRequestDto cartAddAndOrderRequestDto) {
-		itemService.order(cartAddAndOrderRequestDto);
+	@PostMapping("/api/order") /* PutMapping */
+	public ResponseDto<Integer> order(@RequestBody OrderRequestDto orderRequestDto) {
+		itemService.order(orderRequestDto);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
+/*
+	@PostMapping("/api/order") */
+/* PutMapping *//*
+
+	public ResponseDto<Integer> orderAll(@RequestBody List<OrderRequestDto> orderRequestDto) {
+		itemService.orderAll(orderRequestDto);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+*/
+
 
 	@PutMapping("/api/order")
 	public ResponseDto<Integer> orderConfirm(@RequestBody Map<String, String> map) {
 		Long userId = Long.parseLong(map.get("userId"));
-		itemService.orderConfirm(userId);
+		itemService.orderConfirm(userId); //orderId 도 추가
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
