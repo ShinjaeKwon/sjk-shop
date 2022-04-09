@@ -31,31 +31,31 @@ public class ItemController {
 	@GetMapping("/shop/saveItem")
 	public String saveForm(Model model) {
 		model.addAttribute("categories", categoryService.categoryList());
-		return "shop/saveItem";
+		return "shop/item/saveItem";
 	}
 
 	@GetMapping("/shop/{id}")
 	public String detail(@PathVariable Long id, Model model) {
 		model.addAttribute("item", itemService.itemDetail(id));
-		return "shop/detail";
+		return "shop/item/detail";
 	}
 
 	@GetMapping("/shop/cart/{id}")
 	public String cartDetail(@PathVariable Long id, Model model) {
 		model.addAttribute("cart", itemService.cartDetail(id));
-		return "shop/cart";
+		return "shop/cart/cart";
 	}
 
 	@GetMapping("/shop/orderList/{id}")
 	public String orderList(@PathVariable Long id, Model model) {
 		model.addAttribute("orders", itemService.orderList(id));
-		return "shop/orderDetail";
+		return "shop/order/orderDetail";
 	}
 
 	@GetMapping("/shop/order/{id}")
 	public String orders(@PathVariable Long id, Model model) {
 		model.addAttribute("orders", itemService.orderList(id));
-		return "shop/orders";
+		return "shop/order/orders";
 	}
 
 }

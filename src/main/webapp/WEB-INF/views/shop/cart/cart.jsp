@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ include file="../layout/header.jsp" %>
+<%@ include file="../../layout/header.jsp" %>
 
 <div class="container">
     <button class="btn btn-secondary" onclick="history.back()">Previous Page</button>
@@ -20,19 +20,20 @@
                             <fmt:formatNumber value="${cartItem.item.price * cartItem.stockQuantity}"
                                               pattern="#,###,###,###"/> <br>
                         </div>
-                        <button>Delete</button>
+                        <button type="button" onclick="index.deleteItemCart(${principal.user.id}, ${cartItem.item.id})">
+                            Delete
+                        </button>
                     </li>
                     <br>
                 </c:forEach>
             </ul>
         </div>
-        <input type="hidden" id="userId" value="${principal.user.id}">
-        <button id="delete-all-cart" onclick="index.deleteAllCart(${principal.user.id})">Delete All Items</button>
-        <button>Order</button>
     </form>
-
+    <input type="hidden" id="userId" value="${principal.user.id}">
+    <button onclick="index.deleteAllCart(${principal.user.id})">Delete All Items</button>
+    <button id="order-in-cart">Order</button>
 
 </div>
 
 <script src="/js/item.js"></script>
-<%@ include file="../layout/footer.jsp" %>
+<%@ include file="../../layout/footer.jsp" %>

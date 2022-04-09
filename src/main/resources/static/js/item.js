@@ -193,6 +193,19 @@ let index = {
         });
     },
 
+    deleteItemCart: function (userId, itemId) {
+        $.ajax({
+            type: "DELETE",
+            url: `/api/cart/${userId}/${itemId}`,
+            dataType: "json"
+        }).done(function (resp) {
+            alert("삭제가 완료되었습니다.");
+            location.href = "/shop/cart/" + userId;
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
 
 }
 

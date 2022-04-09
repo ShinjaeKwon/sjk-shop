@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ include file="../layout/header.jsp" %>
+<%@ include file="../../layout/header.jsp" %>
 
 
 <div class="container">
@@ -20,8 +20,8 @@
     </c:forEach>
     <form>
         <input type="hidden" id="userId" value="${principal.user.id}">
-        <button id="orderConfirm">Order Confirm</button>
     </form>
+    <button id="orderConfirm">Order Confirm</button>
 </div>
 <script src="/js/item.js"></script>
-<%@ include file="../layout/footer.jsp" %>
+<%@ include file="../../layout/footer.jsp" %>

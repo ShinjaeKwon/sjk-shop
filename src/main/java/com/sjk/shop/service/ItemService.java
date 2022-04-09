@@ -153,4 +153,12 @@ public class ItemService {
 			order.setStatus(OrderStatus.CONFIRM);
 		}
 	}
+
+	@Transactional
+	public void deleteItemCart(Long userId, Long itemId) {
+		Cart byUserId = cartRepository.findByUserId(userId);
+		CartItem byCartIdAndItemId = cartItemRepository.findByCartIdAndItemId(byUserId.getId(), itemId);
+		cartItemRepository.delete(byCartIdAndItemId);
+		byUserId.setCount(byUserId.getCount() - byCartIdAndItemId.getStockQuantity());
+	}
 }

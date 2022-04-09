@@ -63,6 +63,12 @@ public class ItemApiController {
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
+	@DeleteMapping("/api/cart/{userId}/{itemId}")
+	public ResponseDto<Integer> deleteItemCart(@PathVariable Long userId, @PathVariable Long itemId) {
+		itemService.deleteItemCart(userId, itemId);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+
 	@PostMapping("/api/order")
 	public ResponseDto<Integer> order(@RequestBody CartAddAndOrderRequestDto cartAddAndOrderRequestDto) {
 		itemService.order(cartAddAndOrderRequestDto);

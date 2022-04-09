@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ include file="../layout/header.jsp" %>
+<%@ include file="../../layout/header.jsp" %>
 
 <div class="container">
     <button class="btn btn-secondary" onclick="history.back()">Previous Page</button>
@@ -30,13 +30,13 @@
                     <input type="hidden" id="maxOrderQuantity" value="${item.stockQuantity}">
                     <input type="hidden" id="itemId" value="${item.id}">
                 </div>
-                <button id="btn-wish">Add Wish List</button>
-                <button id="btn-order">Order</button>
             </form>
+            <button id="btn-wish">Add Wish List</button>
+            <button id="btn-order">Order</button>
         </c:otherwise>
     </c:choose>
 
 </div>
 
 <script src="/js/item.js"></script>
-<%@ include file="../layout/footer.jsp" %>
+<%@ include file="../../layout/footer.jsp" %>
