@@ -1,3 +1,17 @@
-h2 {
-    color: red;
+#additem {
+    float:right;
 }
+
+.shopitem {
+    display: table-cell;
+}
+
+.all_item {
+    font-size: 1em;
+    display: block;
+}
+
+#item_img {
+    display: block;
+}
+

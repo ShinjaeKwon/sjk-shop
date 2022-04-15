@@ -1,45 +1,67 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%@ include file="../layout/header.jsp" %>
+<head>
+    <title>지니마켓 상품 페이지</title>
+    <link rel="stylesheet" href="/css/user.css">
+    <style>
+        .upd {
+            text-align: center;
+        }
+        #additem , #sbtn {
+            background-color: #9AA4FF;
+            border: none;
+        }
+        #sbtn {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
 
 <div class="container">
-    <h2>Shop</h2>
-    <p>상점 입니다.</p>
-    <a href="/shop/saveItem" class="btn btn-info" role="button">Add Item</a>
-    <a class="btn btn-warning" role="button" href="/shop/cart/${principal.user.id}">My Cart</a>
-    <a class="btn btn-primary" role="button" href="/shop/orderList/${principal.user.id}">My Orders</a>
-
+    <div class="upd">
+    <h1>Genie Market Shop</h1>
+    <p>상품은 매주 일요일마다 업데이트됩니다!</p>
+    <a id="additem" href="/shop/saveItem" class="btn btn-info" role="button">Add Item</a>
+    </div>
     <br><br>
 
-    <div>
-        <ul style="list-style: none;">
+    <%-- 상품 한개 --%>
+    <div class="shopitem">
+        <ul  style="list-style: none; text-align: center;">
             <c:forEach var="item" items="${items.content}">
+
                 <li>
-                    <div>${item.img}
+                    <div>
+                            ${item.img}
                         <h4>${item.name}</h4>
-                        <a href="/shop/${item.id}" class="btn btn-primary">상세상품보기</a>
+                        <h6>가격 : ${item.price}원</h6>
+                        <a id="sbtn" href="/shop/${item.id}" class="btn btn-primary">상세상품보기</a>
                     </div>
                 </li>
-                <br>
             </c:forEach>
         </ul>
     </div>
+    <%-- 상품 한개 --%>
+
+
     <br>
     <ul class="pagination justify-content-center ">
         <c:choose>
             <c:when test="${items.first}">
-                <li class="page-item disabled"><a class="page-link" href="?page=${items.number-1}">Previous</a></li>
+                <li class="page-item disabled"><a class="page-link" href="?page=${items.number-1}">이전 페이지</a></li>
             </c:when>
             <c:otherwise>
-                <li class="page-item"><a class="page-link" href="?page=${items.number-1}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="?page=${items.number-1}">이전 페이지</a></li>
             </c:otherwise>
         </c:choose>
         <c:choose>
             <c:when test="${items.last}">
-                <li class="page-item disabled"><a class="page-link" href="?page=${items.number+1}">Next</a></li>
+                <li class="page-item disabled"><a class="page-link" href="?page=${items.number+1}">다음 페이지</a></li>
             </c:when>
             <c:otherwise>
-                <li class="page-item"><a class="page-link" href="?page=${items.number+1}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?page=${items.number+1}">다음 페이지</a></li>
             </c:otherwise>
         </c:choose>
     </ul>
