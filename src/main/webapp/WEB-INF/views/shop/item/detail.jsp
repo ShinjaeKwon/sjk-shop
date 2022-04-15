@@ -58,9 +58,9 @@
             <input type="hidden" id="userId" value="${principal.user.id}">
             <input type="hidden" id="itemId" value="${item.id}">
         </div>
+    </form>
         <button id="btn-wish">Add Wish List</button>
         <button id="btn-order">Order</button>
-    </form>
     </div>
 </div>
 

@@ -170,4 +170,16 @@ public class ItemService {
 			order(requestDto);
 		}
 	}
+
+	@Transactional
+	public List<Order> userOrderList(Long userId) {
+		List<Order> allByUserId = orderRepository.findAllByUserId(userId);
+		return allByUserId;
+	}
+
+	@Transactional
+	public Order findOrder(Long orderId) {
+		return orderRepository.findById(orderId)
+			.orElseThrow(() ->new IllegalArgumentException("상품 조회 실패"));
+	}
 }

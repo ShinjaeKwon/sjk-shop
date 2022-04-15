@@ -49,7 +49,14 @@ public class UserController {
 	@GetMapping("/admin/management/user/detail/{id}")
 	public String userDetail(@PathVariable Long id, Model model) {
 		model.addAttribute("user", userService.userDetail(id));
+		model.addAttribute("orders", userService.userOrders(id));
 		return "user/detail";
+	}
+
+	@GetMapping("/orderDetail/{id}")
+	public String userOrderDetail(@PathVariable Long id, Model model) {
+		model.addAttribute("order", userService.userOrderDetail(id));
+		return "user/orderDetail";
 	}
 
 }

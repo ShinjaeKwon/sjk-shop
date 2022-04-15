@@ -1,13 +1,17 @@
 package com.sjk.shop.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sjk.shop.model.Order;
 import com.sjk.shop.model.RoleType;
 import com.sjk.shop.model.User;
+import com.sjk.shop.repository.OrderRepository;
 import com.sjk.shop.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
 	private final UserRepository userRepository;
+	private final ItemService itemService;
 	private final BCryptPasswordEncoder encoder;
 
 	@Transactional
@@ -62,5 +67,16 @@ public class UserService {
 			return;
 		}
 		userRepository.deleteById(userId);
+	}
+
+	@Transactional
+	public List<Order> userOrders(Long userId) {
+		List<Order> orders = itemService.userOrderList(userId);
+		return orders;
+	}
+
+	@Transactional
+	public Order userOrderDetail(Long orderId) {
+		return itemService.findOrder(orderId);
 	}
 }

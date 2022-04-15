@@ -23,7 +23,9 @@
     <div class="upd">
     <h1>Genie Market Shop</h1>
     <p>상품은 매주 일요일마다 업데이트됩니다!</p>
+    <c:if test="${principal.user.role == 'ADMIN' || principal.user.role == 'SELLER'}">
     <a id="additem" href="/shop/saveItem" class="btn btn-info" role="button">Add Item</a>
+    </c:if>
     </div>
     <br><br>
 

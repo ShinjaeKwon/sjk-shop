@@ -49,27 +49,17 @@
         </tr>
         </thead>
         <tbody>
+        <c:forEach var="order" items="${orders}">
         <tr>
-            <td>1</td>
-            <td>2022.03.29 16:24:22</td>
-            <td><a href="#">detail</a></td>
-            <td><b>주문중</b></td>
+            <td>${order.id}</td>
+         <fmt:formatDate var="date" value="${order.orderDate}" pattern="YY.MM.dd HH:mm:ss"/>
+            <td>${date}</td>
+            <td><a href="/orderDetail/${order.id}">detail</a></td>
+            <td><b>${order.status}</b></td>
         </tr>
-        <tr>
-            <td>2</td>
-            <td>2022.03.30 16:24:22</td>
-            <td><a href="#">detail</a></td>
-            <td><b>주문완료</b></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>2022.03.31 16:24:22</td>
-            <td><a href="#">detail</a></td>
-            <td><b>주문취소</b></td>
-        </tr>
+        </c:forEach>
         </tbody>
     </table>
-
 
 </div>
 
