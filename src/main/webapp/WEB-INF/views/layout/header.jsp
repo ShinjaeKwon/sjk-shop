@@ -49,7 +49,7 @@
                 <a class="nav-link" href="/board">Board</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/user/updateForm">Profile</a>
+                <a class="nav-link" href="/user/updateForm">MyPage</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>

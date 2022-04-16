@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class OrderRequestDto {
 
-	private Integer stockQuantity; //수량
-	private Long userId; //주문자 User user;
-	private Long itemId; //아이템
+	private Integer stockQuantity;
+	private Long itemId;
 
 }

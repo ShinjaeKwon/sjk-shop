@@ -112,12 +112,12 @@ let index = {
 
         let data = {
             stockQuantity: $("#stockQuantity").val(),
-            userId: $("#userId").val(),
-            itemId: $("#itemId").val()
+            itemId: $("#itemId").val(),
+            userId: $("#userId").val()
         };
 
         $.ajax({
-            type: "POST", /*PUT*/
+            type: "PUT",
             url: "/api/order",
             data: JSON.stringify(data),
             contentType: "application/json; charset=UTF-8",
@@ -167,7 +167,7 @@ let index = {
         };
 
         $.ajax({
-            type: "PUT",
+            type: "POST",
             url: "/api/order",
             data: JSON.stringify(data),
             contentType: "application/json; charset=UTF-8",
@@ -180,32 +180,43 @@ let index = {
         });
     },
 
-    deleteAllCart: function (userId) {
+    deleteAllCart: function () {
         $.ajax({
             type: "DELETE",
-            url: `/api/cart/${userId}`,
+            url: `/api/cart`,
             dataType: "json"
         }).done(function (resp) {
             alert("장바구니가 성공적으로 비워졌습니다.");
-            location.href = "/shop/cart/" + userId;
+            location.href = "/shop/cart";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
     },
 
-    deleteItemCart: function (userId, itemId) {
+    deleteItemCart: function (itemId) {
         $.ajax({
             type: "DELETE",
-            url: `/api/cart/${userId}/${itemId}`,
+            url: `/api/cart/${itemId}`,
             dataType: "json"
         }).done(function (resp) {
             alert("삭제가 완료되었습니다.");
-            location.href = "/shop/cart/" + userId;
+            location.href = "/shop/cart";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
     },
-
+    deleteItem: function (itemId) {
+        $.ajax({
+            type: "DELETE",
+            url: `/api/item/delete/${itemId}`,
+            dataType: "json"
+        }).done(function (resp) {
+            alert("삭제가 완료되었습니다.");
+            location.href = "/shop"
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
 
 }
 

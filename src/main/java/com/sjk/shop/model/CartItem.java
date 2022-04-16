@@ -9,10 +9,10 @@ import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -31,16 +31,21 @@ public class CartItem {
 
 	private int stockQuantity;
 
+	public CartItem(Item item, Cart cart, int stockQuantity) {
+		this.item = item;
+		this.cart = cart;
+		this.stockQuantity = stockQuantity;
+	}
+
 	public static CartItem createCartItem(Cart cart, Item item, int stockQuantity) {
-		CartItem cartItem = new CartItem();
-		cartItem.setCart(cart);
-		cartItem.setItem(item);
-		cartItem.setStockQuantity(stockQuantity);
+		CartItem cartItem = new CartItem(item, cart, stockQuantity);
 		return cartItem;
 	}
 
 	public void addStockQuantity(int stockQuantity) {
-		this.stockQuantity += stockQuantity;
+		if (stockQuantity != this.stockQuantity) {
+			this.stockQuantity += stockQuantity;
+		}
 	}
 
 }

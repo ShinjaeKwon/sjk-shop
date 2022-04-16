@@ -46,6 +46,9 @@ public class Order {
 	private Timestamp orderDate;
 
 	@Enumerated(EnumType.STRING)
-	private OrderStatus status;
+	private OrderStatus status = OrderStatus.BEFORE; //default value
 
+	public Order(User user) {
+		this.user = user;
+	}
 }

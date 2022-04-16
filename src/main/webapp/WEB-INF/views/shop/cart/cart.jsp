@@ -20,7 +20,7 @@
                             <fmt:formatNumber value="${cartItem.item.price * cartItem.stockQuantity}"
                                               pattern="#,###,###,###"/> <br>
                         </div>
-                        <button type="button" onclick="index.deleteItemCart(${principal.user.id}, ${cartItem.item.id})">
+                        <button type="button" onclick="index.deleteItemCart(${cartItem.item.id})">
                             Delete
                         </button>
                     </li>
@@ -30,7 +30,7 @@
         </div>
     </form>
     <input type="hidden" id="userId" value="${principal.user.id}">
-    <button onclick="index.deleteAllCart(${principal.user.id})">Delete All Items</button>
+    <button onclick="index.deleteAllCart()">Delete All Items</button>
     <button id="order-in-cart">Order</button>
 
 </div>

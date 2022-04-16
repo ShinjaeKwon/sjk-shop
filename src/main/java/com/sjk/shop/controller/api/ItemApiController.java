@@ -1,10 +1,11 @@
 package com.sjk.shop.controller.api;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sjk.shop.config.auth.PrincipalDetail;
-import com.sjk.shop.dto.OrderRequestDto;
 import com.sjk.shop.dto.ItemSaveRequestDto;
+import com.sjk.shop.dto.OrderRequestDto;
 import com.sjk.shop.dto.ResponseDto;
 import com.sjk.shop.model.RoleType;
 import com.sjk.shop.model.User;
@@ -22,7 +23,9 @@ import com.sjk.shop.service.CategoryService;
 import com.sjk.shop.service.ItemService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class ItemApiController {
@@ -54,30 +57,40 @@ public class ItemApiController {
 
 	@PostMapping("/api/item/wish")
 	public ResponseDto<Integer> addCart(@RequestBody OrderRequestDto orderRequestDto) {
-		itemService.addCart(orderRequestDto);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		itemService.addCart(orderRequestDto, auth);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
-	@DeleteMapping("/api/cart/{userId}")
-	public ResponseDto<Integer> deleteAllCart(@PathVariable Long userId) {
-		itemService.deleteAllCart(userId);
+	@DeleteMapping("/api/cart")
+	public ResponseDto<Integer> deleteAllCart() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		itemService.deleteAllCart(auth);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
-	@DeleteMapping("/api/cart/{userId}/{itemId}")
-	public ResponseDto<Integer> deleteItemCart(@PathVariable Long userId, @PathVariable Long itemId) {
-		itemService.deleteItemCart(userId, itemId);
+	@DeleteMapping("/api/cart/{itemId}")
+	public ResponseDto<Integer> deleteItemCart(@PathVariable Long itemId) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		itemService.deleteItemCart(auth, itemId);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
-	@PostMapping("/api/order") /* PutMapping */
+	@DeleteMapping("/api/item/delete/{itemId}")
+	public ResponseDto<Integer> deleteItem(@PathVariable Long itemId) {
+		itemService.deleteItem(itemId);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+
+	@PutMapping("/api/order")
 	public ResponseDto<Integer> order(@RequestBody OrderRequestDto orderRequestDto) {
-		itemService.order(orderRequestDto);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		itemService.order(orderRequestDto, auth);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 /*
 	@PostMapping("/api/order") */
-/* PutMapping *//*
+	/* PutMapping *//*
 
 	public ResponseDto<Integer> orderAll(@RequestBody List<OrderRequestDto> orderRequestDto) {
 		itemService.orderAll(orderRequestDto);
@@ -85,8 +98,7 @@ public class ItemApiController {
 	}
 */
 
-
-	@PutMapping("/api/order")
+	@PostMapping("/api/order")
 	public ResponseDto<Integer> orderConfirm(@RequestBody Map<String, String> map) {
 		Long userId = Long.parseLong(map.get("userId"));
 		itemService.orderConfirm(userId); //orderId 도 추가

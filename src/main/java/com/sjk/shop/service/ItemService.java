@@ -4,28 +4,29 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sjk.shop.dto.OrderRequestDto;
 import com.sjk.shop.dto.ItemSaveRequestDto;
+import com.sjk.shop.dto.OrderRequestDto;
 import com.sjk.shop.model.Cart;
 import com.sjk.shop.model.CartItem;
 import com.sjk.shop.model.Item;
 import com.sjk.shop.model.Order;
-import com.sjk.shop.model.OrderItem;
 import com.sjk.shop.model.OrderStatus;
 import com.sjk.shop.model.User;
 import com.sjk.shop.repository.CartItemRepository;
 import com.sjk.shop.repository.CartRepository;
 import com.sjk.shop.repository.CategoryRepository;
 import com.sjk.shop.repository.ItemRepository;
-import com.sjk.shop.repository.OrderItemRepository;
 import com.sjk.shop.repository.OrderRepository;
 import com.sjk.shop.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ItemService {
@@ -36,7 +37,11 @@ public class ItemService {
 	private final CartItemRepository cartItemRepository;
 	private final CartRepository cartRepository;
 	private final OrderRepository orderRepository;
-	private final OrderItemRepository orderItemRepository;
+
+	private final OrderService orderService;
+	private final OrderItemService orderItemService;
+	private final CartService cartService;
+	private final CartItemService cartItemService;
 
 	@Transactional
 	public void save(ItemSaveRequestDto requestItem) {
@@ -67,81 +72,52 @@ public class ItemService {
 	}
 
 	@Transactional
-	public void addCart(OrderRequestDto cartAddRequestDto) {
-		User user = userRepository.findById(cartAddRequestDto.getUserId())
-			.orElseThrow(() -> new IllegalArgumentException("장바구니 추가 실패"));
+	public void addCart(OrderRequestDto cartAddRequestDto, Authentication auth) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("사용자 정보가 정확하지 않습니다."));
 		Item item = itemRepository.findById(cartAddRequestDto.getItemId())
-			.orElseThrow(() -> new IllegalArgumentException("장바구니 추가 실패"));
+			.orElseThrow(() -> new IllegalArgumentException("아이템 정보가 정확하지 않습니다."));
 		Integer wishStockQuantity = cartAddRequestDto.getStockQuantity();
 
-		Cart cart = cartRepository.findByUserId(user.getId());
-
-		if (cart == null) {
-			cart = Cart.createCart(user);
-			cartRepository.save(cart);
-		}
-
-		CartItem cartItem = cartItemRepository.findByCartIdAndItemId(cart.getId(), item.getId());
-		if (cartItem == null) {
-			cartItem = CartItem.createCartItem(cart, item, wishStockQuantity);
-		} else {
-			cartItem.setCart(cartItem.getCart());
-			cartItem.setItem(cartItem.getItem());
-			cartItem.addStockQuantity(wishStockQuantity);
-			cartItem.setStockQuantity(cartItem.getStockQuantity());
-		}
-		cartItemRepository.save(cartItem);
-
-		cart.setCount(cart.getCount() + wishStockQuantity);
-
+		Cart cart = cartService.findCartByUser(user);
+		cartItemService.findCartItemByCartAndItem(cart, item, wishStockQuantity);
 	}
 
 	@Transactional
-	public Cart cartDetail(Long userId) {
-		Cart cart = cartRepository.findByUserId(userId); //Optional<Cart>
-			if (cart == null) {
-				cart = Cart.createCart(
-					userRepository.findById(userId)
-						.orElseThrow(() -> new IllegalArgumentException("장바구니 불러오기 실패"))
-			);
-		}
-		return cart;
+	public Cart cartDetail(Authentication auth) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자의 정보가 정확하지 않습니다."));
+
+		return cartService.findCartByUser(user);
 	}
 
 	@Transactional
-	public void deleteAllCart(Long userId) {
-		Cart cart = cartRepository.findByUserId(userId);
+	public void deleteAllCart(Authentication auth) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자의 정보가 정확하지 않습니다."));
+		Cart cart = cartRepository.findByUserId(user.getId())
+			.orElseThrow(() -> new IllegalArgumentException("장바구니 불러오기 실패"));
 		cartRepository.delete(cart);
 	}
 
 	@Transactional
-	public void order(OrderRequestDto orderRequestDto) {
+	public void order(OrderRequestDto orderRequestDto, Authentication auth) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
 		Item item = itemRepository.findById(orderRequestDto.getItemId())
 			.orElseThrow(() -> new IllegalArgumentException("주문 실패"));
-		User user = userRepository.findById(orderRequestDto.getUserId()) /*Security 사용 */
-			.orElseThrow(() -> new IllegalArgumentException("주문 실패"));
-		Integer orderQuantity = orderRequestDto.getStockQuantity();
 
+		Integer orderQuantity = orderRequestDto.getStockQuantity();
 		if (item.getStockQuantity() - orderQuantity < 0) {
 			new IllegalArgumentException("재고 수량 초과");
 		}
 
-		//서비스 분리
-		Order order = new Order(); //생성자로 변경
-		order.setUser(user);
-		order.setStatus(OrderStatus.BEFORE);
-		orderRepository.save(order); //save
+		Order order = orderService.saveOrderByUser(user);
 
-		//서비스 분리
-		OrderItem orderItem = OrderItem.builder() //생성자로 변경
-			.item(item)
-			.orderPrices(item.getPrice() * orderQuantity)
-			.orderQuantity(orderQuantity)
-			.order(order)
-			.build();
-		orderItemRepository.save(orderItem);
+		int orderPrice = item.getPrice() * orderQuantity;
+		orderItemService.saveOrderItem(order, item, orderPrice, orderQuantity);
 
-		item.setStockQuantity(item.getStockQuantity() - orderQuantity); //item 안에 구현
+		item.decreaseStockQuantity(orderQuantity);
 	}
 
 	@Transactional
@@ -158,28 +134,43 @@ public class ItemService {
 	}
 
 	@Transactional
-	public void deleteItemCart(Long userId, Long itemId) {
-		Cart byUserId = cartRepository.findByUserId(userId);
-		CartItem byCartIdAndItemId = cartItemRepository.findByCartIdAndItemId(byUserId.getId(), itemId);
-		cartItemRepository.delete(byCartIdAndItemId);
-		byUserId.setCount(byUserId.getCount() - byCartIdAndItemId.getStockQuantity());
+	public void deleteItemCart(Authentication auth, Long itemId) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		Cart userCart = cartRepository.findByUserId(user.getId())
+			.orElseThrow(() -> new IllegalArgumentException("로그인 정보가 정확하지 않습니다."));
+		CartItem userCartItem = cartItemRepository.findByCartIdAndItemId(userCart.getId(), itemId)
+			.orElseThrow(() -> new IllegalArgumentException("아이템 불러오기 실패"));
+		userCart.decreaseCartCount(userCartItem.getStockQuantity());
+		cartItemRepository.delete(userCartItem);
+
 	}
 
+/*
 	public void orderAll(List<OrderRequestDto> orderRequestDto) {
 		for (OrderRequestDto requestDto : orderRequestDto) {
 			order(requestDto);
 		}
 	}
+*/
 
 	@Transactional
 	public List<Order> userOrderList(Long userId) {
 		List<Order> allByUserId = orderRepository.findAllByUserId(userId);
+		orderRepository.findAll();
 		return allByUserId;
 	}
 
 	@Transactional
 	public Order findOrder(Long orderId) {
 		return orderRepository.findById(orderId)
-			.orElseThrow(() ->new IllegalArgumentException("상품 조회 실패"));
+			.orElseThrow(() -> new IllegalArgumentException("상품 조회 실패"));
+	}
+
+	@Transactional
+	public void deleteItem(Long itemId) {
+		Item item = itemRepository.findById(itemId)
+			.orElseThrow(() -> new IllegalArgumentException("상품 삭제 실패"));
+		itemRepository.delete(item);
 	}
 }

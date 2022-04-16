@@ -46,5 +46,8 @@ public class Item {
 	private User user;
 
 	//재고확인 로직
+	public void decreaseStockQuantity(int orderQuantity) {
+		stockQuantity -= orderQuantity;
+	}
 
 }

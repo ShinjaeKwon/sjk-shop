@@ -50,13 +50,13 @@
         </thead>
         <tbody>
         <c:forEach var="order" items="${orders}">
-        <tr>
-            <td>${order.id}</td>
-         <fmt:formatDate var="date" value="${order.orderDate}" pattern="YY.MM.dd HH:mm:ss"/>
-            <td>${date}</td>
-            <td><a href="/orderDetail/${order.id}">detail</a></td>
-            <td><b>${order.status}</b></td>
-        </tr>
+            <tr>
+                <td>${order.id}</td>
+                <fmt:formatDate var="date" value="${order.orderDate}" pattern="YY.MM.dd HH:mm:ss"/>
+                <td>${date}</td>
+                <td><a href="/orderDetail/${order.id}">detail</a></td>
+                <td><b>${order.status}</b></td>
+            </tr>
         </c:forEach>
         </tbody>
     </table>

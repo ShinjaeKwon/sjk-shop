@@ -1,9 +1,11 @@
 package com.sjk.shop.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.sjk.shop.model.Cart;
 
 public interface CartRepository extends JpaRepository<Cart, Long> {
-	Cart findByUserId(Long id);
+	Optional<Cart> findByUserId(Long id);
 }

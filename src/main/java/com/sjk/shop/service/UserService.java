@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sjk.shop.model.Order;
 import com.sjk.shop.model.RoleType;
 import com.sjk.shop.model.User;
-import com.sjk.shop.repository.OrderRepository;
 import com.sjk.shop.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;

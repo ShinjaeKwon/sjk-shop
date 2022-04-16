@@ -3,6 +3,8 @@ package com.sjk.shop.controller;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,9 +42,10 @@ public class ItemController {
 		return "shop/item/detail";
 	}
 
-	@GetMapping("/shop/cart/{id}")
-	public String cartDetail(@PathVariable Long id, Model model) {
-		model.addAttribute("cart", itemService.cartDetail(id));
+	@GetMapping("/shop/cart")
+	public String cartDetail(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("cart", itemService.cartDetail(auth));
 		return "shop/cart/cart";
 	}
 

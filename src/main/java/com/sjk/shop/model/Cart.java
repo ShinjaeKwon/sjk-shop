@@ -15,10 +15,10 @@ import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -38,11 +38,22 @@ public class Cart {
 
 	private int count;
 
+	public Cart(User user) {
+		this.user = user;
+		this.count = 0;
+	}
+
 	public static Cart createCart(User user) {
-		Cart cart = new Cart();
-		cart.setCount(0);
-		cart.setUser(user);
+		Cart cart = new Cart(user);
 		return cart;
+	}
+
+	public void addCartCount(Integer wishStockQuantity) {
+		count += wishStockQuantity;
+	}
+
+	public void decreaseCartCount(int stockQuantity) {
+		count -= stockQuantity;
 	}
 
 }
