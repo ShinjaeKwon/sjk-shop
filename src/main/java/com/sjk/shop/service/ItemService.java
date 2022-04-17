@@ -155,10 +155,8 @@ public class ItemService {
 */
 
 	@Transactional
-	public List<Order> userOrderList(Long userId) {
-		List<Order> allByUserId = orderRepository.findAllByUserId(userId);
-		orderRepository.findAll();
-		return allByUserId;
+	public Page<Order> userOrderList(Pageable pageable, Long userId) {
+		return orderRepository.findAllByUserId(pageable, userId);
 	}
 
 	@Transactional

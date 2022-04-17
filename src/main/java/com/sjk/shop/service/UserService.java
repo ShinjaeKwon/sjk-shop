@@ -69,8 +69,8 @@ public class UserService {
 	}
 
 	@Transactional
-	public List<Order> userOrders(Long userId) {
-		List<Order> orders = itemService.userOrderList(userId);
+	public Page<Order> userOrders(Pageable pageable, Long userId) {
+		Page<Order> orders = itemService.userOrderList(pageable, userId);
 		return orders;
 	}
 
