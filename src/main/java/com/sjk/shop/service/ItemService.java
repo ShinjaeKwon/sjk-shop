@@ -126,10 +126,14 @@ public class ItemService {
 	}
 
 	@Transactional
-	public void orderConfirm(Long userId) {
-		List<Order> allByUserId = orderRepository.findAllByUserId(userId);
+	public void orderConfirm(Authentication auth) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		List<Order> allByUserId = orderRepository.findAllByUserId(user.getId());
 		for (Order order : allByUserId) {
-			order.setStatus(OrderStatus.CONFIRM);
+			if(order.getStatus() == OrderStatus.BEFORE) {
+				order.setStatus(OrderStatus.CONFIRM);
+			}
 		}
 	}
 
@@ -170,5 +174,20 @@ public class ItemService {
 		Item item = itemRepository.findById(itemId)
 			.orElseThrow(() -> new IllegalArgumentException("상품 삭제 실패"));
 		itemRepository.delete(item);
+	}
+
+	@Transactional
+	public List<Order> orderBeforeList(Authentication auth) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		List<Order> orderList = orderRepository.findAllByUserId(user.getId());
+
+		for (int i = 0; i < orderList.size(); i++) {
+			Order order = orderList.get(i);
+			if (order.getStatus() != OrderStatus.BEFORE) {
+				orderList.remove(i--);
+			}
+		}
+		return orderList;
 	}
 }

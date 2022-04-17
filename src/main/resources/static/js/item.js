@@ -113,7 +113,6 @@ let index = {
         let data = {
             stockQuantity: $("#stockQuantity").val(),
             itemId: $("#itemId").val(),
-            userId: $("#userId").val()
         };
 
         $.ajax({
@@ -123,7 +122,7 @@ let index = {
             contentType: "application/json; charset=UTF-8",
             dataType: "json"
         }).done(function (resp) {
-            location.href = "/shop/order/" + data.userId;
+            location.href = "/shop/order";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -161,17 +160,9 @@ let index = {
     },
 
     orderConfirm: function () {
-
-        let data = {
-            userId: $("#userId").val()
-        };
-
         $.ajax({
             type: "POST",
             url: "/api/order",
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=UTF-8",
-            dataType: "json"
         }).done(function (resp) {
             alert("결제 완료")
             location.href = "/shop";

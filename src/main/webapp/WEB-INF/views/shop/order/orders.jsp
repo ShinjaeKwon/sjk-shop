@@ -18,9 +18,6 @@
             <br>
         </c:if>
     </c:forEach>
-    <form>
-        <input type="hidden" id="userId" value="${principal.user.id}">
-    </form>
     <button id="orderConfirm">Order Confirm</button>
 </div>
 <script src="/js/item.js"></script>

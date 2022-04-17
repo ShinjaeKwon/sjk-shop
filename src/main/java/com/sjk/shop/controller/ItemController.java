@@ -55,9 +55,10 @@ public class ItemController {
 		return "shop/order/orderDetail";
 	}
 
-	@GetMapping("/shop/order/{id}")
-	public String orders(@PathVariable Long id, Model model) {
-		model.addAttribute("orders", itemService.orderList(id));
+	@GetMapping("/shop/order")
+	public String orders(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("orders", itemService.orderBeforeList(auth));
 		return "shop/order/orders";
 	}
 

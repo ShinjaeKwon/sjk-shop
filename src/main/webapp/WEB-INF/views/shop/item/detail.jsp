@@ -62,7 +62,6 @@
                 StockQuantity :
                 <input type="number" value="0" min="0" max="${item.stockQuantity}" id="stockQuantity">
                 <input type="hidden" id="itemId" value="${item.id}">
-                <input type="hidden" id="userId" value="${principal.user.id}">
             </div>
         </form>
         <button id="btn-wish">Add Wish List</button>

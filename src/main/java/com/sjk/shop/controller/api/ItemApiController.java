@@ -99,9 +99,9 @@ public class ItemApiController {
 */
 
 	@PostMapping("/api/order")
-	public ResponseDto<Integer> orderConfirm(@RequestBody Map<String, String> map) {
-		Long userId = Long.parseLong(map.get("userId"));
-		itemService.orderConfirm(userId); //orderId 도 추가
+	public ResponseDto<Integer> orderConfirm() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		itemService.orderConfirm(auth); //orderId 도 추가
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
