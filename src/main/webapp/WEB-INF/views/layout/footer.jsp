@@ -2,9 +2,9 @@
 
 <br/>
 <div class="jumbotron text-center" style="margin-bottom:0">
-    <p>☑️Created By SJK</p>
-    <p>📞️010-8210-0007</p>
-    <p>🏳️️Incheon Buphyeong</p>
+    <p>☑</p>
+    <p>📞️010-1234-1234</p>
+    <p>🏳️️Incheon Seoul</p>
 </div>
 
 </body>

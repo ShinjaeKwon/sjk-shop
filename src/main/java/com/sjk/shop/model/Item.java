@@ -45,7 +45,11 @@ public class Item {
 	@ManyToOne
 	private User user;
 
-	//재고확인 로직
+	private int count;
+
+	public void increaseCount() {
+		count++;
+	}
 	public void decreaseStockQuantity(int orderQuantity) {
 		stockQuantity -= orderQuantity;
 	}

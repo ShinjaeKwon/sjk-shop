@@ -55,6 +55,7 @@ public class ItemService {
 			.stockQuantity(requestItem.getStockQuantity())
 			.category(categoryRepository.findByName(requestItem.getCategory()))
 			.user(user)
+			.count(0)
 			.build();
 
 		itemRepository.save(item);
@@ -65,10 +66,12 @@ public class ItemService {
 		return itemRepository.findAll(pageable);
 	}
 
-	@Transactional(readOnly = true)
+	@Transactional
 	public Item itemDetail(Long id) {
-		return itemRepository.findById(id)
+		Item item = itemRepository.findById(id)
 			.orElseThrow(() -> new IllegalArgumentException("아이템 상세보기 실패"));
+		item.increaseCount();
+		return item;
 	}
 
 	@Transactional
