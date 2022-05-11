@@ -28,12 +28,12 @@
         <div class="form-group">
             <label for="email">Email address:</label>
             <input type="email" value="${principal.user.email}" class="form-control" placeholder="Enter email"
-                   id="email">
+                   id="email" >
         </div>
         <div class="form-group">
             <label for="address">address:</label>
             <input type="text" value="${principal.user.address}" class="form-control" placeholder="Enter address"
-                   id="address">
+                   id="address" readonly>
         </div>
     </form>
     <button id="btn-update" class="btn btn-primary">Edit</button>
