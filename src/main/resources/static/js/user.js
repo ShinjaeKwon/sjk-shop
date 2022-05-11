@@ -36,12 +36,30 @@ let index = {
             $("#phone").focus();
             return false;
         }
-        if ($("#address").val().trim() === "") {
+        if ($("#email").val().trim() === "") {
             alert("Email을 입력해주세요.");
             $("#email").focus();
             return false;
         }
-        if ($("#address").val().trim() === "") {
+        if ($("#sample4_postcode").val().trim() === "") {
+            alert("address 입력해주세요.");
+            $("#address").focus();
+            return false;
+        }
+        if ($("#sample4_roadAddress").val().trim() === "") {
+            alert("address 입력해주세요.");
+            $("#address").focus();
+            return false;
+        }
+        if ($("#sample4_jibunAddress").val().trim() === "") {
+            alert("address 입력해주세요.");
+            $("#address").focus();
+            return false;
+        }if ($("#sample4_detailAddress").val().trim() === "") {
+            alert("address 입력해주세요.");
+            $("#address").focus();
+            return false;
+        }if ($("#sample4_extraAddress").val().trim() === "") {
             alert("address 입력해주세요.");
             $("#address").focus();
             return false;
@@ -53,7 +71,7 @@ let index = {
             password: $("#password").val(),
             phone: $("#phone").val(),
             email: $("#email").val(),
-            address: $("#address").val(),
+            address: "("+$("#sample4_postcode").val()+")"+$("#sample4_roadAddress").val()+", " +$("#sample4_detailAddress").val()
         };
 
         $.ajax({
