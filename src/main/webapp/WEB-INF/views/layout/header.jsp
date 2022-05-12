@@ -52,6 +52,9 @@
                 <a class="nav-link" href="/user/updateForm">MyPage</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/shop/myorder">MyOrder</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
 

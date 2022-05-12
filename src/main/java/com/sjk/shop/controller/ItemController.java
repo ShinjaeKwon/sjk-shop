@@ -74,4 +74,12 @@ public class ItemController {
 		model.addAttribute("orderItems", itemService.myItemOrderItem(id));
 		return "shop/item/myItem/detailOrderItem";
 	}
+
+	@GetMapping("/shop/myorder")
+	public String myOrders(Model model, @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC)
+		Pageable pageable) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("orders", itemService.myOrderList(pageable, auth));
+		return "shop/order/myorder";
+	}
 }

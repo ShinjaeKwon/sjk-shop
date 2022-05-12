@@ -49,7 +49,7 @@ public class UserController {
 	@GetMapping("/admin/management/user/detail/{id}")
 	public String userDetail(@PathVariable Long id, Model model,
 		@PageableDefault(size = 10, sort = "id",
-			direction = Sort.Direction.ASC) Pageable pageable) {
+			direction = Sort.Direction.DESC) Pageable pageable) {
 		model.addAttribute("user", userService.userDetail(id));
 		model.addAttribute("orders", userService.userOrders(pageable, id));
 		return "user/detail";

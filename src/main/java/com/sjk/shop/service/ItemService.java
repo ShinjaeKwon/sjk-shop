@@ -224,4 +224,10 @@ public class ItemService {
 		return orderItemService.itemOrderItems(item);
 	}
 
+	@Transactional
+	public Page<Order> myOrderList(Pageable pageable, Authentication auth) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		return userOrderList(pageable, user.getId());
+	}
 }
