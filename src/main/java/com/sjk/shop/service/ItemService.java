@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sjk.shop.dto.ItemSaveRequestDto;
 import com.sjk.shop.dto.OrderRequestDto;
+import com.sjk.shop.model.Board;
 import com.sjk.shop.model.Cart;
 import com.sjk.shop.model.CartItem;
 import com.sjk.shop.model.Item;
@@ -229,5 +230,11 @@ public class ItemService {
 		User user = userRepository.findByUsername(auth.getName())
 			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
 		return userOrderList(pageable, user.getId());
+	}
+
+
+	@Transactional(readOnly = true)
+	public Page<Item> searchItem(String keyword, Pageable pageable) {
+		return itemRepository.findByNameContaining(keyword, pageable);
 	}
 }

@@ -64,12 +64,6 @@
                     </div>
             </c:forEach>
     </div>
-    <%-- 상품 한개 --%>
-    <br><br><br><br>
-    <h3 style="text-align: left;">✔ 베스트 상품 </h3><hr><br>
-
-
-
 
     <br>
     <ul class="pagination justify-content-center ">
@@ -90,6 +84,21 @@
             </c:otherwise>
         </c:choose>
     </ul>
+    <div class="container">
+        <form action="/searchItem" class="needs-validation" novalidate method="get">
+            <div class="form-group" style="width: 50%; margin-left: 20%">
+                <input name="keyword" type="text" class="form-control" placeholder="상품 검색어를 입력해주세요." required>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">게시글 검색어를 입력해주세요.</div>
+                <button type="submit" class="btn btn-primary">검색</button>
+            </div>
+
+        </form>
+    </div>
+    <%-- 상품 한개 --%>
+    <br><br><br><br>
+    <h3 style="text-align: left;">✔ 베스트 상품 </h3><hr><br>
 </div>
+
 
 <%@ include file="../layout/footer.jsp" %>

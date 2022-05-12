@@ -50,7 +50,7 @@
         </c:choose>
     </ul>
     <div class="container">
-        <form action="/search" class="needs-validation" novalidate method="get">
+        <form action="/searchBoard" class="needs-validation" novalidate method="get">
             <div class="form-group" style="width: 50%; margin-left: 20%">
                 <input name="keyword" type="text" class="form-control" placeholder="게시글 검색어를 입력해주세요." required>
                 <div class="valid-feedback"></div>
