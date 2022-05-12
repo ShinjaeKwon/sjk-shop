@@ -57,7 +57,11 @@
 
             </c:otherwise>
             </c:choose>
-
+            <c:if test="${principal.user.role == 'ADMIN' || principal.user.role == 'SELLER'}">
+                <li class="nav-item">
+                    <a class="nav-link" href="/mymarket">myMarket</a>
+                </li>
+            </c:if>
             <c:if test="${principal.user.role == 'ADMIN'}">
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/management/user">Management</a>

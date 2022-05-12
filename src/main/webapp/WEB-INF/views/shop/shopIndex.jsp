@@ -47,6 +47,7 @@
         <h1>Genie Market Shop</h1>
         <p>상품은 매주 일요일마다 업데이트됩니다!</p>
         <a id="additem" href="/shop/saveItem" class="btn btn-info" role="button">Add Item</a>
+        <a class="btn btn-info" href="/shop/cart">Cart</a>
     </div>
     <br><br>
 <br>

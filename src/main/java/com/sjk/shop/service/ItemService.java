@@ -14,6 +14,7 @@ import com.sjk.shop.model.Cart;
 import com.sjk.shop.model.CartItem;
 import com.sjk.shop.model.Item;
 import com.sjk.shop.model.Order;
+import com.sjk.shop.model.OrderItem;
 import com.sjk.shop.model.OrderStatus;
 import com.sjk.shop.model.User;
 import com.sjk.shop.repository.CartItemRepository;
@@ -124,6 +125,28 @@ public class ItemService {
 	}
 
 	@Transactional
+	public void cartOrder(Long cartId, Authentication auth) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		Cart cart = cartRepository.findById(cartId)
+			.orElseThrow(() -> new IllegalArgumentException("장바구니 정보가 잘못되었습니다."));
+
+		List<CartItem> cartItems = cart.getCartItems();
+		Order order = orderService.saveOrderByUser(user);
+		for (CartItem cartItem : cartItems) {
+			int orderQuantity = cartItem.getStockQuantity(); //개별 주문 수량
+			Item item = cartItem.getItem();//개별 아이템
+			if (item.getStockQuantity() - orderQuantity < 0) {
+				new IllegalArgumentException("재고 수량 초과");
+			}
+			int orderPrice = item.getPrice() * orderQuantity;
+			orderItemService.saveOrderItem(order, item, orderPrice, orderQuantity);
+			item.decreaseStockQuantity(orderQuantity);
+		}
+		cartRepository.deleteById(cartId);
+	}
+
+	@Transactional
 	public List<Order> orderList(Long id) {
 		return orderRepository.findAllByUserId(id);
 	}
@@ -134,7 +157,7 @@ public class ItemService {
 			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
 		List<Order> allByUserId = orderRepository.findAllByUserId(user.getId());
 		for (Order order : allByUserId) {
-			if(order.getStatus() == OrderStatus.BEFORE) {
+			if (order.getStatus() == OrderStatus.BEFORE) {
 				order.setStatus(OrderStatus.CONFIRM);
 			}
 		}
@@ -152,14 +175,6 @@ public class ItemService {
 		cartItemRepository.delete(userCartItem);
 
 	}
-
-/*
-	public void orderAll(List<OrderRequestDto> orderRequestDto) {
-		for (OrderRequestDto requestDto : orderRequestDto) {
-			order(requestDto);
-		}
-	}
-*/
 
 	@Transactional
 	public Page<Order> userOrderList(Pageable pageable, Long userId) {
@@ -193,4 +208,20 @@ public class ItemService {
 		}
 		return orderList;
 	}
+
+	@Transactional
+	public List<Item> myItemList(Authentication auth) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		List<Item> items = itemRepository.findAllByUser(user);
+		return items;
+	}
+
+	@Transactional
+	public List<OrderItem> myItemOrderItem(Long id) {
+		Item item = itemRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("아이템 정보가 올바르지 않습니다."));
+		return orderItemService.itemOrderItems(item);
+	}
+
 }

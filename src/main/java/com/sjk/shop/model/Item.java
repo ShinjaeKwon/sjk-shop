@@ -50,6 +50,7 @@ public class Item {
 	public void increaseCount() {
 		count++;
 	}
+
 	public void decreaseStockQuantity(int orderQuantity) {
 		stockQuantity -= orderQuantity;
 	}

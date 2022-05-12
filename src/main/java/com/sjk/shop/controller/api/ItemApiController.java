@@ -88,15 +88,13 @@ public class ItemApiController {
 		itemService.order(orderRequestDto, auth);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
-/*
-	@PostMapping("/api/order") */
-	/* PutMapping *//*
 
-	public ResponseDto<Integer> orderAll(@RequestBody List<OrderRequestDto> orderRequestDto) {
-		itemService.orderAll(orderRequestDto);
+	@PostMapping("/api/item/cart/order")
+	public ResponseDto<Integer> orderAll(@RequestBody Map<String, String> map) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		itemService.cartOrder(Long.parseLong(map.get("cartId")), auth);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
-*/
 
 	@PostMapping("/api/order")
 	public ResponseDto<Integer> orderConfirm() {

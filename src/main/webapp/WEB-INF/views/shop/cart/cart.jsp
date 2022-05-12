@@ -14,22 +14,24 @@
                 <c:forEach var="cartItem" items="${cart.cartItems}">
                     <li>
                         <div>
+
                             <h5>상품 이름 : ${cartItem.item.name}</h5>
                                 ${cartItem.item.img}
+                                수량 : ${cartItem.stockQuantity}<br>
                             총 가격 :
                             <fmt:formatNumber value="${cartItem.item.price * cartItem.stockQuantity}"
                                               pattern="#,###,###,###"/> <br>
                         </div>
+
                         <button type="button" onclick="index.deleteItemCart(${cartItem.item.id})">
                             Delete
                         </button>
-                    </li>
-                    <br>
+                    </li><br>
                 </c:forEach>
             </ul>
         </div>
+        <input type="hidden" id="cartId" value="${cart.id}">
     </form>
-    <input type="hidden" id="userId" value="${principal.user.id}">
     <button onclick="index.deleteAllCart()">Delete All Items</button>
     <button id="order-in-cart">Order</button>
 

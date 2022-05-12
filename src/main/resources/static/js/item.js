@@ -9,11 +9,11 @@ let index = {
         $("#btn-order").on("click", () => {
             this.orders();
         });
-        $("#btn-cart-order").on("click", () => {
-            this.cartOrders();
-        });
         $("#orderConfirm").on("click", () => {
             this.orderConfirm();
+        });
+        $("#order-in-cart").on("click", () => {
+            this.cartOrders();
         });
     },
 
@@ -128,37 +128,6 @@ let index = {
         });
     },
 
-    cartOrders: function () {
-        if ($("#stockQuantity").val().trim() === "") {
-            alert("OrderQuantity 입력해주세요.");
-            $("#stockQuantity").focus();
-            return false;
-        }
-        if ($("#stockQuantity") > $("#maxOrderQuantity")) {
-            alert("재고 수량보다 주문이 많습니다.");
-            $("#stockQuantity").focus();
-            return false;
-        }
-
-        let data = {
-            stockQuantity: $("#stockQuantity").val(),
-            userId: $("#userId").val(),
-            itemId: $("#itemId").val()
-        };
-
-        $.ajax({
-            type: "POST",
-            url: "/api/order",
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=UTF-8",
-            dataType: "json"
-        }).done(function (resp) {
-            location.href = "/shop/order/" + data.userId;
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        });
-    },
-
     orderConfirm: function () {
         $.ajax({
             type: "POST",
@@ -166,6 +135,26 @@ let index = {
         }).done(function (resp) {
             alert("결제 완료")
             location.href = "/shop";
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    cartOrders: function () {
+
+        let data = {
+            cartId: $("#cartId").val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/api/item/cart/order",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json"
+
+        }).done(function (resp) {
+            location.href = "/shop/order";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

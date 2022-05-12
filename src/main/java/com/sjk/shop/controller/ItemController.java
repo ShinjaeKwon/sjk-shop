@@ -62,4 +62,16 @@ public class ItemController {
 		return "shop/order/orders";
 	}
 
+	@GetMapping("/mymarket")
+	public String myMarket(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("items", itemService.myItemList(auth));
+		return "shop/item/myItem/itemPages";
+	}
+
+	@GetMapping("/mymarket/{id}")
+	public String myMarketDetailItem(Model model, @PathVariable Long id) {
+		model.addAttribute("orderItems", itemService.myItemOrderItem(id));
+		return "shop/item/myItem/detailOrderItem";
+	}
 }
