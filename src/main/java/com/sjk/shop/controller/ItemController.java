@@ -64,16 +64,10 @@ public class ItemController {
 	}
 
 	@GetMapping("/mymarket")
-	public String myMarket(Model model) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		model.addAttribute("items", itemService.myItemList(auth));
-		return "shop/item/myItem/itemPages";
-	}
-
-	@GetMapping("/mymarket/{id}")
-	public String myMarketDetailItem(Model model, @PathVariable Long id) {
-		model.addAttribute("orderItems", itemService.myItemOrderItem(id));
-		return "shop/item/myItem/detailOrderItem";
+	public String myMarket(Model model, @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC)
+		Pageable pageable) {
+		model.addAttribute("orders", itemService.allOrderList(pageable));
+		return "shop/item/myMarket/orderList";
 	}
 
 	@GetMapping("/shop/myorder")

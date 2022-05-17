@@ -16,7 +16,20 @@
     </c:forEach>
     <br>
     <br>
-
+    주문자 이름 : ${order.user.name}<br>
+    연락처 : ${order.user.phone}<br>
+    주소 : ${order.user.address}<br>
+    <br><br><br>
+    <div>
+    <c:if test="${principal.user.role == 'ADMIN' || principal.user.role == 'SELLER'}">
+        <c:if test="${order.status == 'CONFIRM'}">
+            <button>Change to Shipping</button>
+        </c:if>
+        <c:if test="${order.status == 'SHIPPING'}">
+            <button>Change to Completed</button>
+        </c:if>
+    </c:if>
+    </div>
 </div>
 <script src="/js/item.js"></script>
 <%@ include file="../layout/footer.jsp" %>

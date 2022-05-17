@@ -10,12 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sjk.shop.dto.ItemSaveRequestDto;
 import com.sjk.shop.dto.OrderRequestDto;
-import com.sjk.shop.model.Board;
 import com.sjk.shop.model.Cart;
 import com.sjk.shop.model.CartItem;
 import com.sjk.shop.model.Item;
 import com.sjk.shop.model.Order;
-import com.sjk.shop.model.OrderItem;
 import com.sjk.shop.model.OrderStatus;
 import com.sjk.shop.model.User;
 import com.sjk.shop.repository.CartItemRepository;
@@ -174,7 +172,6 @@ public class ItemService {
 			.orElseThrow(() -> new IllegalArgumentException("아이템 불러오기 실패"));
 		userCart.decreaseCartCount(userCartItem.getStockQuantity());
 		cartItemRepository.delete(userCartItem);
-
 	}
 
 	@Transactional
@@ -211,30 +208,19 @@ public class ItemService {
 	}
 
 	@Transactional
-	public List<Item> myItemList(Authentication auth) {
-		User user = userRepository.findByUsername(auth.getName())
-			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
-		List<Item> items = itemRepository.findAllByUser(user);
-		return items;
-	}
-
-	@Transactional
-	public List<OrderItem> myItemOrderItem(Long id) {
-		Item item = itemRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("아이템 정보가 올바르지 않습니다."));
-		return orderItemService.itemOrderItems(item);
-	}
-
-	@Transactional
 	public Page<Order> myOrderList(Pageable pageable, Authentication auth) {
 		User user = userRepository.findByUsername(auth.getName())
 			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
 		return userOrderList(pageable, user.getId());
 	}
 
-
 	@Transactional(readOnly = true)
 	public Page<Item> searchItem(String keyword, Pageable pageable) {
 		return itemRepository.findByNameContaining(keyword, pageable);
+	}
+
+	@Transactional
+	public Page<Order> allOrderList(Pageable pageable) {
+		return orderRepository.findAll(pageable);
 	}
 }
