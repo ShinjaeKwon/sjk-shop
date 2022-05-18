@@ -22,14 +22,17 @@
     <br><br><br>
     <div>
         <input type="hidden" value="${order.id}" id="orderId">
-    <c:if test="${principal.user.role == 'ADMIN' || principal.user.role == 'SELLER'}">
-        <c:if test="${order.status == 'CONFIRM' || order.status == 'COMPLETED'}">
-            <button id="shipping">Change to Shipping</button>
+        <c:if test="${order.status == 'CONFIRM'}">
+           <button id="cancel">Cancel Order</button> <br><br>
         </c:if>
-        <c:if test="${order.status == 'SHIPPING'}">
-            <button id="completed">Change to Completed</button>
+        <c:if test="${principal.user.role == 'ADMIN' || principal.user.role == 'SELLER'}">
+            <c:if test="${order.status == 'CONFIRM' || order.status == 'COMPLETED'}">
+                <button id="shipping">Change to Shipping</button>
+            </c:if>
+            <c:if test="${order.status == 'SHIPPING'}">
+                <button id="completed">Change to Completed</button>
+            </c:if>
         </c:if>
-    </c:if>
     </div>
 </div>
 <script src="/js/item.js"></script>

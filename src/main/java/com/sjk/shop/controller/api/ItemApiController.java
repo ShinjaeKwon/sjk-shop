@@ -121,4 +121,10 @@ public class ItemApiController {
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
+	@PutMapping("/api/order/cancel")
+	public ResponseDto<Integer> orderCancel(@RequestBody Map<String, String> map) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		itemService.changeToCancel(Long.parseLong(map.get("orderId")), auth);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
 }

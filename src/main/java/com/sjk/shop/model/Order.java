@@ -53,7 +53,7 @@ public class Order {
 	}
 
 	public void changeToConfirm() {
-		this.status = OrderStatus.COMPLETED;
+		this.status = OrderStatus.CONFIRM;
 	}
 
 	public void changeToShipping() {
@@ -62,5 +62,13 @@ public class Order {
 
 	public void changeToCompleted() {
 		this.status = OrderStatus.COMPLETED;
+	}
+
+	public void orderCancel() {
+		this.status = OrderStatus.CANCEL;
+	}
+
+	public boolean isUser(User user) {
+		return this.user == user;
 	}
 }

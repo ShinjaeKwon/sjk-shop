@@ -21,8 +21,8 @@ let index = {
         $("#completed").on("click", () => {
             this.completed();
         });
-        $("#mistakeCompleted").on("click", () => {
-            this.mistakeCompleted();
+        $("#cancel").on("click", () => {
+            this.cancelOrder();
         });
 
     },
@@ -119,6 +119,30 @@ let index = {
                 alert("배송 완료로 변경 실패");
             } else {
                 alert("배송 완료로 변경 완료하였습니다.");
+                location.href = "/orderDetail/"+data.orderId;
+            }
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    cancelOrder: function () {
+        let data = {
+            orderId: $("#orderId").val(),
+        };
+
+        $.ajax({
+            type: "PUT",
+            url: "/api/order/cancel",
+            data: JSON.stringify(data),
+
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json"
+        }).done(function (resp) {
+            if (resp.status === 500) {
+                alert("주문 취소로 변경 실패");
+            } else {
+                alert("주문 취소 완료");
                 location.href = "/orderDetail/"+data.orderId;
             }
         }).fail(function (error) {
