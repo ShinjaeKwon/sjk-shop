@@ -2,6 +2,7 @@ package com.sjk.shop.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,5 +76,14 @@ public class UserService {
 	@Transactional
 	public Order userOrderDetail(Long orderId) {
 		return itemService.findOrder(orderId);
+	}
+
+	@Transactional
+	public void isAdminAndSeller(Authentication auth) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		if (user.getRole() == RoleType.USER) {
+			new IllegalArgumentException("사용자 권한이 정확하지 않습니다.");
+		}
 	}
 }

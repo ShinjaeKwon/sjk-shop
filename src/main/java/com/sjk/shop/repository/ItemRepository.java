@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.sjk.shop.model.Board;
 import com.sjk.shop.model.Item;
 import com.sjk.shop.model.User;
 

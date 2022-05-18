@@ -21,6 +21,7 @@ import com.sjk.shop.model.RoleType;
 import com.sjk.shop.model.User;
 import com.sjk.shop.service.CategoryService;
 import com.sjk.shop.service.ItemService;
+import com.sjk.shop.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,7 @@ public class ItemApiController {
 
 	private final ItemService itemService;
 	private final CategoryService categoryService;
+	private final UserService userService;
 
 	@PostMapping("/api/item/save")
 	public ResponseDto<Integer> save(@RequestBody ItemSaveRequestDto itemSaveRequestDto,
@@ -100,6 +102,22 @@ public class ItemApiController {
 	public ResponseDto<Integer> orderConfirm() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		itemService.orderConfirm(auth); //orderId 도 추가
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+
+	@PutMapping("/api/order/shipping")
+	public ResponseDto<Integer> changeToShipping(@RequestBody Map<String, String> map) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		userService.isAdminAndSeller(auth);
+		itemService.changeToShipping(Long.parseLong(map.get("orderId")));
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+
+	@PutMapping("/api/order/completed")
+	public ResponseDto<Integer> changeToCompleted(@RequestBody Map<String, String> map) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		userService.isAdminAndSeller(auth);
+		itemService.changeToCompleted(Long.parseLong(map.get("orderId")));
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 

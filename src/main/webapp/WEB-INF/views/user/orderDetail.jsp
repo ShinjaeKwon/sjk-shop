@@ -21,12 +21,13 @@
     주소 : ${order.user.address}<br>
     <br><br><br>
     <div>
+        <input type="hidden" value="${order.id}" id="orderId">
     <c:if test="${principal.user.role == 'ADMIN' || principal.user.role == 'SELLER'}">
-        <c:if test="${order.status == 'CONFIRM'}">
-            <button>Change to Shipping</button>
+        <c:if test="${order.status == 'CONFIRM' || order.status == 'COMPLETED'}">
+            <button id="shipping">Change to Shipping</button>
         </c:if>
         <c:if test="${order.status == 'SHIPPING'}">
-            <button>Change to Completed</button>
+            <button id="completed">Change to Completed</button>
         </c:if>
     </c:if>
     </div>

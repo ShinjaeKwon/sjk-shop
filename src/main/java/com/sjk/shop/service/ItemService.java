@@ -157,7 +157,7 @@ public class ItemService {
 		List<Order> allByUserId = orderRepository.findAllByUserId(user.getId());
 		for (Order order : allByUserId) {
 			if (order.getStatus() == OrderStatus.BEFORE) {
-				order.setStatus(OrderStatus.CONFIRM);
+				order.changeToConfirm();
 			}
 		}
 	}
@@ -222,5 +222,21 @@ public class ItemService {
 	@Transactional
 	public Page<Order> allOrderList(Pageable pageable) {
 		return orderRepository.findAll(pageable);
+	}
+
+	@Transactional
+	public void changeToShipping(Long orderId) {
+		Order order = orderRepository.findById(orderId)
+			.orElseThrow(() -> new IllegalArgumentException("OrderId가 정확하지 않습니다."));
+		order.changeToShipping();
+
+	}
+
+	@Transactional
+	public void changeToCompleted(Long orderId) {
+		Order order = orderRepository.findById(orderId)
+			.orElseThrow(() -> new IllegalArgumentException("OrderId가 정확하지 않습니다."));
+		order.changeToCompleted();
+
 	}
 }

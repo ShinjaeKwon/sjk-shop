@@ -51,4 +51,16 @@ public class Order {
 	public Order(User user) {
 		this.user = user;
 	}
+
+	public void changeToConfirm() {
+		this.status = OrderStatus.COMPLETED;
+	}
+
+	public void changeToShipping() {
+		this.status = OrderStatus.SHIPPING;
+	}
+
+	public void changeToCompleted() {
+		this.status = OrderStatus.COMPLETED;
+	}
 }

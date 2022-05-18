@@ -15,6 +15,16 @@ let index = {
         $("#order-in-cart").on("click", () => {
             this.cartOrders();
         });
+        $("#shipping").on("click", () => {
+            this.shipping();
+        });
+        $("#completed").on("click", () => {
+            this.completed();
+        });
+        $("#mistakeCompleted").on("click", () => {
+            this.mistakeCompleted();
+        });
+
     },
 
     save: function () {
@@ -61,6 +71,55 @@ let index = {
             } else {
                 alert("아이템 등록에 성공하였습니다.");
                 location.href = "/shop";
+            }
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    shipping: function () {
+
+        let data = {
+            orderId: $("#orderId").val(),
+        };
+
+        $.ajax({
+            type: "PUT",
+            url: "/api/order/shipping",
+            data: JSON.stringify(data),
+
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json"
+        }).done(function (resp) {
+            if (resp.status === 500) {
+                alert("배송 중 으로 변경 실패");
+            } else {
+                alert("배송 중으로 변경 완료하였습니다.");
+                location.href = "/orderDetail/"+data.orderId;
+            }
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    completed: function () {
+        let data = {
+            orderId: $("#orderId").val(),
+        };
+
+        $.ajax({
+            type: "PUT",
+            url: "/api/order/completed",
+            data: JSON.stringify(data),
+
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json"
+        }).done(function (resp) {
+            if (resp.status === 500) {
+                alert("배송 완료로 변경 실패");
+            } else {
+                alert("배송 완료로 변경 완료하였습니다.");
+                location.href = "/orderDetail/"+data.orderId;
             }
         }).fail(function (error) {
             alert(JSON.stringify(error));
