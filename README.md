@@ -1,5 +1,5 @@
 ## 프로젝트 명
-Gini Market
+Genie Market
 
 ---
 
