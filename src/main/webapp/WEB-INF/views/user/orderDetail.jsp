@@ -9,6 +9,7 @@
     주문 시간 : ${date} <br>
     주문 상태 : ${order.status}<br>
     <c:forEach var="orderItem" items="${order.orderItems}">
+        <a href="/shop/${orderItem.item.id}">${orderItem.item.img}</a>
         상품 이름 : ${orderItem.item.name}<br>
         주문 수량 : ${orderItem.orderQuantity}<br>
         총가격 : <fmt:formatNumber value="${orderItem.orderPrices}" pattern="#,###,###,###"/>원
@@ -23,7 +24,8 @@
     <div>
         <input type="hidden" value="${order.id}" id="orderId">
         <c:if test="${order.status == 'CONFIRM'}">
-           <button id="cancel">Cancel Order</button> <br><br>
+            <button id="cancel">Cancel Order</button>
+            <br><br>
         </c:if>
         <c:if test="${principal.user.role == 'ADMIN' || principal.user.role == 'SELLER'}">
             <c:if test="${order.status == 'CONFIRM' || order.status == 'COMPLETED'}">

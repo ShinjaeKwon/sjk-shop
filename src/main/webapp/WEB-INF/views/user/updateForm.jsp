@@ -28,7 +28,7 @@
         <div class="form-group">
             <label for="email">Email address:</label>
             <input type="email" value="${principal.user.email}" class="form-control" placeholder="Enter email"
-                   id="email" >
+                   id="email">
         </div>
         <div class="form-group">
             <label for="address">address:</label>

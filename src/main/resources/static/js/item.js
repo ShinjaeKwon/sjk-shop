@@ -24,6 +24,9 @@ let index = {
         $("#cancel").on("click", () => {
             this.cancelOrder();
         });
+        $("#payment").on("click", () => {
+            this.requestPay();
+        });
 
     },
 
@@ -95,7 +98,7 @@ let index = {
                 alert("배송 중 으로 변경 실패");
             } else {
                 alert("배송 중으로 변경 완료하였습니다.");
-                location.href = "/orderDetail/"+data.orderId;
+                location.href = "/orderDetail/" + data.orderId;
             }
         }).fail(function (error) {
             alert(JSON.stringify(error));
@@ -119,7 +122,7 @@ let index = {
                 alert("배송 완료로 변경 실패");
             } else {
                 alert("배송 완료로 변경 완료하였습니다.");
-                location.href = "/orderDetail/"+data.orderId;
+                location.href = "/orderDetail/" + data.orderId;
             }
         }).fail(function (error) {
             alert(JSON.stringify(error));
@@ -143,7 +146,7 @@ let index = {
                 alert("주문 취소로 변경 실패");
             } else {
                 alert("주문 취소 완료");
-                location.href = "/orderDetail/"+data.orderId;
+                location.href = "/orderDetail/" + data.orderId;
             }
         }).fail(function (error) {
             alert(JSON.stringify(error));
@@ -210,6 +213,37 @@ let index = {
             alert(JSON.stringify(error));
         });
     },
+
+    /*
+        requestPay: function () {
+            IMP.init('imp39314507');
+            IMP.request_pay({
+                pg : 'kcp',
+                pay_method : 'kakaopay',
+                merchant_uid : 'merchant_' + new Date().getTime(),
+                name : 'Genie Market' , //결제창에서 보여질 이름
+                amount : ${orderItem.orderPrices}, //실제 결제되는 가격
+                buyer_email : '${order.user.email}',
+                buyer_name : '${order.user.name}',
+                buyer_tel : '${order.user.phone}',
+                buyer_addr : '${order.user.address}',
+                buyer_postcode : ''
+            }, function(rsp) {
+                console.log(rsp);
+                if ( rsp.success ) {
+                 2   var msg = '결제가 완료되었습니다.';
+                    msg += '고유ID : ' + rsp.imp_uid;
+                    msg += '상점 거래ID : ' + rsp.merchant_uid;
+                    msg += '결제 금액 : ' + rsp.paid_amount;
+                    msg += '카드 승인번호 : ' + rsp.apply_num;
+                } else {
+                    var msg = '결제에 실패하였습니다.';
+                    msg += '에러내용 : ' + rsp.error_msg;
+                }
+                alert(msg);
+            });
+        },
+    */
 
     orderConfirm: function () {
         $.ajax({

@@ -43,7 +43,6 @@
             <hr>
             🔹 가격 : ${item.price}원 <br>
             <hr>
-            🔹 재고수량 : ${item.stockQuantity}개<br>
             🔹 카테고리 : ${item.category.name}<br>
             <hr>
             🔹 등록자 : ${item.user.name}<br>
@@ -51,18 +50,17 @@
     </div>
     <div class="under">
         <br>
-        <%--delete 조건문 --%>
         <c:if test="${principal.user.id eq item.user.id}">
-            <%-- 오더 Cascade 설정 시 문제 해결 -> order내역이 다 지워짐 --%>
             <button onclick="index.deleteItem(${item.id})" class="btn btn-danger">Delete Item</button>
         </c:if>
-        <%-- 회원 주문 --%>
-        <form>
+        <form method="post" action="/order/confirm">
             <div class="form-group">
                 StockQuantity :
-                <input type="number" value="0" min="0" max="${item.stockQuantity}" id="stockQuantity">
-                <input type="hidden" id="itemId" value="${item.id}">
+                <input type="number" name="stockQuantity" value="0" min="0" max="${item.stockQuantity}"
+                       id="stockQuantity">
+                <input type="hidden" name="itemId" id="itemId" value="${item.id}">
             </div>
+            <input type="submit" value="주문">
         </form>
         <button id="btn-wish">Add Wish List</button>
         <button id="btn-order">Order</button>

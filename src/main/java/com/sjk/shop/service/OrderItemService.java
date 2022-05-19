@@ -1,7 +1,5 @@
 package com.sjk.shop.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,10 +20,7 @@ public class OrderItemService {
 	public void saveOrderItem(Order order, Item item, int orderPrice, Integer orderQuantity) {
 		OrderItem orderItem = new OrderItem(order, item, orderPrice, orderQuantity);
 		orderItemRepository.save(orderItem);
+		order.addPriceInOrder();
 	}
 
-	@Transactional
-	public List<OrderItem> itemOrderItems(Item item) {
-		return orderItemRepository.findAllByItem(item);
-	}
 }

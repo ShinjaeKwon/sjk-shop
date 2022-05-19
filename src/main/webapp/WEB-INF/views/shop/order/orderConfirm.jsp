@@ -35,21 +35,28 @@
 
 <div class="container">
     <button class="btn btn-secondary" onclick="history.back()">Previous Page</button>
-    <br>
-    <c:forEach var="order" items="${orders}">
-        <c:if test="${order.status == 'BEFORE'}">
-            <c:forEach var="orderItem" items="${order.orderItems}">
-                상품 이름 : ${orderItem.item.name}<br>
-                주문 수량 : ${orderItem.orderQuantity}<br>
-                총가격 : <fmt:formatNumber value="${orderItem.orderPrices}" pattern="#,###,###,###"/>원
-                <br>
-            </c:forEach>
-            <br>
-            <br>
-        </c:if>
-        주문 총 가격 : ${order.prices}
-    </c:forEach>
-    <input type="hidden" id="orderPrices" value="${order}">
+    <hr>
+    <form>
+        <h2>구매자 정보</h2>
+        이름 : ${cart.user.name}<br>
+        배송 주소 : ${cart.user.address}<br>
+        연락처 : ${cart.user.phone}<br>
+        배송 요청 사항 : <input type="text" placeholder="배송 요청 사항을 입력하세요." id="requests">
+        <hr>
+        <h2>주문 정보</h2>
+        <c:set var="total" value="0"/>
+        <c:forEach var="cartItem" items="${cart.cartItems}">
+            ${cartItem.item.img}<br>
+            <b>${cartItem.item.name}</b><br>
+            주문 수량 : ${cartItem.stockQuantity}
+            <c:set var="total" value="${total + (cartItem.stockQuantity * cartItem.item.price)}"/>
+            <hr>
+        </c:forEach>
+        <br>
+        <h2>결제 정보</h2>
+        총 결제 금액 : <fmt:formatNumber value="${total}" pattern="#,###,###,###"/>원
+    </form>
+
     <button onclick="requestPay()">Payment</button>
     <button id="orderConfirm">Order Confirm</button>
 </div>

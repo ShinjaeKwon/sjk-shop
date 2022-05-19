@@ -8,15 +8,18 @@
         .upd {
             text-align: center;
         }
+
         #additem {
             background-color: #9AA4FF;
             border: none;
         }
+
         #sbtn {
             background-color: #9AA4FF;
             border: none;
             margin-bottom: 10px;
         }
+
         .border {
             border-color: dimgrey;
             border-style: outset;
@@ -27,6 +30,7 @@
             text-align: center;
             flex: none;
         }
+
         .shopitem {
             display: flex;
             flex-wrap: wrap;
@@ -35,6 +39,7 @@
             margin-right: auto;
             margin-top: 30px;
         }
+
         #img {
             padding-top: 10px;
         }
@@ -50,19 +55,21 @@
         <a class="btn btn-info" href="/shop/cart">Cart</a>
     </div>
     <br><br>
-<br>
     <br>
-    <h3 style="text-align: left;">✔ 신상품</h3><hr><br>
+    <br>
+    <h3 style="text-align: left;">✔ 신상품</h3>
+    <hr>
+    <br>
     <%-- 상품 한개 --%>
     <div class="shopitem">
-            <c:forEach var="item" items="${items.content}">
-                    <div class="border">
-                        <div id="img">${item.img}</div>
-                        <h4>${item.name}</h4>
-                        <h6>가격 : ${item.price}원</h6>
-                        <a id="sbtn" href="/shop/${item.id}" class="btn btn-primary">상세상품보기</a>
-                    </div>
-            </c:forEach>
+        <c:forEach var="item" items="${items.content}">
+            <div class="border">
+                <div id="img">${item.img}</div>
+                <h4>${item.name}</h4>
+                <h6>가격 : ${item.price}원</h6>
+                <a id="sbtn" href="/shop/${item.id}" class="btn btn-primary">상세상품보기</a>
+            </div>
+        </c:forEach>
     </div>
 
     <br>
@@ -97,7 +104,10 @@
     </div>
     <%-- 상품 한개 --%>
     <br><br><br><br>
-    <h3 style="text-align: left;">✔ 베스트 상품 </h3><hr><br>
+    <h3 style="text-align: left;">✔ 베스트 상품 </h3>
+    <hr>
+    <br>
+
 </div>
 
 

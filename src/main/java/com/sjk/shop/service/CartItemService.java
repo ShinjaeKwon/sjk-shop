@@ -26,6 +26,5 @@ public class CartItemService {
 		cartItem.addStockQuantity(wishStockQuantity);
 		cart.addCartCount(wishStockQuantity);
 		cartItemRepository.save(cartItem);
-
 	}
 }

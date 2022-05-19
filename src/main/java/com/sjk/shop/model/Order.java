@@ -32,24 +32,29 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Order {
 
+	int prices;
 	@Id
 	@GeneratedValue
 	private Long id;
-
 	@ManyToOne
 	private User user;
-
 	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
 	private List<OrderItem> orderItems = new ArrayList<>();
-
 	@CreationTimestamp
 	private Timestamp orderDate;
-
 	@Enumerated(EnumType.STRING)
-	private OrderStatus status = OrderStatus.BEFORE; //default value
+	private OrderStatus status = OrderStatus.BEFORE;
+	private String requests;
 
 	public Order(User user) {
 		this.user = user;
+		this.prices = 0;
+	}
+
+	public void addPriceInOrder() {
+		for (OrderItem orderItem : this.orderItems) {
+			prices += orderItem.getOrderPrices();
+		}
 	}
 
 	public void changeToConfirm() {

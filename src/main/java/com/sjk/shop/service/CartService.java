@@ -19,7 +19,7 @@ public class CartService {
 
 	@Transactional
 	public Cart findCartByUser(User user) {
-		Cart cart = cartRepository.findByUserId(user.getId())
+		Cart cart = cartRepository.findByUser(user)
 			.orElse(Cart.createCart(user));
 		cartRepository.save(cart);
 		return cart;

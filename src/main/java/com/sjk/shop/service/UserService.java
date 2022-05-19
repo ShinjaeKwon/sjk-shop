@@ -86,4 +86,10 @@ public class UserService {
 			new IllegalArgumentException("사용자 권한이 정확하지 않습니다.");
 		}
 	}
+
+	@Transactional
+	public User findUser(Authentication auth) {
+		return userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+	}
 }

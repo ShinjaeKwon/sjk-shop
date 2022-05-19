@@ -55,11 +55,13 @@ let index = {
             alert("address 입력해주세요.");
             $("#address").focus();
             return false;
-        }if ($("#sample4_detailAddress").val().trim() === "") {
+        }
+        if ($("#sample4_detailAddress").val().trim() === "") {
             alert("address 입력해주세요.");
             $("#address").focus();
             return false;
-        }if ($("#sample4_extraAddress").val().trim() === "") {
+        }
+        if ($("#sample4_extraAddress").val().trim() === "") {
             alert("address 입력해주세요.");
             $("#address").focus();
             return false;
@@ -71,7 +73,7 @@ let index = {
             password: $("#password").val(),
             phone: $("#phone").val(),
             email: $("#email").val(),
-            address: "("+$("#sample4_postcode").val()+")"+$("#sample4_roadAddress").val()+", " +$("#sample4_detailAddress").val()
+            address: "(" + $("#sample4_postcode").val() + ")" + $("#sample4_roadAddress").val() + ", " + $("#sample4_detailAddress").val()
         };
 
         $.ajax({

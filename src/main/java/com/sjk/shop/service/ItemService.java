@@ -98,7 +98,7 @@ public class ItemService {
 	public void deleteAllCart(Authentication auth) {
 		User user = userRepository.findByUsername(auth.getName())
 			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자의 정보가 정확하지 않습니다."));
-		Cart cart = cartRepository.findByUserId(user.getId())
+		Cart cart = cartRepository.findByUser(user)
 			.orElseThrow(() -> new IllegalArgumentException("장바구니 불러오기 실패"));
 		cartRepository.delete(cart);
 	}
@@ -118,8 +118,8 @@ public class ItemService {
 		Order order = orderService.saveOrderByUser(user);
 
 		int orderPrice = item.getPrice() * orderQuantity;
-		orderItemService.saveOrderItem(order, item, orderPrice, orderQuantity);
 
+		orderItemService.saveOrderItem(order, item, orderPrice, orderQuantity);
 		item.decreaseStockQuantity(orderQuantity);
 	}
 
@@ -166,7 +166,7 @@ public class ItemService {
 	public void deleteItemCart(Authentication auth, Long itemId) {
 		User user = userRepository.findByUsername(auth.getName())
 			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
-		Cart userCart = cartRepository.findByUserId(user.getId())
+		Cart userCart = cartRepository.findByUser(user)
 			.orElseThrow(() -> new IllegalArgumentException("로그인 정보가 정확하지 않습니다."));
 		CartItem userCartItem = cartItemRepository.findByCartIdAndItemId(userCart.getId(), itemId)
 			.orElseThrow(() -> new IllegalArgumentException("아이템 불러오기 실패"));
@@ -253,5 +253,18 @@ public class ItemService {
 			new IllegalArgumentException("현재 주문을 취소할 수 없는 상태입니다.");
 		}
 		order.orderCancel();
+	}
+
+	@Transactional
+	public Cart findCartByUser(User user) {
+		return cartRepository.findByUser(user)
+			.orElseThrow(() -> new IllegalArgumentException("장바구니 정보가 정확하지 않습니다."));
+	}
+
+	public boolean isCart(String itemId, String stockQuantity) {
+		if (itemId == null || stockQuantity == null) {
+			return true;
+		}
+		return false;
 	}
 }
