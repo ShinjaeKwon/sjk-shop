@@ -48,11 +48,14 @@ public class Item {
 	private int count;
 
 	public void increaseCount() {
-		count++;
+		this.count++;
 	}
 
 	public void decreaseStockQuantity(int orderQuantity) {
-		stockQuantity -= orderQuantity;
+		this.stockQuantity -= orderQuantity;
 	}
 
+	public void addStockQuantity(int orderQuantity) {
+		this.stockQuantity += orderQuantity;
+	}
 }

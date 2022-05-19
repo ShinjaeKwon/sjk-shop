@@ -66,6 +66,7 @@ public class Order {
 
 	public void orderCancel() {
 		this.status = OrderStatus.CANCEL;
+		cancelOrderAddStockQuantity();
 	}
 
 	public boolean isUser(User user) {
@@ -74,5 +75,11 @@ public class Order {
 
 	public boolean isCancel() {
 		return this.status != OrderStatus.CONFIRM;
+	}
+
+	private void cancelOrderAddStockQuantity() {
+		for (OrderItem orderItem : this.orderItems) {
+			orderItem.cancelOrderItem();
+		}
 	}
 }

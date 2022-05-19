@@ -39,4 +39,9 @@ public class OrderItem {
 		this.orderPrices = orderPrices;
 		this.orderQuantity = orderQuantity;
 	}
+
+	public void cancelOrderItem() {
+		item.addStockQuantity(orderQuantity);
+	}
+
 }
