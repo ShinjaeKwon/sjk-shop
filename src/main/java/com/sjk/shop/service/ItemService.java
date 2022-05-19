@@ -246,8 +246,11 @@ public class ItemService {
 			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
 		Order order = orderRepository.findById(orderId)
 			.orElseThrow(() -> new IllegalArgumentException("주문이 정확하지 않습니다."));
-		if (!order.isUser(user)) {
+		if (order.isUser(user)) {
 			new IllegalArgumentException("로그인 사용자와 주문자가 일치하지 않습니다.");
+		}
+		if (order.isCancel()) {
+			new IllegalArgumentException("현재 주문을 취소할 수 없는 상태입니다.");
 		}
 		order.orderCancel();
 	}

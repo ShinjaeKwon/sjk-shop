@@ -69,6 +69,10 @@ public class Order {
 	}
 
 	public boolean isUser(User user) {
-		return this.user == user;
+		return this.user != user;
+	}
+
+	public boolean isCancel() {
+		return this.status != OrderStatus.CONFIRM;
 	}
 }
