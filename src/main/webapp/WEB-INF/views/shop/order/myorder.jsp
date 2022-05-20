@@ -5,10 +5,16 @@
 <br>
 <div class="container">
     <h2>주문 목록</h2>
+    <b>
+        BEFORE : 주문 완료&nbsp;&nbsp;&nbsp;
+        CONFIRM : 주문 확정&nbsp;&nbsp;&nbsp;
+        SHIPPING : 배송 중&nbsp;&nbsp;&nbsp;
+        COMPLETED : 주문 확정&nbsp;&nbsp;&nbsp;
+        CANCEL : 주문 취소&nbsp;&nbsp;&nbsp;
+    </b>
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>Order ID</th>
             <th>Order Date</th>
             <th>Order Detail</th>
             <th>Order State</th>
@@ -17,7 +23,6 @@
         <tbody>
         <c:forEach var="order" items="${orders.content}">
             <tr>
-                <td>${order.id}</td>
                 <fmt:formatDate var="date" value="${order.orderDate}" pattern="YY.MM.dd HH:mm:ss"/>
                 <td>${date}</td>
                 <td><a href="/orderDetail/${order.id}">detail</a></td>

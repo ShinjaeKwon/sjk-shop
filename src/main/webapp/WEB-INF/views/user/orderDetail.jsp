@@ -19,10 +19,14 @@
     <br>
     주문자 이름 : ${order.user.name}<br>
     연락처 : ${order.user.phone}<br>
-    주소 : ${order.user.address}<br>
+    배송 주소 : ${order.user.address}<br>
     <br><br><br>
     <div>
         <input type="hidden" value="${order.id}" id="orderId">
+        <c:if test="${order.status == 'BEFORE'}">
+            <button id="confirm">Confirm Order</button>
+            <br><br>
+        </c:if>
         <c:if test="${order.status == 'CONFIRM'}">
             <button id="cancel">Cancel Order</button>
             <br><br>

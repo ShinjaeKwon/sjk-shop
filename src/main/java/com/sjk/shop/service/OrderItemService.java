@@ -20,7 +20,6 @@ public class OrderItemService {
 	public void saveOrderItem(Order order, Item item, int orderPrice, Integer orderQuantity) {
 		OrderItem orderItem = new OrderItem(order, item, orderPrice, orderQuantity);
 		orderItemRepository.save(orderItem);
-		order.addPriceInOrder();
 	}
 
 }

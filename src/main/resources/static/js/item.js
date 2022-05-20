@@ -6,15 +6,6 @@ let index = {
         $("#btn-wish").on("click", () => {
             this.wish();
         });
-        $("#btn-order").on("click", () => {
-            this.orders();
-        });
-        $("#orderConfirm").on("click", () => {
-            this.orderConfirm();
-        });
-        $("#order-in-cart").on("click", () => {
-            this.cartOrders();
-        });
         $("#shipping").on("click", () => {
             this.shipping();
         });
@@ -22,9 +13,12 @@ let index = {
             this.completed();
         });
         $("#cancel").on("click", () => {
-            this.cancelOrder();
+            this.cancel();
         });
-        $("#payment").on("click", () => {
+        $("#confirm").on("click", () => {
+            this.confirms();
+        });
+        $("#requestPay").on("click", () => {
             this.requestPay();
         });
 
@@ -129,7 +123,7 @@ let index = {
         });
     },
 
-    cancelOrder: function () {
+    cancel: function () {
         let data = {
             orderId: $("#orderId").val(),
         };
@@ -146,6 +140,29 @@ let index = {
                 alert("주문 취소로 변경 실패");
             } else {
                 alert("주문 취소 완료");
+                location.href = "/orderDetail/" + data.orderId;
+            }
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    confirms: function () {
+        let data = {
+            orderId: $("#orderId").val(),
+        };
+
+        $.ajax({
+            type: "PUT",
+            url: "/api/order/confirm",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json"
+        }).done(function (resp) {
+            if (resp.status === 500) {
+                alert("배송 중으로 변경 실패");
+            } else {
+                alert("배송 중으로 변경 완료");
                 location.href = "/orderDetail/" + data.orderId;
             }
         }).fail(function (error) {
@@ -184,96 +201,40 @@ let index = {
         });
     },
 
-    orders: function () {
-        if ($("#stockQuantity").val().trim() === "") {
-            alert("OrderQuantity 입력해주세요.");
-            $("#stockQuantity").focus();
-            return false;
-        }
-        if ($("#stockQuantity") > $("#maxOrderQuantity")) {
-            alert("재고 수량보다 주문이 많습니다.");
-            $("#stockQuantity").focus();
-            return false;
-        }
-
-        let data = {
-            stockQuantity: $("#stockQuantity").val(),
-            itemId: $("#itemId").val(),
-        };
-
-        $.ajax({
-            type: "PUT",
-            url: "/api/order",
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=UTF-8",
-            dataType: "json"
-        }).done(function (resp) {
-            location.href = "/shop/order";
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        });
-    },
-
-    /*
-        requestPay: function () {
-            IMP.init('imp39314507');
-            IMP.request_pay({
-                pg : 'kcp',
-                pay_method : 'kakaopay',
-                merchant_uid : 'merchant_' + new Date().getTime(),
-                name : 'Genie Market' , //결제창에서 보여질 이름
-                amount : ${orderItem.orderPrices}, //실제 결제되는 가격
-                buyer_email : '${order.user.email}',
-                buyer_name : '${order.user.name}',
-                buyer_tel : '${order.user.phone}',
-                buyer_addr : '${order.user.address}',
-                buyer_postcode : ''
-            }, function(rsp) {
-                console.log(rsp);
-                if ( rsp.success ) {
-                 2   var msg = '결제가 완료되었습니다.';
-                    msg += '고유ID : ' + rsp.imp_uid;
-                    msg += '상점 거래ID : ' + rsp.merchant_uid;
-                    msg += '결제 금액 : ' + rsp.paid_amount;
-                    msg += '카드 승인번호 : ' + rsp.apply_num;
-                } else {
-                    var msg = '결제에 실패하였습니다.';
-                    msg += '에러내용 : ' + rsp.error_msg;
-                }
+    requestPay: function () {
+        IMP.init('imp39314507');
+        IMP.request_pay({
+            pg: 'kcp',
+            pay_method: 'card',
+            merchant_uid: 'merchant_' + new Date().getTime(),
+            name: 'Genie Market', //결제창에서 보여질 이름
+            amount: $("#total").val(), //실제 결제되는 가격
+            buyer_email: $("#email").val(),
+            buyer_name: $("#name").val(),
+            buyer_tel: $("#phone").val(),
+            buyer_addr: $("#address").val(),
+            buyer_postcode: ''
+        }, function (rsp) {
+            console.log(rsp);
+            if (rsp.success) {
+                let data = {
+                    cartId: $("#cartId").val()
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/api/order",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=UTF-8",
+                    dataType: "json"
+                }).done(function (resp) {
+                    location.href = "/shop/orderDetail";
+                }).fail(function (error) {
+                    alert(JSON.stringify(error));
+                });
+            } else {
+                var msg = '결제에 실패하였습니다.';
                 alert(msg);
-            });
-        },
-    */
-
-    orderConfirm: function () {
-        $.ajax({
-            type: "POST",
-            url: "/api/order",
-        }).done(function (resp) {
-            alert("결제 완료")
-            location.href = "/shop";
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        });
-    },
-
-    cartOrders: function () {
-
-        let data = {
-            cartId: $("#cartId").val()
-        };
-
-        $.ajax({
-            type: "POST",
-            url: "/api/item/cart/order",
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=UTF-8",
-            dataType: "json"
-
-        }).done(function (resp) {
-            location.href = "/shop/order";
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
+            }
         });
     },
 

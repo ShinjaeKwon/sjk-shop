@@ -35,8 +35,6 @@
         <input type="submit" value="주문">
     </form>
 
-    <button id="order-in-cart">Order</button>
-
 </div>
 
 <script src="/js/item.js"></script>

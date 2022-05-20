@@ -2,37 +2,6 @@
 
 <%@ include file="../../layout/header.jsp" %>
 
-<script>
-    function requestPay() {
-        IMP.init('imp39314507');
-        IMP.request_pay({
-            pg: 'kcp',
-            pay_method: 'kakaopay',
-            merchant_uid: 'merchant_' + new Date().getTime(),
-            name: 'Genie Market', //결제창에서 보여질 이름
-            amount: ${orderItem.orderPrices}, //실제 결제되는 가격
-            buyer_email: '${order.user.email}',
-            buyer_name: '${order.user.name}',
-            buyer_tel: '${order.user.phone}',
-            buyer_addr: '${order.user.address}',
-            buyer_postcode: ''
-        }, function (rsp) {
-            console.log(rsp);
-            if (rsp.success) {
-                var msg = '결제가 완료되었습니다.';
-                msg += '고유ID : ' + rsp.imp_uid;
-                msg += '상점 거래ID : ' + rsp.merchant_uid;
-                msg += '결제 금액 : ' + rsp.paid_amount;
-                msg += '카드 승인번호 : ' + rsp.apply_num;
-            } else {
-                var msg = '결제에 실패하였습니다.';
-                msg += '에러내용 : ' + rsp.error_msg;
-            }
-            alert(msg);
-        });
-    }
-</script>
-
 <div class="container">
     <button class="btn btn-secondary" onclick="history.back()">Previous Page</button>
     <hr>
@@ -55,9 +24,15 @@
         <br>
         <h2>결제 정보</h2>
         총 결제 금액 : <fmt:formatNumber value="${total}" pattern="#,###,###,###"/>원
+        <input type="hidden" id="total" value="${total}">
+        <input type="hidden" id="email" value="${principal.user.email}">
+        <input type="hidden" id="name" value="${principal.user.name}">
+        <input type="hidden" id="phone" value="${principal.user.phone}">
+        <input type="hidden" id="address" value="${principal.user.address}">
+        <input type="hidden" id="cartId" value="${cart.id}">
     </form>
 
-    <button onclick="requestPay()">Payment</button>
+    <button id="requestPay">Payment</button>
     <button id="orderConfirm">Order Confirm</button>
 </div>
 <script src="/js/item.js"></script>

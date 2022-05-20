@@ -57,19 +57,6 @@ public class ItemController {
 		return "shop/cart/cart";
 	}
 
-	@GetMapping("/shop/orderList/{id}")
-	public String orderList(@PathVariable Long id, Model model) {
-		model.addAttribute("orders", itemService.orderList(id));
-		return "shop/order/orderDetail";
-	}
-
-	@GetMapping("/shop/order")
-	public String orders(Model model) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		model.addAttribute("orders", itemService.orderBeforeList(auth));
-		return "shop/order/orders";
-	}
-
 	@GetMapping("/mymarket")
 	public String myMarket(Model model, @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC)
 		Pageable pageable) {
@@ -108,7 +95,14 @@ public class ItemController {
 			User user = userService.findUser(auth);
 			model.addAttribute("cart", itemService.findCartByUser(user));
 		}
-
 		return "shop/order/orderConfirm";
+	}
+
+	@GetMapping("/shop/orderDetail")
+	public String orderDetail(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUser(auth);
+		model.addAttribute("order", itemService.findOrderByUser(user));
+		return "shop/order/detail";
 	}
 }

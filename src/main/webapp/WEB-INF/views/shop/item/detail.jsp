@@ -56,14 +56,13 @@
         <form method="post" action="/order/confirm">
             <div class="form-group">
                 StockQuantity :
-                <input type="number" name="stockQuantity" value="0" min="0" max="${item.stockQuantity}"
-                       id="stockQuantity">
+                <input type="number" name="stockQuantity" value="0" min="1" max="${item.stockQuantity}"
+                       id="stockQuantity" required>
                 <input type="hidden" name="itemId" id="itemId" value="${item.id}">
             </div>
             <input type="submit" value="주문">
+            <button id="btn-wish">Add Wish List</button>
         </form>
-        <button id="btn-wish">Add Wish List</button>
-        <button id="btn-order">Order</button>
     </div>
 </div>
 

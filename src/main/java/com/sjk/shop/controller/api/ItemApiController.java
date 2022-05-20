@@ -84,24 +84,10 @@ public class ItemApiController {
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
-	@PutMapping("/api/order")
-	public ResponseDto<Integer> order(@RequestBody OrderRequestDto orderRequestDto) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		itemService.order(orderRequestDto, auth);
-		return new ResponseDto<>(HttpStatus.OK.value(), 1);
-	}
-
-	@PostMapping("/api/item/cart/order")
-	public ResponseDto<Integer> orderAll(@RequestBody Map<String, String> map) {
+	@PostMapping("/api/order")
+	public ResponseDto<Integer> orderConfirm(@RequestBody Map<String, String> map) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		itemService.cartOrder(Long.parseLong(map.get("cartId")), auth);
-		return new ResponseDto<>(HttpStatus.OK.value(), 1);
-	}
-
-	@PostMapping("/api/order")
-	public ResponseDto<Integer> orderConfirm() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		itemService.orderConfirm(auth); //orderId 도 추가
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
@@ -110,6 +96,14 @@ public class ItemApiController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		userService.isAdminAndSeller(auth);
 		itemService.changeToShipping(Long.parseLong(map.get("orderId")));
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+
+	@PutMapping("/api/order/confirm")
+	public ResponseDto<Integer> changeToConfirm(@RequestBody Map<String, String> map) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		userService.isAdminAndSeller(auth);
+		itemService.changeToConfirm(Long.parseLong(map.get("orderId")));
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 

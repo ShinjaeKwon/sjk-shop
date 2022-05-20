@@ -51,10 +51,8 @@ public class Order {
 		this.prices = 0;
 	}
 
-	public void addPriceInOrder() {
-		for (OrderItem orderItem : this.orderItems) {
-			prices += orderItem.getOrderPrices();
-		}
+	public void addPriceInOrder(int orderPrice) {
+		this.prices += orderPrice;
 	}
 
 	public void changeToConfirm() {

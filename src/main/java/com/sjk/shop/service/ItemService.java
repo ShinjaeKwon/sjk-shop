@@ -14,7 +14,6 @@ import com.sjk.shop.model.Cart;
 import com.sjk.shop.model.CartItem;
 import com.sjk.shop.model.Item;
 import com.sjk.shop.model.Order;
-import com.sjk.shop.model.OrderStatus;
 import com.sjk.shop.model.User;
 import com.sjk.shop.repository.CartItemRepository;
 import com.sjk.shop.repository.CartRepository;
@@ -116,10 +115,9 @@ public class ItemService {
 		}
 
 		Order order = orderService.saveOrderByUser(user);
-
 		int orderPrice = item.getPrice() * orderQuantity;
-
 		orderItemService.saveOrderItem(order, item, orderPrice, orderQuantity);
+		order.addPriceInOrder(orderPrice);
 		item.decreaseStockQuantity(orderQuantity);
 	}
 
@@ -140,26 +138,10 @@ public class ItemService {
 			}
 			int orderPrice = item.getPrice() * orderQuantity;
 			orderItemService.saveOrderItem(order, item, orderPrice, orderQuantity);
+			order.addPriceInOrder(orderPrice);
 			item.decreaseStockQuantity(orderQuantity);
 		}
 		cartRepository.deleteById(cartId);
-	}
-
-	@Transactional
-	public List<Order> orderList(Long id) {
-		return orderRepository.findAllByUserId(id);
-	}
-
-	@Transactional
-	public void orderConfirm(Authentication auth) {
-		User user = userRepository.findByUsername(auth.getName())
-			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
-		List<Order> allByUserId = orderRepository.findAllByUserId(user.getId());
-		for (Order order : allByUserId) {
-			if (order.getStatus() == OrderStatus.BEFORE) {
-				order.changeToConfirm();
-			}
-		}
 	}
 
 	@Transactional
@@ -193,21 +175,6 @@ public class ItemService {
 	}
 
 	@Transactional
-	public List<Order> orderBeforeList(Authentication auth) {
-		User user = userRepository.findByUsername(auth.getName())
-			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
-		List<Order> orderList = orderRepository.findAllByUserId(user.getId());
-
-		for (int i = 0; i < orderList.size(); i++) {
-			Order order = orderList.get(i);
-			if (order.getStatus() != OrderStatus.BEFORE) {
-				orderList.remove(i--);
-			}
-		}
-		return orderList;
-	}
-
-	@Transactional
 	public Page<Order> myOrderList(Pageable pageable, Authentication auth) {
 		User user = userRepository.findByUsername(auth.getName())
 			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
@@ -229,7 +196,6 @@ public class ItemService {
 		Order order = orderRepository.findById(orderId)
 			.orElseThrow(() -> new IllegalArgumentException("OrderId가 정확하지 않습니다."));
 		order.changeToShipping();
-
 	}
 
 	@Transactional
@@ -237,7 +203,6 @@ public class ItemService {
 		Order order = orderRepository.findById(orderId)
 			.orElseThrow(() -> new IllegalArgumentException("OrderId가 정확하지 않습니다."));
 		order.changeToCompleted();
-
 	}
 
 	@Transactional
@@ -266,5 +231,18 @@ public class ItemService {
 			return true;
 		}
 		return false;
+	}
+
+	@Transactional
+	public Order findOrderByUser(User user) {
+		List<Order> orderList = orderRepository.findAllByUserId(user.getId());
+		return orderList.get(orderList.size() - 1);
+	}
+
+	@Transactional
+	public void changeToConfirm(long orderId) {
+		Order order = orderRepository.findById(orderId)
+			.orElseThrow(() -> new IllegalArgumentException("OrderId가 정확하지 않습니다."));
+		order.changeToConfirm();
 	}
 }
