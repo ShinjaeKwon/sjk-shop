@@ -20,6 +20,7 @@
     주문자 이름 : ${order.user.name}<br>
     연락처 : ${order.user.phone}<br>
     배송 주소 : ${order.user.address}<br>
+    주문 요청 사항 : ${order.requests}<br>
     <br><br><br>
     <div>
         <input type="hidden" value="${order.id}" id="orderId">

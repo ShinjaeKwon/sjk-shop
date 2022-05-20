@@ -218,7 +218,8 @@ let index = {
             console.log(rsp);
             if (rsp.success) {
                 let data = {
-                    cartId: $("#cartId").val()
+                    cartId: $("#cartId").val(),
+                    requests: $("#requests").val()
                 };
                 $.ajax({
                     type: "POST",

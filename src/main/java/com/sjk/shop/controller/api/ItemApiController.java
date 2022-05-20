@@ -87,7 +87,7 @@ public class ItemApiController {
 	@PostMapping("/api/order")
 	public ResponseDto<Integer> orderConfirm(@RequestBody Map<String, String> map) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		itemService.cartOrder(Long.parseLong(map.get("cartId")), auth);
+		itemService.cartOrder(Long.parseLong(map.get("cartId")), map.get("requests"), auth);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 

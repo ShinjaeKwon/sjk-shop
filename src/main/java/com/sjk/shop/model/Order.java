@@ -85,4 +85,8 @@ public class Order {
 			orderItem.cancelOrderItem();
 		}
 	}
+
+	public void addRequests(String requests) {
+		this.requests = requests;
+	}
 }

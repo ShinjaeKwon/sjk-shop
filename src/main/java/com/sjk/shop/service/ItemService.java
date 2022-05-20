@@ -122,7 +122,7 @@ public class ItemService {
 	}
 
 	@Transactional
-	public void cartOrder(Long cartId, Authentication auth) {
+	public void cartOrder(Long cartId, String requests, Authentication auth) {
 		User user = userRepository.findByUsername(auth.getName())
 			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
 		Cart cart = cartRepository.findById(cartId)
@@ -130,6 +130,7 @@ public class ItemService {
 
 		List<CartItem> cartItems = cart.getCartItems();
 		Order order = orderService.saveOrderByUser(user);
+		order.addRequests(requests);
 		for (CartItem cartItem : cartItems) {
 			int orderQuantity = cartItem.getStockQuantity(); //개별 주문 수량
 			Item item = cartItem.getItem();//개별 아이템
