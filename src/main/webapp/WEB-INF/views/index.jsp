@@ -3,7 +3,7 @@
 <%@ include file="layout/header.jsp" %>
 
 <div class="container">
-
+    <img src="/image/image1.png">
 </div>
 
 <%@ include file="layout/footer.jsp" %>

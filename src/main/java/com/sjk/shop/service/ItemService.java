@@ -228,10 +228,7 @@ public class ItemService {
 	}
 
 	public boolean isCart(String itemId, String stockQuantity) {
-		if (itemId == null || stockQuantity == null) {
-			return true;
-		}
-		return false;
+		return itemId == null || stockQuantity == null;
 	}
 
 	@Transactional

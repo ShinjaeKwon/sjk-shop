@@ -1,5 +1,5 @@
 package com.sjk.shop.model;
 
 public enum OrderStatus {
-	BEFORE, CONFIRM, SHIPPING, COMPLETED, CANCEL;
+	BEFORE, CONFIRM, SHIPPING, COMPLETED, CANCEL
 }

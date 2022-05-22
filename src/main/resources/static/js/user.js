@@ -66,6 +66,15 @@ let index = {
             $("#address").focus();
             return false;
         }
+        if($("select[name=bank_name] option:selected").val().trim() === ""){
+            alert("은행을 선택해주세요.");
+            return false;
+        }
+        if ($("#account").val().trim() === "") {
+            alert("계좌 번호를 입력해주세요");
+            $("#account").focus();
+            return false;
+        }
 
         let data = {
             name: $("#name").val(),
@@ -73,7 +82,8 @@ let index = {
             password: $("#password").val(),
             phone: $("#phone").val(),
             email: $("#email").val(),
-            address: "(" + $("#sample4_postcode").val() + ")" + $("#sample4_roadAddress").val() + ", " + $("#sample4_detailAddress").val()
+            address: "(" + $("#sample4_postcode").val() + ") " + $("#sample4_roadAddress").val() + ", " + $("#sample4_detailAddress").val(),
+            account: $("select[name=bank_name] option:selected").val()+" "+$("#account").val(),
         };
 
         $.ajax({
@@ -110,6 +120,15 @@ let index = {
             $("#address").focus();
             return false;
         }
+        if($("select[name=bank_name] option:selected").val().trim() == ""){
+            alert("은행을 선택해주세요.");
+            return false;
+        }
+        if ($("#account").val().trim() === "") {
+            alert("계좌 번호를 입력해주세요");
+            $("#account").focus();
+            return false;
+        }
         let data = {
             id: $("#id").val(),
             name: $("#name").val(),
@@ -118,6 +137,7 @@ let index = {
             phone: $("#phone").val(),
             email: $("#email").val(),
             address: $("#address").val(),
+            account: $("select[name=bank_name] option:selected").val()+" "+$("#account").val(),
         };
 
         $.ajax({

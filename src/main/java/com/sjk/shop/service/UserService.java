@@ -36,6 +36,7 @@ public class UserService {
 		user.setPassword(encoder.encode(requestUser.getPassword()));
 		user.setEmail(requestUser.getEmail());
 		user.setAddress(requestUser.getAddress());
+		user.setAccount(requestUser.getAccount());
 	}
 
 	@Transactional(readOnly = true)
