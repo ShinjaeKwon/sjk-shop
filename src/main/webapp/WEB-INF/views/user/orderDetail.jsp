@@ -27,6 +27,8 @@
         <c:if test="${order.status == 'BEFORE'}">
             <button id="confirm">Confirm Order</button>
             <br><br>
+            <button id="refund">Refund Order</button>
+            <br><br>
         </c:if>
         <c:if test="${order.status == 'CONFIRM'}">
             <button id="cancel">Cancel Order</button>

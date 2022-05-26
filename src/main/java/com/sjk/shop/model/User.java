@@ -62,4 +62,7 @@ public class User {
 	@CreationTimestamp
 	private Timestamp createDate;
 
+	public boolean isSeller() {
+		return this.role == RoleType.SELLER;
+	}
 }

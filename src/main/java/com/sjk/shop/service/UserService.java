@@ -93,4 +93,14 @@ public class UserService {
 		return userRepository.findByUsername(auth.getName())
 			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
 	}
+
+	// @Transactional
+	// public List<Order> findSellerItemOrderList(Long userId) {
+	// 	User user = userRepository.findById(userId)
+	// 		.orElseThrow(() -> new IllegalArgumentException("사용자 정보가 정확하지 않습니다.")); // 등록한 아이템을 꺼내서
+	// 	if (!user.isSeller()) {
+	// 		new IllegalArgumentException("회원의 권한이 SELLER가 아닙니다.");
+	// 	}
+	// 	return itemService.findItemBuyUser(user);
+	// }
 }

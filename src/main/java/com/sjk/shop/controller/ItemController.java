@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sjk.shop.dto.OrderRequestDto;
+import com.sjk.shop.model.Item;
 import com.sjk.shop.model.User;
 import com.sjk.shop.service.CategoryService;
 import com.sjk.shop.service.ItemService;
@@ -58,9 +59,18 @@ public class ItemController {
 	}
 
 	@GetMapping("/mymarket")
-	public String myMarket(Model model, @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC)
-		Pageable pageable) {
-		model.addAttribute("orders", itemService.allOrderList(pageable));
+	public String myMarket(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("items", itemService.sellerItemList(auth));
+
+		return "shop/item/myMarket/itemList";
+	}
+
+	@GetMapping("/shop/{id}/orders")
+	public String myMarket(Model model, @PathVariable Long id) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("orders", itemService.findUserPurchaseItem(auth, id));
+
 		return "shop/item/myMarket/orderList";
 	}
 
@@ -104,5 +114,12 @@ public class ItemController {
 		User user = userService.findUser(auth);
 		model.addAttribute("order", itemService.findOrderByUser(user));
 		return "shop/order/detail";
+	}
+
+	@GetMapping("/userOrderList/{id}")
+	public String userOrderList(@PathVariable Long id, Model model) {
+		Item item = itemService.findItemById(id);
+		model.addAttribute("orderItemList", itemService.findOrderItem(item));
+		return "shop/order/userOrderList";
 	}
 }

@@ -9,6 +9,7 @@ import com.sjk.shop.model.OrderItem;
 
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
 
-	List<OrderItem> findAllByItem(Item item);
+	List<OrderItem> findByItem(Item item);
+
 }
 

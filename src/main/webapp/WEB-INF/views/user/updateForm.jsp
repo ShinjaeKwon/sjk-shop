@@ -37,7 +37,7 @@
         </div>
         <div class="form-group">
             <label for="account">account:</label>
-        <select name="bank_name">
+            <select name="bank_name">
                 <option value="">은행명을 선택하세요</option>
                 <option value="경남은행">경남은행</option>
                 <option value="광주은행">광주은행</option>

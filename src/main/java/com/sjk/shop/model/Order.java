@@ -77,7 +77,7 @@ public class Order {
 	}
 
 	public boolean isCancel() {
-		return this.status != OrderStatus.CONFIRM;
+		return this.status == OrderStatus.CONFIRM || this.status == OrderStatus.BEFORE;
 	}
 
 	private void cancelOrderAddStockQuantity() {

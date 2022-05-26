@@ -14,6 +14,7 @@ import com.sjk.shop.model.Cart;
 import com.sjk.shop.model.CartItem;
 import com.sjk.shop.model.Item;
 import com.sjk.shop.model.Order;
+import com.sjk.shop.model.OrderItem;
 import com.sjk.shop.model.User;
 import com.sjk.shop.repository.CartItemRepository;
 import com.sjk.shop.repository.CartRepository;
@@ -215,7 +216,7 @@ public class ItemService {
 		if (order.isUser(user)) {
 			new IllegalArgumentException("로그인 사용자와 주문자가 일치하지 않습니다.");
 		}
-		if (order.isCancel()) {
+		if (!order.isCancel()) {
 			new IllegalArgumentException("현재 주문을 취소할 수 없는 상태입니다.");
 		}
 		order.orderCancel();
@@ -243,4 +244,44 @@ public class ItemService {
 			.orElseThrow(() -> new IllegalArgumentException("OrderId가 정확하지 않습니다."));
 		order.changeToConfirm();
 	}
+
+	@Transactional
+	public List<Item> findItemByUser(User user) {
+		return itemRepository.findByUser(user);
+	}
+
+	@Transactional
+	public Item findItemById(Long id) {
+		return itemRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("아이템 정보가 정확하지 않습니다."));
+	}
+
+	@Transactional
+	public List<OrderItem> findOrderItem(Item item) {
+		return orderItemService.findAllByItem(item);
+	}
+
+	@Transactional
+	public List<Order> findUserPurchaseItem(Authentication auth, Long itemId) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		if (!user.isSeller()) {
+			new IllegalArgumentException("로그인 한 사용자가 SELLER 가 아닙니다.");
+		}
+		Item item = itemRepository.findById(itemId)
+			.orElseThrow(() -> new IllegalArgumentException("아이템 정보가 정확하지 않습니다."));
+
+		return orderService.findOrdersByItem(item);
+
+	}
+
+	public List<Item> sellerItemList(Authentication auth) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		if (!user.isSeller()) {
+			new IllegalArgumentException("로그인 한 사용자가 SELLER 가 아닙니다.");
+		}
+		return itemRepository.findByUser(user);
+	}
+
 }

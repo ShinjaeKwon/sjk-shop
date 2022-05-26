@@ -37,6 +37,29 @@
     </div>
 </div>
 <br>
+<c:if test="${user.role == 'SELLER'}">
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Item ID</th>
+                <th>Item Detail</th>
+                <th>Item Order Detail</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="item" items="${items}">
+                <tr>
+                    <td>${item.id}</td>
+                    <td><a href="/shop/${item.id}">detail</a></td>
+                    <td><a href="/userOrderList/${item.id}">UserOrderList</a></td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</c:if>
+
 <div class="container">
     <h2>주문 목록</h2>
     <table class="table table-hover">

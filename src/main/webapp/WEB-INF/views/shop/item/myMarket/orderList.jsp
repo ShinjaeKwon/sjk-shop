@@ -15,7 +15,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="order" items="${orders.content}">
+        <c:forEach var="order" items="${orders}">
             <tr>
                 <td>${order.id}</td>
                 <fmt:formatDate var="date" value="${order.orderDate}" pattern="YY.MM.dd HH:mm:ss"/>
@@ -26,24 +26,7 @@
         </c:forEach>
         </tbody>
     </table>
-    <ul class="pagination justify-content-center ">
-        <c:choose>
-            <c:when test="${orders.first}">
-                <li class="page-item disabled"><a class="page-link" href="?page=${orders.number-1}">Previous</a></li>
-            </c:when>
-            <c:otherwise>
-                <li class="page-item"><a class="page-link" href="?page=${orders.number-1}">Previous</a></li>
-            </c:otherwise>
-        </c:choose>
-        <c:choose>
-            <c:when test="${orders.last}">
-                <li class="page-item disabled"><a class="page-link" href="?page=${orders.number+1}">Next</a></li>
-            </c:when>
-            <c:otherwise>
-                <li class="page-item"><a class="page-link" href="?page=${orders.number+1}">Next</a></li>
-            </c:otherwise>
-        </c:choose>
-    </ul>
+
 
 </div>
 

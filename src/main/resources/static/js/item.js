@@ -15,6 +15,9 @@ let index = {
         $("#cancel").on("click", () => {
             this.cancel();
         });
+        $("#refund").on("click", () => {
+            this.refund();
+        });
         $("#confirm").on("click", () => {
             this.confirms();
         });
@@ -131,6 +134,30 @@ let index = {
         $.ajax({
             type: "PUT",
             url: "/api/order/cancel",
+            data: JSON.stringify(data),
+
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json"
+        }).done(function (resp) {
+            if (resp.status === 500) {
+                alert("주문 취소로 변경 실패");
+            } else {
+                alert("주문 취소 완료");
+                location.href = "/orderDetail/" + data.orderId;
+            }
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    refund: function () {
+        let data = {
+            orderId: $("#orderId").val(),
+        };
+
+        $.ajax({
+            type: "PUT",
+            url: "/api/order/refund",
             data: JSON.stringify(data),
 
             contentType: "application/json; charset=UTF-8",
