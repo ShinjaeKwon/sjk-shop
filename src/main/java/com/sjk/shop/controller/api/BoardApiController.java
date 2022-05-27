@@ -62,7 +62,6 @@ public class BoardApiController {
 		@PathVariable Long replyId) {
 		String content = map.get("content");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		;
 		boardService.editReply(replyId, boardId, content, auth);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
