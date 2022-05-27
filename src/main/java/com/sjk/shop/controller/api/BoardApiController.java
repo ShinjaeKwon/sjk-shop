@@ -1,7 +1,11 @@
 package com.sjk.shop.controller.api;
 
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,6 +54,16 @@ public class BoardApiController {
 	@DeleteMapping("/api/board/{boardId}/reply/{replyId}")
 	public ResponseDto<Integer> replyDelete(@PathVariable Long replyId) {
 		boardService.deleteReply(replyId);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+
+	@PostMapping("/api/board/{boardId}/reply/{replyId}")
+	public ResponseDto<Integer> replyEdit(@RequestBody Map<String, String> map, @PathVariable Long boardId,
+		@PathVariable Long replyId) {
+		String content = map.get("content");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		;
+		boardService.editReply(replyId, boardId, content, auth);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 

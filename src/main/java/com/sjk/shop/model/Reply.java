@@ -42,4 +42,7 @@ public class Reply {
 	@CreationTimestamp
 	private Timestamp createDate;
 
+	public void edit(String content) {
+		this.content = content;
+	}
 }

@@ -2,6 +2,7 @@ package com.sjk.shop.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,4 +90,14 @@ public class BoardService {
 		return boardRepository.findByTitleContaining(keyword, pageable);
 	}
 
+	@Transactional
+	public void editReply(Long replyId, Long boardId, String content, Authentication auth) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		Board board = boardRepository.findById(boardId)
+			.orElseThrow(() -> new IllegalArgumentException("댓글 수정 실패"));
+		Reply reply = replyRepository.findById(replyId)
+			.orElseThrow(() -> new IllegalArgumentException("댓글 수정 실패"));
+		reply.edit(content);
+	}
 }

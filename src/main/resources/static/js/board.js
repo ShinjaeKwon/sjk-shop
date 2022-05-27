@@ -126,6 +126,30 @@ let index = {
         });
     },
 
+    replyEdit: function (boardId, replyId) {
+
+        if ($("#edit-reply").val() === "") {
+            alert("댓글 내용을 입력해주세요.");
+            $("#reply-content").focus();
+            return false;
+        }
+        let data = {
+            content: $("#edit-reply").val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: `/api/board/${boardId}/reply/${replyId}`,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (resp) {
+            alert("댓글수정이 완료되었습니다.");
+            location.href = `/board/${boardId}`;
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
 
 }
 

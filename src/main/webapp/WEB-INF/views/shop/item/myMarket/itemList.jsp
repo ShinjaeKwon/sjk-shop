@@ -32,7 +32,7 @@
                         <input type="number" min="1" max="999999" name="subStock">&nbsp;
                         <input type="submit" value="Sub StockQuantity">
                     </form>
-            </td>
+                </td>
                 <td><a href="/shop/${item.id}/orders">Orders</a></td>
             </tr>
         </c:forEach>

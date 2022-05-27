@@ -66,6 +66,13 @@
                             <div>
                                 <button onclick="index.replyDelete(${board.id}, ${reply.id})" class="badge">Delete
                                 </button>
+                                <button id="btn-edit-reply" class="badge">Edit</button>
+                                <div id="edit-reply-box" style="display: none">
+                                    <form>
+                                        <input type="text" id="edit-reply" value="${reply.content}">
+                                    </form>
+                                    <button onclick="index.replyEdit(${board.id}, ${reply.id})">Edit Reply</button>
+                                </div>
                             </div>
                         </c:if>
                     </div>
@@ -74,6 +81,12 @@
         </ul>
     </div>
 </div>
-
+<script>
+    $(function () {
+        $("#btn-edit-reply").click(function () {
+            $("#edit-reply-box").toggle();
+        });
+    });
+</script>
 <script src="/js/board.js"></script>
 <%@ include file="../layout/footer.jsp" %>
