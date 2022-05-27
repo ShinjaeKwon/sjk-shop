@@ -275,6 +275,7 @@ public class ItemService {
 
 	}
 
+	@Transactional
 	public List<Item> sellerItemList(Authentication auth) {
 		User user = userRepository.findByUsername(auth.getName())
 			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
@@ -282,6 +283,30 @@ public class ItemService {
 			new IllegalArgumentException("로그인 한 사용자가 SELLER 가 아닙니다.");
 		}
 		return itemRepository.findByUser(user);
+	}
+
+	@Transactional
+	public void addStock(Authentication auth, Integer addStock, Long itemId) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		if (!user.isSeller()) {
+			new IllegalArgumentException("로그인 한 사용자가 SELLER 가 아닙니다.");
+		}
+		Item item = itemRepository.findById(itemId)
+			.orElseThrow(() -> new IllegalArgumentException("아이템 정보가 정확하지 않습니다."));
+		item.addStockQuantity(addStock);
+	}
+
+	@Transactional
+	public void subStock(Authentication auth, Integer subStock, Long itemId) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		if (!user.isSeller()) {
+			new IllegalArgumentException("로그인 한 사용자가 SELLER 가 아닙니다.");
+		}
+		Item item = itemRepository.findById(itemId)
+			.orElseThrow(() -> new IllegalArgumentException("아이템 정보가 정확하지 않습니다."));
+		item.decreaseStockQuantity(subStock);
 	}
 
 }

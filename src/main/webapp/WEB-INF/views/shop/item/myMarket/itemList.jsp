@@ -11,6 +11,8 @@
             <th>Item ID</th>
             <th>Item Detail</th>
             <th>StockQuantity</th>
+            <th>Add StockQuantity</th>
+            <th>Sub StockQuantity</th>
             <th>Orders</th>
         </tr>
         </thead>
@@ -20,6 +22,17 @@
                 <td>${item.id}</td>
                 <td><a href="/shop/${item.id}">detail</a></td>
                 <td>${item.stockQuantity}</td>
+                <td>
+                    <form method="POST" action="/api/item/addStockQuantity/${item.id}">
+                        <input type="number" min="1" max="999999" name="addStock">&nbsp;
+                        <input type="submit" value="Add StockQuantity">
+                    </form>
+                <td>
+                    <form method="POST" action="/api/item/subStockQuantity/${item.id}">
+                        <input type="number" min="1" max="999999" name="subStock">&nbsp;
+                        <input type="submit" value="Sub StockQuantity">
+                    </form>
+            </td>
                 <td><a href="/shop/${item.id}/orders">Orders</a></td>
             </tr>
         </c:forEach>

@@ -24,7 +24,6 @@ let index = {
         $("#requestPay").on("click", () => {
             this.requestPay();
         });
-
     },
 
     save: function () {

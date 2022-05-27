@@ -23,6 +23,8 @@ import lombok.NoArgsConstructor;
 @JsonAutoDetect
 public class Item {
 
+	public static final int MAX_STOCKQAUNTITY = 999_999;
+	public static final int MIN_STOCKQUANTITY = 0;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -51,11 +53,19 @@ public class Item {
 		this.count++;
 	}
 
-	public void decreaseStockQuantity(int orderQuantity) {
-		this.stockQuantity -= orderQuantity;
+	public void decreaseStockQuantity(int stockQuantity) {
+		if (this.stockQuantity - stockQuantity >= MIN_STOCKQUANTITY) {
+			this.stockQuantity -= stockQuantity;
+			return;
+		}
+		new IllegalArgumentException("MIN 값을 넘었습니다.");
 	}
 
-	public void addStockQuantity(int orderQuantity) {
-		this.stockQuantity += orderQuantity;
+	public void addStockQuantity(int stockQuantity) {
+		if (this.stockQuantity + stockQuantity < MAX_STOCKQAUNTITY) {
+			this.stockQuantity += stockQuantity;
+			return;
+		}
+		new IllegalArgumentException("MAX 값을 넘었습니다.");
 	}
 }

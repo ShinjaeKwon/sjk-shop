@@ -1,6 +1,10 @@
 package com.sjk.shop.controller.api;
 
+import java.io.IOException;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -128,4 +132,25 @@ public class ItemApiController {
 		itemService.changeToCancel(Long.parseLong(map.get("orderId")), auth);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
+
+	@PostMapping("/api/item/addStockQuantity/{itemId}")
+	public void addStockQuantity(@PathVariable Long itemId, HttpServletRequest request,
+		HttpServletResponse response) throws
+		IOException {
+		Integer addStock = Integer.parseInt(request.getParameter("addStock"));
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		itemService.addStock(auth, addStock, itemId);
+		response.sendRedirect("/mymarket");
+	}
+
+	@PostMapping("/api/item/subStockQuantity/{itemId}")
+	public void subStockQuantity(@PathVariable Long itemId, HttpServletRequest request,
+		HttpServletResponse response) throws
+		IOException {
+		Integer subStock = Integer.parseInt(request.getParameter("subStock"));
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		itemService.subStock(auth, subStock, itemId);
+		response.sendRedirect("/mymarket");
+	}
+
 }
