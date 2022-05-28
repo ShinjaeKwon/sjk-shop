@@ -102,11 +102,6 @@
 
         </form>
     </div>
-    <%-- 상품 한개 --%>
-    <br><br><br><br>
-    <h3 style="text-align: left;">✔ 베스트 상품 </h3>
-    <hr>
-    <br>
 
 </div>
 

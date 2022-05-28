@@ -14,4 +14,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 	Page<Item> findByNameContaining(String keyword, Pageable pageable);
 
 	List<Item> findByUser(User user);
+
+	List<Item> findTop8ByOrderByCountDesc();
 }

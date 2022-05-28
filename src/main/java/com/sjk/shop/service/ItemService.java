@@ -309,4 +309,8 @@ public class ItemService {
 		item.decreaseStockQuantity(subStock);
 	}
 
+	@Transactional
+	public List<Item> bestItem() {
+		return itemRepository.findTop8ByOrderByCountDesc();
+	}
 }
