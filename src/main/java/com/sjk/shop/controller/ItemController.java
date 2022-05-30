@@ -35,7 +35,6 @@ public class ItemController {
 	public String shopIndex(Model model, @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC)
 		Pageable pageable) {
 		model.addAttribute("items", itemService.itemList(pageable));
-
 		return "shop/shopIndex";
 	}
 

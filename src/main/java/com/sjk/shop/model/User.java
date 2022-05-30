@@ -65,4 +65,8 @@ public class User {
 	public boolean isSeller() {
 		return this.role == RoleType.SELLER;
 	}
+
+	public boolean isAdmin() {
+		return this.role == RoleType.ADMIN;
+	}
 }

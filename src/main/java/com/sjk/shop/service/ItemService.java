@@ -313,4 +313,14 @@ public class ItemService {
 	public List<Item> bestItem() {
 		return itemRepository.findTop8ByOrderByCountDesc();
 	}
+
+	@Transactional
+	public void deleteCategory(Authentication auth, Long categoryId) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		if (!user.isAdmin()) {
+			new IllegalArgumentException("로그인 한 사용자가 ADMIN 이 아닙니다.");
+		}
+		categoryRepository.deleteById(categoryId);
+	}
 }

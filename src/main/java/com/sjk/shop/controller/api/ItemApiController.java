@@ -134,7 +134,8 @@ public class ItemApiController {
 	}
 
 	@PostMapping("/api/item/addStockQuantity/{itemId}")
-	public void addStockQuantity(@PathVariable Long itemId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void addStockQuantity(@PathVariable Long itemId, HttpServletRequest request,
+		HttpServletResponse response) throws IOException {
 		Integer addStock = Integer.parseInt(request.getParameter("addStock"));
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		itemService.addStock(auth, addStock, itemId);
@@ -142,11 +143,19 @@ public class ItemApiController {
 	}
 
 	@PostMapping("/api/item/subStockQuantity/{itemId}")
-	public void subStockQuantity(@PathVariable Long itemId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void subStockQuantity(@PathVariable Long itemId, HttpServletRequest request,
+		HttpServletResponse response) throws IOException {
 		Integer subStock = Integer.parseInt(request.getParameter("subStock"));
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		itemService.subStock(auth, subStock, itemId);
 		response.sendRedirect("/mymarket");
+	}
+
+	@PostMapping("/api/delete/category/{categoryId}")
+	public void deleteCategory(@PathVariable Long categoryId, HttpServletResponse response) throws IOException {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		itemService.deleteCategory(auth, categoryId);
+		response.sendRedirect("/admin/management/user");
 	}
 
 }

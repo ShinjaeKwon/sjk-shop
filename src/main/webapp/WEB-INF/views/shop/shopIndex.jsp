@@ -57,7 +57,8 @@
     <br><br>
     <br>
     <br>
-    <h3 style="text-align: left;">✔ 신상품</h3>
+    <h3 style="text-align: left;"><a href="/shop" >✔ 신상품</a></h3>
+
     <hr>
     <br>
     <%-- 상품 한개 --%>

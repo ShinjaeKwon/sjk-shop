@@ -50,13 +50,18 @@
     <h2>Category Management</h2>
     <form>
         <input type="text" width="30" id="category">
-        <button id="btn-category-save" class="btn btn-primary">Add Category</button>
     </form>
+    <button id="btn-category-save" class="btn btn-primary">Add Category</button>
 
     <h4>Category List</h4>
-    <ul>
+    <ul style="list-style: none">
+        <h4>카테고리 삭제시 카테고리 안에 등록된 아이템들이 없어야 합니다.</h4>
         <c:forEach var="category" items="${categories}">
             <li>${category.name}</li>
+            <form id="deleteCategory" method="post" action="/api/delete/category/${category.id}">
+                <input type="submit" id="postAdd" value="Category Delete"/>
+            </form>
+
         </c:forEach>
     </ul>
 
