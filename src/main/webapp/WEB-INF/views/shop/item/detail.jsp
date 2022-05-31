@@ -59,9 +59,10 @@
                 <input type="number" name="stockQuantity" value="0" min="1" max="${item.stockQuantity}"
                        id="stockQuantity" required>
                 <input type="hidden" name="itemId" id="itemId" value="${item.id}">
+                <input type="submit" value="주문">
             </div>
-            <input type="submit" value="주문">
-            <button id="btn-wish">Add Wish List</button>
+
+            <button type="button" id="btn-wish">Add Wish List</button>
         </form>
     </div>
 </div>

@@ -205,9 +205,10 @@ let index = {
 
         let data = {
             stockQuantity: $("#stockQuantity").val(),
-            userId: $("#userId").val(),
             itemId: $("#itemId").val()
         };
+
+        alert("before ajax : " + data.stockQuantity);
 
         $.ajax({
             type: "POST",
@@ -220,7 +221,9 @@ let index = {
                 alert("장바구니 담기 실패");
             } else {
                 alert("장바구니 담기 성공");
+
                 location.href = "/shop";
+                alert("after ajax : " + data.stockQuantity);
             }
         }).fail(function (error) {
             alert(JSON.stringify(error));

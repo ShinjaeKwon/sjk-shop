@@ -9,10 +9,10 @@ import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -26,26 +26,23 @@ public class CartItem {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Item item;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Cart cart;
 
-	private int stockQuantity;
+	private int stockQuantity = 0;
 
-	public CartItem(Item item, Cart cart, int stockQuantity) {
+	public CartItem(Item item, Cart cart) {
 		this.item = item;
 		this.cart = cart;
-		this.stockQuantity = stockQuantity;
 	}
 
-	public static CartItem createCartItem(Cart cart, Item item, int stockQuantity) {
-		CartItem cartItem = new CartItem(item, cart, stockQuantity);
+	public static CartItem createCartItem(Cart cart, Item item) {
+		CartItem cartItem = new CartItem(item, cart);
 		return cartItem;
 	}
 
 	public void addStockQuantity(int stockQuantity) {
-		if (stockQuantity != this.stockQuantity) {
-			this.stockQuantity += stockQuantity;
-		}
+		this.stockQuantity += stockQuantity;
 	}
 
 }

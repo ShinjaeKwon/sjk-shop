@@ -9,10 +9,12 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -20,11 +22,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
+@EqualsAndHashCode(exclude = {"users"})
 @JsonAutoDetect
 public class Item {
 
-	public static final int MAX_STOCKQAUNTITY = 999_999;
-	public static final int MIN_STOCKQUANTITY = 0;
+	public static final int MAX_STOCK_QUANTITY = 999_999;
+	public static final int MIN_STOCK_QUANTITY = 0;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -45,6 +49,7 @@ public class Item {
 	private Category category;
 
 	@ManyToOne
+	@JsonIgnoreProperties({"items"})
 	private User user;
 
 	private int count;
@@ -54,7 +59,7 @@ public class Item {
 	}
 
 	public void decreaseStockQuantity(int stockQuantity) {
-		if (this.stockQuantity - stockQuantity >= MIN_STOCKQUANTITY) {
+		if (this.stockQuantity - stockQuantity >= MIN_STOCK_QUANTITY) {
 			this.stockQuantity -= stockQuantity;
 			return;
 		}
@@ -62,7 +67,7 @@ public class Item {
 	}
 
 	public void addStockQuantity(int stockQuantity) {
-		if (this.stockQuantity + stockQuantity < MAX_STOCKQAUNTITY) {
+		if (this.stockQuantity + stockQuantity < MAX_STOCK_QUANTITY) {
 			this.stockQuantity += stockQuantity;
 			return;
 		}

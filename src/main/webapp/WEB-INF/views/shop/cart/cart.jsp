@@ -13,21 +13,22 @@
         <div>
             <ul>
                 <c:forEach var="cartItem" items="${cart.cartItems}">
-                    <li>
-                        <div>
-                            <h5>상품 이름 : ${cartItem.item.name}</h5>
-                                ${cartItem.item.img}
-                            수량 : ${cartItem.stockQuantity}<br>
-                            총 가격 :
-                            <fmt:formatNumber value="${cartItem.item.price * cartItem.stockQuantity}"
-                                              pattern="#,###,###,###"/> <br>
-                        </div>
-
-                        <button type="button" onclick="index.deleteItemCart(${cartItem.item.id})">
-                            Delete
-                        </button>
-                    </li>
-                    <br>
+                    <c:if test="${cartItem.stockQuantity > 0}">
+                        <li>
+                            <div>
+                                <h5>상품 이름 : ${cartItem.item.name}</h5>
+                                    ${cartItem.item.img}
+                                수량 : ${cartItem.stockQuantity}<br>
+                                총 가격 :
+                                <fmt:formatNumber value="${cartItem.item.price * cartItem.stockQuantity}"
+                                                  pattern="#,###,###,###"/> <br>
+                            </div>
+                            <button type="button" onclick="index.deleteItemCart(${cartItem.item.id})">
+                                Delete
+                            </button>
+                        </li>
+                        <br>
+                    </c:if>
                 </c:forEach>
             </ul>
         </div>

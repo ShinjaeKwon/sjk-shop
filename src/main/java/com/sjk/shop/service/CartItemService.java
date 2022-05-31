@@ -21,8 +21,7 @@ public class CartItemService {
 	@Transactional
 	public void findCartItemByCartAndItem(Cart cart, Item item, Integer wishStockQuantity) {
 		CartItem cartItem = cartItemRepository.findByCartIdAndItemId(cart.getId(), item.getId())
-			.orElse(CartItem.createCartItem(cart, item, wishStockQuantity));
-
+			.orElse(CartItem.createCartItem(cart, item));
 		cartItem.addStockQuantity(wishStockQuantity);
 		cart.addCartCount(wishStockQuantity);
 		cartItemRepository.save(cartItem);

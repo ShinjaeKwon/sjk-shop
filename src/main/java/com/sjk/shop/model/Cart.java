@@ -1,6 +1,5 @@
 package com.sjk.shop.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,12 +12,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -29,31 +30,35 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToMany(mappedBy = "cart", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-	private List<CartItem> cartItems = new ArrayList<>();
+	@OneToMany(mappedBy = "cart", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnoreProperties({"cart"})
+	private List<CartItem> cartItems;
 
 	@OneToOne
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "userId", unique = true)
 	private User user;
 
 	private int count;
 
-	public Cart(User user) {
+	private Cart(User user) {
 		this.user = user;
 		this.count = 0;
 	}
 
 	public static Cart createCart(User user) {
-		Cart cart = new Cart(user);
-		return cart;
+		return new Cart(user);
 	}
 
 	public void addCartCount(Integer wishStockQuantity) {
-		count += wishStockQuantity;
+		if (wishStockQuantity > 0) {
+			count += wishStockQuantity;
+		}
 	}
 
 	public void decreaseCartCount(int stockQuantity) {
-		count -= stockQuantity;
+		if (count - stockQuantity >= 0) {
+			this.count -= stockQuantity;
+		}
 	}
 
 }
