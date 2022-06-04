@@ -10,17 +10,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sjk.shop.dto.ItemSaveRequestDto;
 import com.sjk.shop.dto.OrderRequestDto;
+import com.sjk.shop.dto.ReviewSaveRequestDto;
 import com.sjk.shop.model.Cart;
 import com.sjk.shop.model.CartItem;
 import com.sjk.shop.model.Item;
 import com.sjk.shop.model.Order;
 import com.sjk.shop.model.OrderItem;
+import com.sjk.shop.model.Review;
 import com.sjk.shop.model.User;
 import com.sjk.shop.repository.CartItemRepository;
 import com.sjk.shop.repository.CartRepository;
 import com.sjk.shop.repository.CategoryRepository;
 import com.sjk.shop.repository.ItemRepository;
 import com.sjk.shop.repository.OrderRepository;
+import com.sjk.shop.repository.ReviewRepository;
 import com.sjk.shop.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -37,6 +40,7 @@ public class ItemService {
 	private final CartItemRepository cartItemRepository;
 	private final CartRepository cartRepository;
 	private final OrderRepository orderRepository;
+	private final ReviewRepository reviewRepository;
 
 	private final OrderService orderService;
 	private final OrderItemService orderItemService;
@@ -323,4 +327,46 @@ public class ItemService {
 		}
 		categoryRepository.deleteById(categoryId);
 	}
+
+	@Transactional
+	public void writeReview(ReviewSaveRequestDto reviewSaveRequestDto) {
+		User user = userRepository.findById(reviewSaveRequestDto.getUserId())
+			.orElseThrow(() -> new IllegalArgumentException("리뷰 쓰기 실패"));
+		Item item = itemRepository.findById(reviewSaveRequestDto.getItemId())
+			.orElseThrow(() -> new IllegalArgumentException("리뷰 쓰기 실패"));
+		Review review = Review.builder()
+			.user(user)
+			.item(item)
+			.content(reviewSaveRequestDto.getContent())
+			.build();
+
+		reviewRepository.save(review);
+	}
+
+	@Transactional
+	public void deleteReview(Long reviewId, Authentication auth) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		Review review = reviewRepository.findById(reviewId)
+			.orElseThrow(() -> new IllegalArgumentException("리뷰 정보가 정확하지 않습니다."));
+		if (!review.isUser(user)) {
+			new IllegalArgumentException("로그인한 사용자가 작성한 리뷰가 아닙니다.");
+		}
+		reviewRepository.delete(review);
+	}
+
+	@Transactional
+	public void editReview(Long reviewId, Long itemId, String content, Authentication auth) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		Item item = itemRepository.findById(itemId)
+			.orElseThrow(() -> new IllegalArgumentException("리뷰 수정 실패"));
+		Review review = reviewRepository.findById(reviewId)
+			.orElseThrow(() -> new IllegalArgumentException("리뷰 수정 실패"));
+		if (!review.isUser(user)) {
+			new IllegalArgumentException("로그인한 사용자가 작성한 리뷰가 아닙니다.");
+		}
+		review.edit(content);
+	}
+
 }

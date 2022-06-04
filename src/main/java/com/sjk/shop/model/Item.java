@@ -58,8 +58,8 @@ public class Item {
 	private User user;
 
 	@OneToMany(mappedBy = "item", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties({"board"})
-	private List<Review> Reviews;
+	@JsonIgnoreProperties({"items"})
+	private List<Review> reviews;
 
 	private int count;
 

@@ -24,6 +24,9 @@ let index = {
         $("#requestPay").on("click", () => {
             this.requestPay();
         });
+        $("#btn-review-save").on("click", () => {
+            this.reviewSave();
+        });
     },
 
     save: function () {
@@ -301,6 +304,69 @@ let index = {
         }).done(function (resp) {
             alert("삭제가 완료되었습니다.");
             location.href = "/shop"
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    reviewSave: function () {
+        if ($("#review-content").val() === "") {
+            alert("댓글 내용을 입력해주세요.");
+            $("#review-content").focus();
+            return false;
+        }
+        let data = {
+            userId: $("#userId").val(),
+            itemId: $("#itemId").val(),
+            content: $("#review-content").val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: `/api/shop/${data.itemId}/review`,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (resp) {
+            alert("리뷰작성이 완료되었습니다.");
+            location.href = `/shop/${data.itemId}`;
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    reviewDelete: function (itemId, reviewId) {
+        $.ajax({
+            type: "DELETE",
+            url: `/api/shop/${itemId}/review/${reviewId}`,
+            dataType: "json"
+        }).done(function (resp) {
+            alert("리뷰삭제가 완료되었습니다.");
+            location.href = `/shop/${itemId}`;
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    reviewEdit: function (itemId, reviewId) {
+
+        if ($("#edit-review").val() === "") {
+            alert("후기 내용을 입력해주세요");
+            $("#edit-review").focus();
+            return false;
+        }
+        let data = {
+            content: $("#edit-review").val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: `/api/shop/${itemId}/review/${reviewId}`,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (resp) {
+            alert("리뷰수정이 완료되었습니다.");
+            location.href = `/shop/${itemId}`;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

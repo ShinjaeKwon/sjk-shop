@@ -21,6 +21,7 @@ import com.sjk.shop.config.auth.PrincipalDetail;
 import com.sjk.shop.dto.ItemSaveRequestDto;
 import com.sjk.shop.dto.OrderRequestDto;
 import com.sjk.shop.dto.ResponseDto;
+import com.sjk.shop.dto.ReviewSaveRequestDto;
 import com.sjk.shop.model.RoleType;
 import com.sjk.shop.model.User;
 import com.sjk.shop.service.CategoryService;
@@ -156,6 +157,28 @@ public class ItemApiController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		itemService.deleteCategory(auth, categoryId);
 		response.sendRedirect("/admin/management/user");
+	}
+
+	@PostMapping("/api/shop/{itemId}/review")
+	public ResponseDto<Integer> replySave(@RequestBody ReviewSaveRequestDto reviewSaveRequestDto) {
+		itemService.writeReview(reviewSaveRequestDto);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+
+	@DeleteMapping("/api/shop/{itemId}/review/{reviewId}")
+	public ResponseDto<Integer> replyDelete(@PathVariable Long reviewId) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		itemService.deleteReview(reviewId, auth);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+
+	@PostMapping("/api/shop/{itemId}/review/{reviewId}")
+	public ResponseDto<Integer> replyEdit(@RequestBody Map<String, String> map, @PathVariable Long itemId,
+		@PathVariable Long reviewId) {
+		String content = map.get("content");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		itemService.editReview(reviewId, itemId, content, auth);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
 }

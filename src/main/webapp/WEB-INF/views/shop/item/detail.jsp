@@ -253,6 +253,58 @@
             <div>20</div>
         </div>
     </div>
+    <br><br><br>
+    <div class="card">
+        <form>
+            <input type="hidden" id="reviewItemId" value="${item.id}">
+            <input type="hidden" id="userId" value="${principal.user.id}">
+            <div class="card-body">
+                <textarea id="review-content" class="form-control" rows="1"></textarea>
+            </div>
+            <div class="card-footer">
+                <button type="button" id="btn-review-save" class="btn btn-primary sbtn">Post Review</button>
+            </div>
+        </form>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-header">Review</div>
+        <ul id="reply-box" class="list-group">
+            <c:forEach var="review" items="${item.reviews}">
+                <li id="reply-${review.id}" class="list-group-item d-flex justify-content-between">
+                    🔮작성자 : ${review.user.username}
+                    <div>${review.content}</div>
+
+                    <div class="d-flex">
+                        <c:if test="${review.user.id == principal.user.id}">
+                            <div>
+                                <button onclick="index.reviewDelete(${item.id}, ${review.id})" class="badge">삭제
+                                </button>
+                                <button id="btn-edit-review" class="badge">수정</button>
+                                <div id="edit-review-box" style="display: none">
+                                    <form>
+                                        <input type="text" id="edit-review" value="${review.content}">
+                                    </form>
+                                    <button onclick="index.reviewEdit(${item.id}, ${review.id})"
+                                            style="background-color: #9AA4FF;">Edit Reply
+                                    </button>
+                                </div>
+                            </div>
+                        </c:if>
+                    </div>
+                </li>
+            </c:forEach>
+        </ul>
+    </div>
 </div>
+
+</div>
+<script>
+    $(function () {
+        $("#btn-edit-review").click(function () {
+            $("#edit-review-box").toggle();
+        });
+    });
+</script>
 <script src="/js/item.js"></script>
 <%@ include file="../../layout/footer.jsp" %>
