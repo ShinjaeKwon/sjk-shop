@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%@ include file="../layout/header.jsp" %>
-
-
+<style>
+    .sbtn {
+        background-color: #9AA4FF;
+        border: none;
+    }
+</style>
 <div class="container">
     <h2>User Management</h2>
     <br>
@@ -51,7 +55,7 @@
     <form>
         <input type="text" width="30" id="category">
     </form>
-    <button id="btn-category-save" class="btn btn-primary">Add Category</button>
+    <button id="btn-category-save" class="btn btn-primary sbtn">Add Category</button>
 
     <h4>Category List</h4>
     <ul style="list-style: none">

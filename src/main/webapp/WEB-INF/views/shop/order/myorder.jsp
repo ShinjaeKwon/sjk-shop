@@ -4,17 +4,17 @@
 
 <br>
 <div class="container">
-    <h2>주문 목록</h2>
+    <h2 style="font-weight: bold">🔮주문 목록</h2><br>
     <b>
         BEFORE : 주문 완료&nbsp;&nbsp;&nbsp;
         CONFIRM : 주문 확정&nbsp;&nbsp;&nbsp;
         SHIPPING : 배송 중&nbsp;&nbsp;&nbsp;
         COMPLETED : 주문 확정&nbsp;&nbsp;&nbsp;
         CANCEL : 주문 취소&nbsp;&nbsp;&nbsp;
-    </b>
+    </b><br><br>
     <table class="table table-hover">
         <thead>
-        <tr>
+        <tr style="background-color: #c0c6ff">
             <th>Order Date</th>
             <th>Order Detail</th>
             <th>Order State</th>

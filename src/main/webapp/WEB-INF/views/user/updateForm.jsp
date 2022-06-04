@@ -1,8 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%@ include file="../layout/header.jsp" %>
+<head>
+    <style>
+        .container {
+            border: 2px solid #999999;
+            border-radius: 5px;
+        }
 
-<div class="container">
+        .sbtn {
+            background-color: #9AA4FF;
+            border: none;
+        }
+    </style>
+</head>
+<Br>
+<h2 style="text-align: center">🔮 MY PAGE 🔮</h2><Br>
+<div class="container"><br>
     <form>
         <input type="hidden" id="id" value="${principal.user.id}">
         <div class="form-group">
@@ -35,6 +49,7 @@
             <input type="text" value="${principal.user.address}" class="form-control" placeholder="Enter address"
                    id="address" readonly>
         </div>
+
         <div class="form-group">
             <label for="account">account:</label>
             <select name="bank_name">
@@ -69,11 +84,12 @@
             </select>
             <input type="text" id="account" placeholder="계좌번호를 입력해주세요">
         </div>
-        현재 등록 계좌 :
-        ${principal.user.account}<br>
+        🏧 현재 등록 계좌 :
+        ${principal.user.account}<br><br>
     </form>
-    <button id="btn-update" class="btn btn-primary">Edit</button>
-    <button class="btn btn-danger" onclick="index.delete(${principal.user.id})">Withdrawal</button>
+    <button id="btn-update" class="btn btn-primary sbtn">Edit</button>
+    <button class="btn btn-danger" style="border: none" onclick="index.delete(${principal.user.id})">Withdrawal</button>
+    <br><br>
 </div>
 
 <script src="/js/user.js"></script>

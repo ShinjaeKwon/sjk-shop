@@ -29,11 +29,11 @@
             address:
             <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호">
             <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-            <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
-            <input type="text" class="form-control" id="sample4_jibunAddress" placeholder="지번주소">
+            <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소" readonly>
+            <input type="text" class="form-control" id="sample4_jibunAddress" placeholder="지번주소" readonly>
             <span id="guide" style="color:#999;display:none"></span>
             <input type="text" class="form-control" id="sample4_detailAddress" placeholder="상세주소">
-            <input type="text" class="form-control" id="sample4_extraAddress" placeholder="참고항목">
+            <input type="text" class="form-control" id="sample4_extraAddress" placeholder="참고항목" style="display: none">
 
             <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
             <script>
@@ -117,7 +117,7 @@
             <input type="text" id="account" placeholder="숫자만 입력해주세요">
         </div>
     </form>
-    <button id="btn-save" class="btn btn-primary">Sign Up</button>
+    <button id="btn-save" class="btn btn-primary sbtn">Sign Up</button>
 </div>
 
 <script src="/js/user.js"></script>

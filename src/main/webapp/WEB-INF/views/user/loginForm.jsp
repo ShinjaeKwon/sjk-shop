@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%@ include file="../layout/header.jsp" %>
-
+<style>
+    .sbtn {
+        background-color: #9AA4FF;
+        border: none;
+    }
+</style>
 <div class="container">
     <form action="/auth/loginProc" method="post">
         <c:if test="${param.error != null }">
@@ -18,7 +23,7 @@
             <input type="password" name="password" class="form-control" placeholder="Enter password" id="password">
         </div>
 
-        <button type="btn-login" class="btn btn-primary">Sign In</button>
+        <button type="btn-login" class="btn btn-primary sbtn">Sign In</button>
     </form>
 
 </div>
