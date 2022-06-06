@@ -59,6 +59,7 @@ public class ItemService {
 			.stockQuantity(requestItem.getStockQuantity())
 			.category(categoryRepository.findByName(requestItem.getCategory()))
 			.user(user)
+			.content(requestItem.getContent())
 			.count(0)
 			.build();
 

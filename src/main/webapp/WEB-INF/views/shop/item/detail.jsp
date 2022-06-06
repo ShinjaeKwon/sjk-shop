@@ -149,6 +149,7 @@
             border: none;
             margin-bottom: 10px;
         }
+
         .sbtn {
             background-color: #9AA4FF;
             border: none;
@@ -173,6 +174,7 @@
             등록자 : ${item.user.name}<br>
         </div>
     </div>
+
     <div class="under">
         <br>
         <c:if test="${principal.user.id eq item.user.id}">
@@ -190,6 +192,14 @@
             <button type="button" id="btn-wish sbtn">Add Wish List</button>
         </form>
     </div>
+    <hr>
+    <h2>상품 소개</h2>
+    <hr>
+    <div class="content">
+        ${item.content}
+    </div>
+    <hr>
+
 </div>
 <div class="review">
     <span class="heading">사용자 평점</span>

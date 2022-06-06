@@ -61,6 +61,9 @@ public class Item {
 	@JsonIgnoreProperties({"items"})
 	private List<Review> reviews;
 
+	@Lob
+	private String content;
+
 	private int count;
 
 	public void increaseCount() {

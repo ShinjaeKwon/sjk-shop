@@ -13,6 +13,10 @@
             <textarea class="form-control summernote" rows="5" id="img"></textarea>
         </div>
         <div class="form-group">
+            Content
+            <textarea class="form-control summernote" rows="5" id="content"></textarea>
+        </div>
+        <div class="form-group">
             Price
             <input type="text" class="form-control" placeholder="Enter price" id="price">
         </div>

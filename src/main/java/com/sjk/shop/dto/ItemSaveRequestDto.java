@@ -15,4 +15,5 @@ public class ItemSaveRequestDto {
 	private int stockQuantity;
 	private String category;
 	private Long userId;
+	private String content;
 }
