@@ -149,6 +149,11 @@
             border: none;
             margin-bottom: 10px;
         }
+        .sbtn {
+            background-color: #9AA4FF;
+            border: none;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 

@@ -2,7 +2,15 @@
 
 <%@ include file="../layout/header.jsp" %>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
+<style>
+    .sbtn {
+        background-color: #9AA4FF;
+        border: none;
+    }
+</style>
+<h3 style="text-align: center; font-weight: bold;">🔮지니마켓 회원가입🔮</h3>
+<h6 style="text-align: center">지니마켓의 회원이 되어주셔서 감사합니다!</h6>
+<hr>
 <div class="container">
     <form>
         <div class="form-group">
