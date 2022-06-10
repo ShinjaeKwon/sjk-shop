@@ -212,8 +212,6 @@ let index = {
             itemId: $("#itemId").val()
         };
 
-        alert("before ajax : " + data.stockQuantity);
-
         $.ajax({
             type: "POST",
             url: "/api/item/wish",
@@ -225,9 +223,7 @@ let index = {
                 alert("장바구니 담기 실패");
             } else {
                 alert("장바구니 담기 성공");
-
                 location.href = "/shop";
-                alert("after ajax : " + data.stockQuantity);
             }
         }).fail(function (error) {
             alert(JSON.stringify(error));

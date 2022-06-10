@@ -144,12 +144,6 @@
             }
         }
 
-        #sbtn {
-            background-color: #9AA4FF;
-            border: none;
-            margin-bottom: 10px;
-        }
-
         .sbtn {
             background-color: #9AA4FF;
             border: none;
@@ -188,8 +182,7 @@
                 <input type="hidden" name="itemId" id="itemId" value="${item.id}">
                 <input type="submit" value="주문">
             </div>
-
-            <button type="button" id="btn-wish sbtn">Add Wish List</button>
+            <button type="button" id="btn-wish" class="sbtn">Add Wish List</button>
         </form>
     </div>
     <hr>

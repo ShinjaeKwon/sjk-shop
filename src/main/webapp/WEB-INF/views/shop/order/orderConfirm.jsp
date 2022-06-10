@@ -116,7 +116,7 @@
             <hr>
             <br>
             <c:set var="total" value="0"/>
-            <c:forEach var="cartItem" items="${cart.cartItems}">
+            <c:forEach var="cartItem" items="${cartItems}">
                 <div class="item">
                     <div class="item-img">${cartItem.item.img}</div>
                     <div class="item-name"><b>${cartItem.item.name}</b></div>
@@ -160,9 +160,7 @@
             </div>
             <br><br><br>
             <div id="btn">
-                <button id="requestPay">결제</button>
-                <button id="orderConfirm">주문 확인</button>
-                <br><br>
+                <button type="button" id="requestPay">결제</button>
             </div>
         </div>
 

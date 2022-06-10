@@ -4,6 +4,10 @@
 <head>
     <title>지니마켓 상품 페이지</title>
     <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
     <style>
         .upd {
             text-align: center;
@@ -58,6 +62,26 @@
             margin-left: 550px;
             margin-top: -55px;
             width: 80px;
+        }
+
+        .sidebar {
+            text-align: center;
+            font-size: 17px;
+            line-height: 40px;
+            width: 35px;
+            padding: 10px 24px 10px 8px;
+            position: fixed;
+            top: 40%;
+            right: 5px;
+            background-color: white;
+            border: 1px solid dimgray;
+            color: white;
+        }
+
+        .sidebar a[href] {
+            word-break: break-word;
+            color: dimgray;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -115,7 +139,12 @@
             </c:otherwise>
         </c:choose>
     </ul>
-
+    <%-- Sidebar --%>
+    <div class="sidebar">
+        <a href="/"><i class="xi-home-o"></i></a>
+        <a href="/shop/cart"><i class="xi-cart-o"></i></a>
+        <a href="#top"><i class="xi-arrow-top"></i></a>
+    </div>
 </div>
 
 

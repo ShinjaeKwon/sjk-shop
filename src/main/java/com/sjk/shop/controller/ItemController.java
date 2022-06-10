@@ -54,6 +54,7 @@ public class ItemController {
 	public String cartDetail(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("cart", itemService.cartDetail(auth));
+		model.addAttribute("cartItems", itemService.cartItemsInCart(auth));
 		return "shop/cart/cart";
 	}
 
@@ -83,7 +84,7 @@ public class ItemController {
 
 	@GetMapping("/searchItem")
 	public String search(@RequestParam(value = "keyword") String keyword, Model model,
-		@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+		@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 		model.addAttribute("items", itemService.searchItem(keyword, pageable));
 		return "shop/shopIndex";
 	}
@@ -96,6 +97,7 @@ public class ItemController {
 		if (itemService.isCart(itemId, stockQuantity)) { //카트이면
 			User user = userService.findUser(auth);
 			model.addAttribute("cart", itemService.findCartByUser(user));
+			model.addAttribute("cartItems", itemService.cartItemsInCart(auth));
 		} else {
 			OrderRequestDto orderRequestDto =
 				new OrderRequestDto(Integer.parseInt(stockQuantity), Long.parseLong(itemId));
@@ -103,6 +105,7 @@ public class ItemController {
 
 			User user = userService.findUser(auth);
 			model.addAttribute("cart", itemService.findCartByUser(user));
+			model.addAttribute("cartItems", itemService.cartItemsInCart(auth));
 		}
 		return "shop/order/orderConfirm";
 	}

@@ -134,7 +134,7 @@ public class ItemService {
 		Cart cart = cartRepository.findById(cartId)
 			.orElseThrow(() -> new IllegalArgumentException("장바구니 정보가 잘못되었습니다."));
 
-		List<CartItem> cartItems = cart.getCartItems();
+		List<CartItem> cartItems = cartItemRepository.findByCart(cart);
 		Order order = orderService.saveOrderByUser(user);
 		order.addRequests(requests);
 		for (CartItem cartItem : cartItems) {
@@ -147,6 +147,9 @@ public class ItemService {
 			orderItemService.saveOrderItem(order, item, orderPrice, orderQuantity);
 			order.addPriceInOrder(orderPrice);
 			item.decreaseStockQuantity(orderQuantity);
+		}
+		for (CartItem cartItem : cartItems) {
+			cartItemRepository.delete(cartItem);
 		}
 		cartRepository.deleteById(cartId);
 	}
@@ -370,4 +373,13 @@ public class ItemService {
 		review.edit(content);
 	}
 
+	@Transactional
+	public List<CartItem> cartItemsInCart(Authentication auth) {
+		User user = userRepository.findByUsername(auth.getName())
+			.orElseThrow(() -> new IllegalArgumentException("로그인한 사용자 정보가 정확하지 않습니다."));
+		Cart cart = cartRepository.findByUser(user)
+			.orElseThrow(() -> new IllegalArgumentException("카트 정보가 정확하지 않습니다."));
+
+		return cartItemRepository.findByCart(cart);
+	}
 }

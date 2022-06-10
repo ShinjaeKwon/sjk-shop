@@ -77,7 +77,7 @@ public class ItemApiController {
 	}
 
 	@DeleteMapping("/api/cart/{itemId}")
-	public ResponseDto<Integer> deleteItemCart(@PathVariable Long itemId) {
+	public ResponseDto<Integer> deleteItemInCart(@PathVariable Long itemId) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		itemService.deleteItemCart(auth, itemId);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);

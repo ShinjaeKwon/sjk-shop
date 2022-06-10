@@ -24,8 +24,8 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <a class="navbar-brand" href="/">SHOP</a>
+<nav class="navbar navbar-expand-md" style="background-color: #9AA4FF">
+    <a class="navbar-brand" href="/" style="color: #373737;">SHOP</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -34,41 +34,41 @@
         <c:when test="${empty principal}">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/auth/loginForm">Login</a>
+                    <a class="nav-link" href="/auth/loginForm" style="color: #373737;">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/auth/joinForm">Sign Up</a>
+                    <a class="nav-link" href="/auth/joinForm" style="color: #373737;">Sign Up</a>
                 </li>
             </ul>
         </c:when>
         <c:otherwise>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="/shop">Shop</a>
+                <a class="nav-link" href="/shop" style="color: #373737;">Shop</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/board">Board</a>
+                <a class="nav-link" href="/board" style="color: #373737;">Board</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/user/updateForm">MyPage</a>
+                <a class="nav-link" href="/user/updateForm" style="color: #373737;">MyPage</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/shop/myorder">MyOrder</a>
+                <a class="nav-link" href="/shop/myorder" style="color: #373737;">MyOrder</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/logout">Logout</a>
+                <a class="nav-link" href="/logout" style="float: right; color: #373737;">Logout</a>
             </li>
 
             </c:otherwise>
             </c:choose>
             <c:if test="${principal.user.role == 'ADMIN' || principal.user.role == 'SELLER'}">
                 <li class="nav-item">
-                    <a class="nav-link" href="/mymarket">myMarket</a>
+                    <a class="nav-link" href="/mymarket" style="color: #373737;">myMarket</a>
                 </li>
             </c:if>
             <c:if test="${principal.user.role == 'ADMIN'}">
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/management/user">Management</a>
+                    <a class="nav-link" href="/admin/management/user" style="color: #373737;">Management</a>
                 </li>
             </c:if>
         </ul>
