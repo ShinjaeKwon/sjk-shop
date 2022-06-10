@@ -2,96 +2,93 @@
 
 <%@ include file="layout/header.jsp" %>
 
-<head>
-    <title>Genie Market</title>
-    <link rel="stylesheet" href="/css/user.css">
+<link rel="stylesheet" href="/css/user.css">
 
-    <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 
-    <style>
-        .container {
+<style>
+    .container {
 
-        }
+    }
 
-        .sidebar {
-            text-align: center;
-            font-size: 17px;
-            line-height: 40px;
-            width: 35px;
-            padding: 10px 24px 10px 8px;
-            position: fixed;
-            top: 40%;
-            right: 5px;
-            background-color: white;
-            border: 1px solid dimgray;
-            color: white;
-        }
+    .sidebar {
+        text-align: center;
+        font-size: 17px;
+        line-height: 40px;
+        width: 35px;
+        padding: 10px 24px 10px 8px;
+        position: fixed;
+        top: 40%;
+        right: 5px;
+        background-color: white;
+        border: 1px solid dimgray;
+        color: white;
+    }
 
-        .sidebar a[href] {
-            word-break: break-word;
-            color: dimgray;
-            text-decoration: none;
-        }
+    .sidebar a[href] {
+        word-break: break-word;
+        color: dimgray;
+        text-decoration: none;
+    }
 
-        h1 {
-            text-align: center;
-        }
+    h1 {
+        text-align: center;
+    }
 
-        h3 {
-            font-size: 20px;
-        }
+    h3 {
+        font-size: 20px;
+    }
 
-        #sbtn {
-            background-color: #9AA4FF;
-            border: none;
-            margin-bottom: 10px;
-        }
+    .sbtn {
+        background-color: #9AA4FF;
+        border: none;
+        margin-bottom: 10px;
+    }
 
-        #item-img {
-            height: 200px;
-            border-radius: 100%;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
+    .item-img {
+        height: 200px;
+        border-radius: 100%;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
 
-        .border {
-            width: 240px;
-            border-color: dimgrey;
-            border-style: outset;
-            border-radius: 5%;
-            margin: 10px 50px 10px 0px;
-            padding: 15px 20px 15px 20px;
-            text-align: left;
-            flex: none;
-        }
+    .border {
+        width: 240px;
+        border-color: dimgrey;
+        border-style: outset;
+        border-radius: 5%;
+        margin: 10px 50px 10px 0px;
+        padding: 15px 20px 15px 20px;
+        text-align: left;
+        flex: none;
+    }
 
-        #slide {
-            margin-left: -210px;
-            width: 1530px;
-        }
+    #slide {
+        margin-left: -210px;
+        width: 1530px;
+    }
 
-        .slide-img {
-            width: 1530px;
-        }
+    .slide-img {
+        width: 1530px;
+    }
 
-        #shopitem1, #shopitem2 {
-            display: flex;
-            flex-direction: row;
-        }
+    #shopitem1, #shopitem2 {
+        display: flex;
+        flex-direction: row;
+    }
 
-        .ad {
-            width: 1110px;
-            margin-bottom: 30px;
-        }
+    .ad {
+        width: 1110px;
+        margin-bottom: 30px;
+    }
 
-        #center {
-            text-align: center;
-        }
-    </style>
-</head>
+    .center {
+        text-align: center;
+    }
+</style>
 
 <div class="container">
     <br>
@@ -140,11 +137,11 @@
                 <div id="shopitem1">
                     <c:forEach var="item" items="${items}" begin="0" end="3">
                         <div class="border">
-                            <div id="item-img">${item.img}</div>
-                            <h5 id="center">${item.name}</h5>
-                            <h6 id="center">가격 : ${item.price}원</h6>
+                            <div class="item-img">${item.img}</div>
+                            <h5 class="center">${item.name}</h5>
+                            <h6 class="center">가격 : ${item.price}원</h6>
                             <div class="item-sbtn" style="text-align: center;">
-                                <a id="sbtn" href="/shop/${item.id}" class="btn btn-info">상세상품보기</a>
+                                <a href="/shop/${item.id}" class="btn btn-info sbtn">상세상품보기</a>
                             </div>
                         </div>
                     </c:forEach>
@@ -154,11 +151,11 @@
                 <div id="shopitem2">
                     <c:forEach var="item" items="${items}" begin="4" end="7">
                         <div class="border">
-                            <div id="item-img">${item.img}</div>
-                            <h4>${item.name}</h4>
-                            <h6>가격 : ${item.price}원</h6>
+                            <div class=item-img">${item.img}</div>
+                            <h5 class="center">${item.name}</h5>
+                            <h6 class="center">가격 : ${item.price}원</h6>
                             <div class="item-sbtn" style="text-align: center;">
-                                <a id="sbtn" href="/shop/${item.id}" class="btn btn-info">상세상품보기</a>
+                                <a href="/shop/${item.id}" class="btn btn-info sbtn">상세상품보기</a>
                             </div>
                         </div>
                     </c:forEach>
