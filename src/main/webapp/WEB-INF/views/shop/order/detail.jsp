@@ -10,9 +10,11 @@
             width: 430px;
             margin-left: 30%;
         }
+
         .border1 h3 {
             text-align: center;
         }
+
         .shopitem {
             display: flex;
             flex-wrap: wrap;
@@ -21,6 +23,7 @@
             margin-right: auto;
             margin-top: 30px;
         }
+
         .border {
             border-color: dimgrey;
             border-style: outset;
@@ -62,9 +65,14 @@
     <br>
     <br>
     <hr>
-    <div class="total" style="text-align: center; font-weight: bold;"> ✔ 주문 총 가격 :<fmt:formatNumber value="${order.prices}" pattern="#,###,###,###"/>원<br></div>
-    <hr><br>
-    <a href="/shop" style="background-color: #9AA4FF; color: #333333; padding: 10px 20px; border-radius: 5px; font-weight: bolder; margin-left: 43%;">Shop Main Page</a>
-</div><br>
+    <div class="total" style="text-align: center; font-weight: bold;"> ✔ 주문 총 가격 :<fmt:formatNumber
+            value="${order.prices}" pattern="#,###,###,###"/>원<br></div>
+    <hr>
+    <br>
+    <a href="/shop"
+       style="background-color: #9AA4FF; color: #333333; padding: 10px 20px; border-radius: 5px; font-weight: bolder; margin-left: 43%;">Shop
+        Main Page</a>
+</div>
+<br>
 <script src="/js/item.js"></script>
 <%@ include file="../../layout/footer.jsp" %>

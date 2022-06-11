@@ -144,6 +144,7 @@
                 display: none;
             }
         }
+
         .sbtn {
             background-color: #9AA4FF;
             border: none;
