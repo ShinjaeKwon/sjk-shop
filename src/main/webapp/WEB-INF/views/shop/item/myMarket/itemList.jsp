@@ -4,10 +4,11 @@
 
 
 <div class="container">
-    <h2>My Item</h2>
+    <br>
+    <h2 style="text-align: center;">🔮My Item🔮</h2><br>
     <table class="table table-hover">
         <thead>
-        <tr>
+        <tr style="background-color: #9AA4FF">
             <th>Item ID</th>
             <th>Item Detail</th>
             <th>StockQuantity</th>
