@@ -41,12 +41,13 @@
 
         #item_img {
             position: absolute;
-            top: -100%;
+            top: -55%;
         }
 
         .previous {
             position: absolute;
-            top: -120%;
+            top: -70%;
+            left: 10%;
         }
 
         .review {
@@ -143,11 +144,13 @@
                 display: none;
             }
         }
-
         .sbtn {
             background-color: #9AA4FF;
             border: none;
+            border-radius: 3px;
             margin-bottom: 10px;
+            padding: 10px 20px;
+            font-size: large;
         }
     </style>
 </head>
@@ -165,10 +168,11 @@
             <hr>
             카테고리 : ${item.category.name}<br>
             <hr>
+            유통기한 : 농산물이므로 별도의 유통기한은 <br>없으나 가급적 빠르게 드시기 바랍니다.
+            <hr>
             등록자 : ${item.user.name}<br>
         </div>
     </div>
-
     <div class="under">
         <br>
         <c:if test="${principal.user.id eq item.user.id}">
@@ -182,17 +186,10 @@
                 <input type="hidden" name="itemId" id="itemId" value="${item.id}">
                 <input type="submit" value="주문">
             </div>
+
             <button type="button" id="btn-wish" class="sbtn">Add Wish List</button>
         </form>
     </div>
-    <hr>
-    <h2>상품 소개</h2>
-    <hr>
-    <div class="content">
-        ${item.content}
-    </div>
-    <hr>
-
 </div>
 <div class="review">
     <span class="heading">사용자 평점</span>
